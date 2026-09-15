@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "simple-linear-regression",
+    "title": "Simple Linear Regression",
+    "status": "curated",
+    "learningPath": "Linear Models",
+    "prerequisites": [
+      "supervised-learning",
+      "feature-and-target"
+    ],
+    "lessonCount": 8
+  }
+]

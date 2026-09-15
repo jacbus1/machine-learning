@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Obsidian-backed machine learning notes covering supervised and unsupervised learning.">
+  <title>Machine Learning Knowledge System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside>
+    <a class="brand" href="#home">MACHINE LEARNING<br><strong>KNOWLEDGE SYSTEM</strong></a>
+    <nav>
+      <button data-route="home">Home</button>
+      <button data-route="big-picture">Big Picture</button>
+      <button data-route="topics">All Topics</button>
+      <button data-route="glossary">Glossary</button>
+      <button data-route="path">Learning Path</button>
+      <button data-route="math">Math Foundations</button>
+      <button data-route="ml">Machine Learning</button>
+      <button data-route="linear">Linear Models</button>
+      <button data-route="review">Review</button>
+    </nav>
+    <div class="local">● OBSIDIAN-BACKED<br><span>Static · searchable · no API</span></div>
+  </aside>
+  <main>
+    <header>
+      <div><p class="eyebrow">SUPERVISED + UNSUPERVISED</p><h1 id="pageTitle">Knowledge library</h1></div>
+      <form class="search" id="searchForm" role="search"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" placeholder="搜尋術語、公式、文章…" aria-label="搜尋術語、公式、文章"><button type="submit" aria-label="執行搜尋">搜尋</button></form>
+    </header>
+    <section id="app" aria-live="polite"></section>
+  </main>
+  <template id="unitCard"><article class="unit-card"><div><p class="eyebrow unit-path"></p><h2></h2><p class="unit-detail"></p></div><button>開始閱讀 <span>→</span></button></article></template>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+[
+  {
+    "path": "assets/41d2101674-card.png",
+    "relativePath": "Interpretability vs Complexity/card.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/b883ffdf91-gradient.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/Gradient.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/040aac1403-loss-function.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/Loss function.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/7d95b0bd80-rule1.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/Rule1.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/327f0bece5-rule2.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/Rule2.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/b8d0e68b58-2026-08-26-12-14-59.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/截圖 2026-08-26 上午12.14.59.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/a4054204e5-2026-08-26-12-15-34.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/截圖 2026-08-26 上午12.15.34.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/63a09ea1c6-2026-08-26-3-55-15.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/截圖 2026-08-26 下午3.55.15.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/7541af8c9d-2026-08-26-3-55-24.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/截圖 2026-08-26 下午3.55.24.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/d674cb3383-2026-08-26-5-10-46.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Calculus/截圖 2026-08-26 下午5.10.46.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/091cd7c166-matrix-multiplication-explanation.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Linear Algebra/Matrix_multiplication_explanation.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/7e7fcb5bdd-expectation-variance.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Probability/Expectation:Variance.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/48d4453768-gaussian-normal-distribution.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Probability/Gaussian:Normal_Distribution.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/49a4e89782-joint-marginal-cond-independence-bayes.png",
+    "relativePath": "Mathematical Foundations for Machine Learning Probability/JOINT:MARGINAL:COND+independence:Bayes.png",
+    "extension": ".png",
+    "module": "Module1"
+  },
+  {
+    "path": "assets/051c07bfcf-regression-vs-classication.png",
+    "relativePath": "Regression vs Classification/Regression vs Classication.png",
+    "extension": ".png",
+    "module": "Module1"
+  }
+]

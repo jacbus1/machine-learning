@@ -1,0 +1,3776 @@
+{
+  "module": "Module 2",
+  "title": "Linear Regression for Prediction & Inference",
+  "hierarchy": [
+    "Module",
+    "Unit",
+    "Article",
+    "Chapter",
+    "Learning Card"
+  ],
+  "courseOrder": {
+    "number": 2,
+    "title": "Linear Regression for Prediction & Inference",
+    "unit": {
+      "number": 2,
+      "title": "Linear Regression for Prediction & Inference"
+    },
+    "sections": [
+      {
+        "id": "simple-and-multiple-regression",
+        "title": "Simple and Multiple Regression",
+        "kind": "required",
+        "items": [
+          {
+            "title": "Simple and Multiple Regression — Recommended Reading",
+            "type": "reading"
+          },
+          {
+            "sourceUnit": "Simple Linear Regression Concepts",
+            "title": "Simple Linear Regression Concepts",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Fitting a Linear Model and Assessing Fit",
+            "title": "Fitting a Linear Model and Assessing Fit",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Deriving the Least Squares Solution",
+            "title": "Deriving the Least Squares Solution",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Multiple Linear Regression",
+            "title": "Multiple Linear Regression",
+            "type": "video"
+          }
+        ]
+      },
+      {
+        "id": "regression-and-model-assessment",
+        "title": "Regression and Model Assessment",
+        "kind": "required",
+        "items": [
+          {
+            "sourceUnit": "Regression Assumptions and Diagnostics",
+            "title": "Regression Assumptions and Diagnostics",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Polynomial Regression and Model Flexibility",
+            "title": "Polynomial Regression and Model Flexibility",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Interpreting Results and Discussion",
+            "title": "Interpreting Results and Discussion",
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  },
+  "articles": [
+    {
+      "id": "module2-14",
+      "module": "Module 2",
+      "unit": "Simple Linear Regression Concepts",
+      "title": "Simple Linear Regression 超完整逐頁講解 影片PDF整合 v2",
+      "sourcePath": "Simple_Linear_Regression_超完整逐頁講解_影片PDF整合_v2.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 565,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Simple Linear Regression Concepts",
+            "超完整逐頁講解｜PDF 13頁 × Video 約11分34秒 × 問答整合",
+            "Supervised Learning • Daniel E. Acuna • University of Colorado Boulder",
+            "這份版本的目標  不是「抄投影片」，而是把每一頁 PDF、影片口頭補充、圖上的意思、你剛才追問的「110 如何來」與 Inference 全部串成一條可學、可考、可回看的完整脈絡。",
+            "來源忠實原則  課程本身沒有在這一段推導 β̂₁=110；投影片把 100,000 和 110 當作已擬合完成的模型。本文把 OLS 的由來放在「延伸／接下一課」並清楚標示，不會冒充成這段影片已教內容。",
+            "核心一句話",
+            "一個 X  →  一個連續 Y  →  用一條最能代表趨勢的直線做 Prediction + Inference",
+            "閱讀方法與來源對讀",
+            "本文把內容分為三個標籤：",
+            "【PDF】投影片明確寫出的內容與數字。",
+            "【Video】講者在影片中補充、示範或口頭解釋，但投影片未完整寫出的內容。",
+            "【延伸】為了把概念接到前後課而補充的技術說明；不當作本影片已教授內容。",
+            "數字鎖定  本課固定例子：β₀ = $100,000、β₁ = $110/sq ft；1,300 sq ft → $243,000；1,800 sq ft → $298,000；1,000→1,100 sq ft → +$11,000。",
+            "影片／逐字稿小心位  影片口頭有一次把 slope 說成 b0，但 PDF 與後一句都明確是 β₁；TXT 的「can capture interactions」與 PDF「Won’t capture interactions」衝突，應以 PDF 與上下文為準；「homoestheticity」是 ASR 誤轉，正確術語為 homoscedasticity。"
+          ]
+        },
+        {
+          "heading": "目錄（閱讀路線）",
+          "paragraphs": [
+            "Part A｜先建立整體脈絡：Supervised Learning → Regression → Simple Linear Regression",
+            "Part B｜PDF p.1–p.13 逐頁完整分析（每頁含 Video 補充）",
+            "Part C｜四個核心深挖：真實模型 vs 預測模型、110 如何來、Residual、Prediction vs Inference",
+            "Part D｜限制與假設：Linear、one predictor、interaction、constant variance",
+            "Part E｜與 Least Squares / MSE / RMSE / R² / Bias–Variance 的連接（延伸）",
+            "Part F｜考試陷阱、Q&A、符號表、速查卡",
+            "影片全段抽樣總覽：從定義、房價散點、公式、殘差、預測、Inference 到限制。",
+            "Part A｜整體脈絡：這一課到底放在 ML 哪裡？",
+            "Supervised Learning  →  Regression  →  Simple Linear Regression",
+            "Linear Regression 是監督式學習的一種，目標 Y 是連續數值；Simple 的意思是只有一個 input feature X。Multiple Linear Regression 則有多個 X。",
+            "層級 | 核心問題 | 本課例子",
+            "Supervised Learning | 有標籤資料，從已知 X/Y 學規律 | 歷史房屋：面積 + 成交價",
+            "Regression | Y 是連續數值 | 預測房價金額",
+            "Simple Linear Regression | 只有 1 個 X，以直線描述關係 | Size → Price",
+            "Multiple Linear Regression | 多個 X → 1 個 Y | Size + Location + Bedrooms → Price",
+            "為什麼叫 Linear？  影片補充：在 2D 是一條 straight line；若有更多維度，可視為 higher-dimensional hyperplane。這個「linear」指模型對輸入的線性組合形式。",
+            "不是每個點都要在線上  影片用房價散點說明：資料點只是「more or less around the line；on average they align」。線描述平均趨勢，點與線之間的差距就是後面要處理的 error / residual。",
+            "Part B｜PDF 13頁逐頁完整分析 + Video 補充",
+            "閱讀方式  每一頁先看原投影片，再分成【PDF內容】【Video補充】【淺白理解】【必記】。第 6 頁特別依賴影片；第 8–10 頁是整課核心。",
+            "PDF p.1｜封面：Simple Linear Regression Concepts",
+            "原始 PDF 第 1 頁",
+            "【PDF】投影片明確內容",
+            "課程主題是 Simple Linear Regression，屬於 Supervised Learning。",
+            "講者 Daniel E. Acuna，University of Colorado Boulder。",
+            "【Video】影片補充／講者口頭重點",
+            "影片開場把 Linear Regression 定位為「理解資料關係」的基礎工具，不只為了 prediction，也為了 understanding relationships。",
+            "淺白理解  這一課先建立直覺，不是完整統計推導。你要先知道模型在做什麼、係數怎樣解讀、error 是什麼，再到後面 Least Squares 才學「最佳線怎樣算」。",
+            "這頁必記  本課 = 概念、解讀、預測、推論、限制；不是 OLS 推導、R²、p-value。",
+            "PDF p.2｜Contents of This Video：學習目標",
+            "原始 PDF 第 2 頁",
+            "【PDF】投影片明確內容",
+            "定義與用途",
+            "linear equation 與 components",
+            "slope / intercept 的解讀",
+            "regression line 視覺",
+            "errors / residuals",
+            "prediction 與 inference",
+            "實際應用與限制",
+            "【Video】影片補充／講者口頭重點",
+            "講者說到影片結尾，你應能同時用 regression 做 prediction 以及理解資料中的 relationship。",
+            "淺白理解  這頁其實是整課的 checklist。後面每頁都對應其中一項。",
+            "這頁必記  看到考題時先分類：公式題？係數解讀？殘差？預測？Inference？限制？",
+            "PDF p.3｜What is Linear Regression?",
+            "原始 PDF 第 3 頁",
+            "【PDF】投影片明確內容",
+            "Supervised learning method for predicting continuous outcomes。",
+            "X = input / feature / predictor；Y = output / response / target。",
+            "Simple：1 input → 1 output；Multiple：multiple inputs → 1 output。",
+            "【Video】影片補充／講者口頭重點",
+            "「simple」就是只用 one feature。",
+            "「linear」是 fitting a straight line；高維度可想成 hyperplane。",
+            "影片舉例：只用 house size 是 simple；size + location 就變 multiple。",
+            "淺白理解  判斷 Regression 最重要的是 Y：如果要預測的是金額、分數、時間等可連續變化數字，就屬 regression。Simple / Multiple 則看 X 有幾個。",
+            "這頁必記  SLR 的結構：1 個 X + 1 個連續 Y。",
+            "PDF p.4｜A Motivating Example: House Prices",
+            "原始 PDF 第 4 頁",
+            "【PDF】投影片明確內容",
+            "問題：Can we predict house price from size?",
+            "X = House size (sq ft)。",
+            "Y = House price ($)。",
+            "每個點 = 一次房屋成交。",
+            "整體：bigger houses → higher prices。",
+            "【Video】影片補充／講者口頭重點",
+            "講者在散點圖上畫出大概的直線，強調點不是完美排成一直線，而是「more or less around the line」。",
+            "這已經暗示：一個 size 對應的 price 仍有 variation，因此需要 error term。",
+            "淺白理解  散點圖告訴你「有趨勢，但不是完美」。Regression 要做的是用一條線代表平均關係，不是把所有資料點硬穿過。",
+            "這頁必記  每個藍點是真實成交；直線是模型概括；點離線的距離是未解釋部分。",
+            "PDF p.5｜The Simple Linear Regression Model",
+            "原始 PDF 第 5 頁",
+            "【PDF】投影片明確內容",
+            "核心式：Y = β₀ + β₁X + ε。",
+            "Y：target；X：input；β₀：intercept；β₁：slope；ε：error term。",
+            "【Video】影片補充／講者口頭重點",
+            "β₀ 是線在 X=0 時的 Y 值；房價情境下零平方呎不合理，但數學上需要。",
+            "β₁ 告訴你 X 增加 1 unit 時 Y 改變多少。",
+            "ε 代表不能預測、沒有量到、或不在我們掌握中的因素。",
+            "淺白理解  把公式翻成人話：真實結果 = 一條系統性直線趨勢 + 這條線解釋不了的部分。",
+            "這頁必記  β₀、β₁ 是模型參數；ε 是真實但未知的誤差。",
+            "Y = β₀ + β₁X + ε",
+            "真實模型：系統性直線部分 + 無法事先知道的 error",
+            "符號 | 本課角色 | 房價例子",
+            "Y | Actual target / response | 實際成交價",
+            "X | Input / feature | House size",
+            "β₀ | Intercept | X=0 時線的 Y 值",
+            "β₁ | Slope | 每 +1 sq ft，Price +$110",
+            "ε | Error term | 未量到因素 / 隨機變動",
+            "PDF p.6｜Understanding the Line: Visualizing β₀ and β₁",
+            "原始 PDF 第 6 頁",
+            "【PDF】投影片明確內容",
+            "PDF 這頁幾乎只有標題，主要內容不在靜態投影片中。",
+            "【Video】影片補充／講者口頭重點",
+            "這頁的重點由影片動畫／手寫標註完成：指出 y-intercept β₀，並用斜率視覺展示 X 改變時 Y 沿線改變。",
+            "講者用房價線來建立「截距 = 線的位置」「斜率 = 線有多陡」的圖像感。",
+            "淺白理解  這是最容易只看 PDF 而漏內容的一頁：一定要用影片補上。Intercept 控制線上下放哪裡；Slope 控制線朝上／朝下以及每一單位移動量。",
+            "這頁必記  p.6 是 video-heavy：要記的是視覺，而不是文字。",
+            "影片 p.6 的核心視覺：Intercept 決定位置；Slope 決定每一單位 X 對 Y 的變化。",
+            "PDF p.7｜Interpreting the Coefficients",
+            "原始 PDF 第 7 頁",
+            "【PDF】投影片明確內容",
+            "β₀ = $100,000：X=0 時的 Y；often not literally meaningful；sets vertical position。",
+            "β₁ = $110 per sq ft：每多 1 sq ft，price +$110。",
+            "Positive slope：X↑→Y↑；Negative：X↑→Y↓；Zero：X has no effect on Y（在線性模型意義下）。",
+            "【Video】影片補充／講者口頭重點",
+            "講者再次強調零平方呎不是現實房子，但 β₀ 是線的基準位置。",
+            "影片用 1,000 → 1,100 sq ft：ΔX=100，因此 ΔPrice=100×110=$11,000。",
+            "影片比較 $110 vs $300/sq ft：若其他尺度相同，斜率更陡代表每多一平方呎帶來更大的價格變化；講者用昂貴都市市場作直覺例子。",
+            "淺白理解  這頁是全課最重要的「翻譯能力」：看到 β₁=110，不只讀作數字 110，而要講成「X 每增加 1 sq ft，模型預測 Y 平均增加 $110」。",
+            "這頁必記  Slope 的完整句型：For each 1-unit increase in X, predicted Y changes by β₁ units。",
+            "β₁=$110/sq ft：100 sq ft 的差距對應 $11,000 的預測價差。",
+            "技術補充（不是本課新增公式）  課件說 |β₁| 大代表 effect 強；更精確地說，β₁ 受單位影響，因此跨不同單位或不同變數時，不能只看 slope 數字大小判斷 statistical relationship 強弱。",
+            "PDF p.8｜Understanding the Error Term (ε)",
+            "原始 PDF 第 8 頁",
+            "【PDF】投影片明確內容",
+            "圖中藍點 = Actual houses；橘線 = regression line。",
+            "標示約 +$9k、+$30k、−$9k 的垂直誤差。",
+            "【Video】影片補充／講者口頭重點",
+            "講者說 ε 是 prediction mistakes，也代表沒量到或不受控制的因素。",
+            "殘差來源例子：neighborhood、date/time of year、market conditions，以及測量或模型沒有納入的資訊。",
+            "ε 可以為負；若模型估約 $300k，但真實低 $9k，就是模型 overpricing / over-predict。",
+            "淺白理解  這一課的圖把誤差方向當作 Actual − Predicted：點在線上方 → 正；點在線下方 → 負。",
+            "這頁必記  e = Y − Ŷ：正 = 低估；負 = 高估。ε 是理論 error；e 是 sample 中可算的 residual。",
+            "Residual 的垂直距離：Actual Y − Predicted Ŷ。",
+            "e = Y − Ŷ",
+            "Residual = Actual − Predicted",
+            "PDF p.9｜Using the Model for Prediction",
+            "原始 PDF 第 9 頁",
+            "【PDF】投影片明確內容",
+            "已擬合模型：Price = $100,000 + $110 × Size。",
+            "1,300 sq ft → $243,000。",
+            "1,800 sq ft → $298,000。",
+            "【Video】影片補充／講者口頭重點",
+            "講者說這是 machine learning 的核心：learn from the past，apply what we learn to the future。",
+            "新房只要知道 Size，就代入 fitted equation 得到 prediction。",
+            "淺白理解  這一頁不是在「算 110」。110 已經是模型 fit 完得到的 slope。這裡只是拿已學到的模型對新的 X 做 forward calculation。",
+            "這頁必記  Prediction：把 new X 代入 fitted model → Ŷ。不要再加 ε，因為新資料的 ε 事先不知道。",
+            "影片畫面：講者圈出 fitted model，並直接代入 1,300 / 1,800 sq ft。",
+            "Ŷ = 100,000 + 110 × Size",
+            "1,300 → 243,000；1,800 → 298,000",
+            "你剛才問：110 如何來？  在這一頁，110 不是由 1,300 或 1,800 算出來；它是前面「模型已經 fit 完」後的 slope。這段課程直接給定 β₁=110，沒有在此推導它。OLS 的來源放在 Part C / Part E。",
+            "PDF p.10｜Using the Model for Inference",
+            "原始 PDF 第 10 頁",
+            "【PDF】投影片明確內容",
+            "Direction：β₁>0 同向；β₁<0 反向。",
+            "Magnitude：|β₁| large / small。",
+            "Practical meaning：β₁ 在 domain 中代表什麼；本例每 sq ft 約 +$110 home value。",
+            "【Video】影片補充／講者口頭重點",
+            "講者把 regression 的第二個重要用途說成「understand the data」。",
+            "可比較不同 housing markets 的 β₁，理解空間在不同市場的價值差異。",
+            "淺白理解  Prediction 問「這間房多少錢？」；Inference 問「Size 和 Price 的方向、每單位變化量及實際意思是什麼？」本課的 inference 還沒有進入 p-value / confidence interval。",
+            "這頁必記  同一條線：Prediction 看 Ŷ；Inference 主要讀 β₁。",
+            "影片／投影片 p.10：Inference 分成 Direction、Magnitude、Practical meaning。",
+            "Inference 角度 | 看什麼 | 房價例子",
+            "Direction | β₁ 的正負 | 110>0 → Size↑, Price↑",
+            "Magnitude | |β₁|（同尺度下的每單位變化量） | $110 per sq ft",
+            "Practical meaning | 把係數翻成 domain 語言 | 每多 1 sq ft，預測價約 +$110",
+            "重要技術補充  Slope 描述 relationship / association，不會自動證明 causation。亦不要把「β₁ 大」等同「模型準」；準確度要看 residual、MSE 等，而不是 slope 大小。",
+            "PDF p.11｜Applications Beyond House Prices",
+            "原始 PDF 第 11 頁",
+            "【PDF】投影片明確內容",
+            "Finance：economic indicators → stock returns。",
+            "Healthcare：treatment dosage → recovery time。",
+            "Education：study hours → test scores。",
+            "Marketing：advertising spend → sales。",
+            "Environmental science：time → temperature。",
+            "共同原則：find the best-fitting line describing X–Y relationship。",
+            "【Video】影片補充／講者口頭重點",
+            "影片逐個領域把「可測量 input → 想預測 output」套回同一框架。",
+            "淺白理解  換 domain 不換模型思路：決定 X、Y，再問一條線是否能合理描述兩者。",
+            "這頁必記  Linear regression 是通用工具；但是否適合，要看關係是否近似線性及單一 X 是否足夠。",
+            "PDF p.12｜Limitations of Simple Linear Regression",
+            "原始 PDF 第 12 頁",
+            "【PDF】投影片明確內容",
+            "Assumes a linear relationship。",
+            "Only uses one predictor。",
+            "Limited predictive power。",
+            "Won’t capture interactions。",
+            "Assumes constant variance。",
+            "【Video】影片補充／講者口頭重點",
+            "非線性關係可能像 curve，直線會 oversimplify。",
+            "房價受 location、age、bedrooms 等多因素影響。",
+            "單一 feature 會留下較多 unexplained variation / large errors。",
+            "若 size 對 price 的影響 depends on neighborhood，就是 interaction，SLR 捕捉不到。",
+            "影片口頭講出 homoscedasticity：error variance 應在 X 範圍內大致相同；大型房的價格 variability 可能更大。",
+            "淺白理解  這一頁其實在說「一條線 + 一個 X」太簡單時會失真。這些限制不是說 SLR 沒用，而是告訴你什麼時候要升級模型或做診斷。",
+            "這頁必記  五大限制必背：linear、one predictor、limited power、no interactions、constant variance。",
+            "符合 constant variance 的直覺：X 不同區域的誤差散布程度相近。",
+            "違反 constant variance：X 越大，誤差散布越大（heteroscedasticity）。",
+            "PDF p.13｜What We’ve Covered：總結",
+            "原始 PDF 第 13 頁",
+            "【PDF】投影片明確內容",
+            "basic concept + equation",
+            "interpret β₀ and β₁",
+            "meaning of ε",
+            "visualize regression line",
+            "prediction + inference",
+            "limitations",
+            "【Video】影片補充／講者口頭重點",
+            "講者用同一清單收尾，沒有再加入新的數學推導。",
+            "淺白理解  如果你能用自己的話解釋公式、係數、殘差、預測、Inference、限制，這一課就完成。",
+            "這頁必記  下一步自然會問：100,000 和 110 到底怎樣從資料中找到？那才是 OLS / least squares。",
+            "Part C｜四個核心概念深挖",
+            "C1. 真實模型 vs 預測模型 vs Residual",
+            "Y = β₀ + β₁X + ε",
+            "概念上的真實資料生成關係",
+            "Ŷ = β̂₀ + β̂₁X",
+            "用 sample data 估出來的 fitted / predicted model",
+            "e = Y − Ŷ",
+            "Observed residual",
+            "符號 | 意思 | 能否直接知道？",
+            "Y | 實際觀察值 Actual | 可以觀察",
+            "Ŷ | 模型預測值 Predicted | 可以計算",
+            "β₀, β₁ | 概念上的真實參數 | 通常未知",
+            "β̂₀, β̂₁ | 由 sample 估出來的參數 | 可以從 fit 得到",
+            "ε | 真實 error term | 不可直接觀察",
+            "e | Residual = Y−Ŷ | 可由資料計算",
+            "初學最重要的分界  ε 和 e 在直覺上都表示「線沒有解釋到的差」，但正式來說 ε 屬於 population / true model；e 是 fitted sample 中實際算出的 residual。",
+            "C2. 「$110 如何來？」— 本課答案 + OLS 延伸",
+            "本課本身的答案  本影片把 Price = 100,000 + 110×Size 當作已 fitted model。也就是說，$110 是「模型學到的 slope」，不是拿 1,300 或 1,800 反推的。",
+            "Slope 的幾何意思：",
+            "β₁ = ΔY / ΔX",
+            "本例：$11,000 / 100 sq ft = $110 per sq ft",
+            "若沿同一條 fitted line 從 1,000 移到 1,100 sq ft，預測價差是 $11,000。",
+            "延伸：真正 fit 時怎樣找 β̂₁？  下一課 OLS / Least Squares 會用全部歷史 (xᵢ,yᵢ) 選 β̂₀、β̂₁，使 residual 的平方和最小。這是「100,000 和 110 從哪來」的正式答案，但不是這段影片已經推導的內容。",
+            "β̂₁ = Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²",
+            "OLS slope formula（延伸；本課未推導）",
+            "OLS 橋接圖：比較整體 residual，挑出平方誤差最小的線。",
+            "C3. Residual：正負、圖像與 error 來源",
+            "e = Y − Ŷ",
+            "情況 | 數學 | 模型發生什麼",
+            "點在線上方 | Y > Ŷ → e > 0 | 模型低估 / under-predict",
+            "點在線下方 | Y < Ŷ → e < 0 | 模型高估 / over-predict",
+            "點在線上 | Y = Ŷ → e = 0 | 該點預測剛好",
+            "影片提到的 residual 來源包括：",
+            "Neighborhood / 地段",
+            "Time of year / 市場時點",
+            "Market conditions",
+            "未量到的房屋特徵",
+            "測量不精確或模型沒有納入的因素",
+            "考試陷阱  不同教材有時定義 error 為 Predicted − Actual。這一課的 p.8 圖是「Actual − Predicted」方向：線上方標正，線下方標負。做題先看課程採用的符號。",
+            "C4. Prediction vs Inference",
+            "問題類型 | 你在問什麼？ | 主要看什麼？ | 本課例子",
+            "Prediction | 新的 X 對應多少 Y？ | 整條 fitted equation / Ŷ | 1,800 sq ft → $298,000",
+            "Inference | X 與 Y 的關係是什麼？ | β₁ 的 sign / magnitude / meaning | 每 +1 sq ft → +$110",
+            "本課 Inference 的邊界  這裡的 inference 是「讀係數理解關係」，尚未進入 standard error、confidence interval、t-test、p-value。後續統計回歸課才會做正式不確定性推論。",
+            "技術補充  β₁ 的 sign 告訴 direction；其數值告訴「每一單位 X 的 Y 變化量」。但 slope 大不代表預測一定準，也不自動代表因果。",
+            "Part D｜五大限制與假設：為什麼 SLR 有時不夠？"
+          ]
+        },
+        {
+          "heading": "1. Assumes a linear relationship",
+          "paragraphs": [
+            "課程意思：真實資料若是曲線、門檻、U-shape，單一直線會 oversimplify。",
+            "延伸連接：看 scatter / residual pattern；考慮 polynomial、tree 等更彈性模型。"
+          ]
+        },
+        {
+          "heading": "2. Only one predictor",
+          "paragraphs": [
+            "課程意思：房價不只由 Size 決定，還有 location、age、bedrooms、condition。",
+            "延伸連接：進入 Multiple Linear Regression。"
+          ]
+        },
+        {
+          "heading": "3. Limited predictive power",
+          "paragraphs": [
+            "課程意思：只有一個 X，會留下較多 unexplained variation，residual 可能大。",
+            "延伸連接：用 test error / MSE / RMSE / R² 評估，而非只看 slope。"
+          ]
+        },
+        {
+          "heading": "4. Won’t capture interactions",
+          "paragraphs": [
+            "課程意思：若 Size 的效果會因 neighborhood 改變，SLR 的單一 slope 無法表達。",
+            "延伸連接：加入 interaction term 或使用能學 nonlinear interactions 的模型。"
+          ]
+        },
+        {
+          "heading": "5. Assumes constant variance",
+          "paragraphs": [
+            "課程意思：error spread 應大致不隨 X 改變；大房價差更大時可能違反。",
+            "延伸連接：檢查 residual plot；認識 homoscedasticity / heteroscedasticity。",
+            "交互作用的最淺白例子  如果 downtown 每多 1 sq ft 可能 +$500，而其他地區每多 1 sq ft 只有 +$100，代表「Size 的斜率依 Location 而變」。只有一個 slope 的 SLR 做不到。",
+            "Part E｜與前後課的連接（延伸，不冒充本影片內容）",
+            "E1. Least Squares：best-fitting line 到底是什麼？",
+            "本課 p.11 說「find the best-fitting line」，但沒有推導「best」的數學定義。下一步通常是 Ordinary Least Squares（OLS）：選擇 β̂₀、β̂₁，使所有 residual 的平方和最小。",
+            "SSE = Σ(Yᵢ − Ŷᵢ)²",
+            "Least Squares 最小化的核心量（延伸）",
+            "E2. Residual → MSE → RMSE",
+            "eᵢ = Yᵢ − Ŷᵢ",
+            "MSE = (1/n) Σ(Yᵢ − Ŷᵢ)²",
+            "平均平方誤差（延伸連接）",
+            "RMSE = √MSE",
+            "回到 Y 的原始單位（延伸連接）",
+            "邏輯  先有每個點的 residual → 平方避免正負抵消 → 平均得到 MSE → 開根號得到 RMSE。這正是你之前 model evaluation 內容和本課 regression line 的接點。",
+            "E3. R²：p.12 的 unexplained variation 後面怎樣量化？",
+            "本課只說單一 predictor 會留下更多 unexplained variation。後面的 R² 會回答「Y 的變異中，有多少比例被 regression model 解釋」。本影片沒有教授 R² 計算，因此本文不把它當成本課必背公式。",
+            "E4. Bias–Variance：太簡單的線可能有 high bias",
+            "如果真實關係很彎，而你強行只用一條直線，模型可能系統性抓不到 pattern，這就是後面 bias–variance 課會談的 high-bias intuition。這也是 p.12「may oversimplify reality」的自然延伸。",
+            "Part F｜考試速查、常見混淆、Q&A",
+            "F1. 最重要三條公式",
+            "Y = β₀ + β₁X + ε",
+            "True / conceptual model",
+            "Ŷ = β̂₀ + β̂₁X",
+            "Fitted / prediction model",
+            "e = Y − Ŷ",
+            "Residual",
+            "F2. 符號速查表",
+            "符號 | English | 你應該怎樣講",
+            "X | Feature / Predictor | 輸入變數；本課是 house size",
+            "Y | Target / Response | 真實觀察結果；house price",
+            "Ŷ | Predicted Y | 模型預測值",
+            "β₀ | Intercept | X=0 時線的 Y 值",
+            "β₁ | Slope | X +1 unit 時，Y 的線性變化量",
+            "β̂₀, β̂₁ | Estimated coefficients | 由 sample fit 出來的係數",
+            "ε | Error term | 真實但不可直接觀察的誤差",
+            "e | Residual | Y−Ŷ，可由樣本計算",
+            "F3. 15 題 Q&A",
+            "Q1. 什麼是 Simple Linear Regression？",
+            "一種 supervised learning regression 方法，用一個 X 去描述／預測一個連續 Y，並假設主要關係可以用直線表示。",
+            "Q2. 核心公式？",
+            "Y = β₀ + β₁X + ε。",
+            "Q3. β₀ = 100,000 是否代表「沒有房子也值十萬」？",
+            "不是這樣解讀。它是 X=0 時直線的 Y 值；課件明言 often not literally meaningful，主要用來定位線。",
+            "Q4. β₁ = 110 的意思？",
+            "House Size 每增加 1 sq ft，模型預測 Price 增加約 $110。",
+            "Q5. 1,000 → 1,100 sq ft，價差？",
+            "$11,000，因為 ΔX=100，100×110=11,000。",
+            "Q6. 110 是如何在 p.9 出現？",
+            "它不是由 1,300/1,800 算出，而是已 fitted model 的 slope；本課沒有在這一段推導它。",
+            "Q7. 1,300 sq ft 預測？",
+            "$243,000。",
+            "Q8. 1,800 sq ft 預測？",
+            "$298,000。",
+            "Q9. 點在線上方，e 的符號？",
+            "正，因為 Y>Ŷ；模型低估 actual。",
+            "Q10. 點在線下方？",
+            "負；模型高估 / over-predict。",
+            "Q11. Prediction vs Inference？",
+            "Prediction：代入新 X 求 Ŷ；Inference：讀 β₁ 的方向、每單位變化量和 domain meaning。",
+            "Q12. β₁ 很大是否代表模型很準？",
+            "不一定。Slope 大代表每 unit X 對 Y 的變化量大；準確度要看 residual / error metrics。",
+            "Q13. β₁>0 是否等於因果？",
+            "不是。它首先描述資料中的正向 relationship / association；因果需要更強研究設計與假設。",
+            "Q14. 「Size 的效果依 Neighborhood 改變」是哪個限制？",
+            "Interaction。SLR 只有一個 slope，無法讓 slope 隨另一個變數改變。",
+            "Q15. 大房子 price spread 越來越大，違反什麼？",
+            "Constant variance / homoscedasticity。",
+            "F4. 最常見 10 個錯誤",
+            "把 β₀ 和 β₁ 調轉：β₀ 是 intercept；β₁ 是 slope。",
+            "把 $110 誤讀成 $110,000。",
+            "預測 1,300 sq ft 時只算 110×1,300，忘了加 intercept 100,000。",
+            "以為 110 是在 p.9 用 1,300 / 1,800 才算出來；其實它早已是 fitted slope。",
+            "把 Y 和 Ŷ 混：Y 是 actual；Ŷ 是 predicted。",
+            "把 ε 和 e 完全當成同一個正式符號；初學直覺相近，但角色不同。",
+            "殘差符號做反：本課採 Actual − Predicted。",
+            "把 slope 大誤當模型一定準。",
+            "把 positive relationship 誤當 causation。",
+            "把 TXT 的「can capture interactions」照抄；PDF 明確是 Won’t capture interactions。",
+            "F5. 30 秒總結卡",
+            "1｜模型  Simple Linear Regression：1 個 X → 1 個連續 Y；用直線描述平均關係。",
+            "2｜公式  Y = β₀ + β₁X + ε；fitted model 用 Ŷ = β̂₀ + β̂₁X。",
+            "3｜係數  β₀ = X=0 的線高；β₁ = X 每 +1 unit，Y 改變多少。",
+            "4｜殘差  e = Y−Ŷ；正 = 低估；負 = 高估。",
+            "5｜Prediction vs Inference  Prediction 求 Ŷ；Inference 讀 β₁ 的方向、變化量、實際意義。",
+            "6｜限制  線性、只有一個 predictor、預測力有限、不能 interaction、constant variance。",
+            "來源與版本說明",
+            "PDF：Simple Linear Regression Concepts，13 pages。",
+            "Video：240P Simple Linear Regression Concepts，約 11分34秒；本文對照整段影片抽樣畫面與逐字稿。",
+            "TXT transcript：用來捕捉投影片未寫出的口頭補充；若 ASR 與 PDF 衝突，公式、數字、限制條目以 PDF + 影片上下文裁決。",
+            "你上傳的兩份 MD 筆記：用來整合既有完整筆記、Q&A、來源衝突與前後課連接。",
+            "最終學習目標  你應能在不看答案下解釋：為什麼是 regression、X/Y 是什麼、β₀/β₁/ε 是什麼、$110 代表什麼、如何做 1,300/1,800 預測、residual 正負、prediction vs inference、五大限制，以及下一課為什麼需要 least squares。"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 1,
+      "courseSection": "Simple and Multiple Regression",
+      "courseSectionId": "simple-and-multiple-regression"
+    },
+    {
+      "id": "module2-15",
+      "module": "Module 2",
+      "unit": "Fitting a Linear Model and Assessing Fit",
+      "title": "Fitting a Linear Model and Assessing Fit",
+      "sourcePath": "Fitting a Linear Model and Assessing Fit.txt",
+      "contentKind": "TXT",
+      "paragraphCount": 1,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Hello, and welcome. Today we're focusing on fitting a linear model and assessing fit. We'll see how to find the best model and how to check how well it works. We'll see a couple of things. First, we'll examine something called the ordinary least squares methods to find the best parameters of a model. Then we'll use metrics such as square error and R-square to measure how well the model improves our fitting if we add, let's say, multiple variables. We'll see how, by looking at the residuals, we'd understand if there are patterns that we're missing, outliers, or more complex statistical relationships that we're missing. Suppose we have our data points plotted, like the house versus price example from before. How do we determine the line that best fit those points? We need a systematic way to choose beta 1 and beta 0. The most common approach is called the ordinary least squares. The idea behind this OLS method is to find the line that minimizes the overall prediction error between our prediction and the actual value. Specifically, we want to find the values of beta 0 and beta 1 that minimize the sum of the square differences between the actual y values and the predicted values from our line. This approach creates a balance. If the line is too high, let's say our predictions are too high, the errors are going to be large. If it's too low, the errors are also going to be large. So it doesn't matter if we're over-predicting or under-predicting. The error is going to be the same. OLS finds the optimal compromise. In practice, OLS chooses b0 and b1 to minimize the sum of the square errors, sometimes called residuals. In other words, for all data points, we compute the difference between the actual y value and the predicted y value, and square those differences, and add them all up. Then we can adjust b0 and b1 to make the sum as small as possible. Imagine that we have these knobs that we change so that we minimize this error right here. We can find the exact values to minimize our error function using calculus. And there is another video for that purpose. The basic idea is that we will use linear algebra to find the values. So to find the best possible values, we will use the first equation, beta equals x transpose times x, all of that inverted, then multiply x by transpose, and then multiply that by the output variables. Now, for simple linear regression, this has a very interesting result. Beta 1 is going to be something like the covariance of our input variables with the output, divided by the variance of x. And as you can see, the more the variance of x, the smaller this beta 1 is going to be. So the less we are going to be able to tell how much an increment in x influences y. b0 also has an interesting form. We can see that it's the average of the output variables divided by what will be the middle point of our prediction. So if we take x, the average of our x input variables, and then we'll multiply that by the, and then we'll multiply that by the first slope, that's going to be our b0. We'll look at how to do this mathematically in another video. Now, we don't have to worry about this, because there are many computationally efficient ways of computing the solution for larger problems, not just simple regression. Now, one way of measuring the performance of our model is to simple measure the mean square error of our predictions. The problem with that is that it's not comparable. So sometimes that mean square error could be, as we saw a couple of videos ago, could be in square footage square, which is not very interpretable. But if we are applying it to a different problem, for example, stock market prediction, then it will be in stock market square prediction. So we can't really compare square footage square with stock market square. One way of making that prediction standard is to use something called R-square. The basic idea of R-square is to basically see how much our model is explaining as compared to a model that doesn't have any input variables. And you can see that in the equations. The sum of square equation right here is basically the sum of squares of all the data points that we have compared to just the mean prediction. So imagine this is just a model where we're just predicting the mean. So this is our prediction here. It's not a very clever prediction. So if we have a set of data points, we're not going to take into account this x variable to make prediction. We're just going to use the average of y. That's going to be our prediction. So we have no input information. How much we will explain based off of that? So that comes in this other equation. So this will say we take all these differences in the prediction. So let's say our best equation is this one right here. So this will be our yi. So that will be b0, b1 times yi, sorry, xi. So we can take all of our predictions and see how much errors we're making. So these are the errors. And that will be represented right here. This will be the error in our prediction. And we square that. And as you can see, these errors, these little lines, are a lot smaller than these big error lines here. So here we're just always predicting the same. So we are committing these huge errors in these places. So you can see that just by looking at it, that the predictions for our average, this orange line, is much worse than the predictions from our magenta line here. So the r squared represents that. So it represents a number from 0, which means we're not predicting anything. Our residual, basically, if the residual predictions are the same as this, so we're not adding any information, so we're being as bad as the model that is very simple, then that means that we are basically not improving on anything. So this will be 1. And therefore, r squared will be 0. But if we're predicting perfectly, so if our residuals from our model is perfect, then there will be no errors here. And therefore, it will be 0, that. So if this is 0, then it will be 1, a perfect prediction. Now, the take-home message of this is that r squared represents, the take-home message of this is that r squared is, you can use it to compare across different domains. So you can say this model works really well, because the r squares are usually above a certain threshold or something like that. Now, once you have fit a model, you might want to understand whether your predictions are following the assumptions of linear regression. Remember that you want to understand what's in the data. So you want your model, let's say in this case, simple linear regression, matches the actual reality. And the reality of that our model, the assumptions that our model is making is that the errors are distributed randomly across the input, that there are no patterns, and there are no outliers, and that there is no change in variance. So one way of checking that is to look at the relationship between our actual values, that will be y sub i, and the predictions that we're making. So if we plot that, we can see if there are changing patterns that violate the assumptions. Typically, you see the following four patterns. The ideal scenario is the top left one, where there is really no relationship. If we plot the values that we're fitting and the residuals of those values, then there is not really a relationship. There is almost like a flat line. The variance is the same across the fitted values. Then at the top right, we have something more that violates the assumptions of linear regression. We have something that looks like a non-linear pattern. So it looks like for fitted values that are below, let's say, 2, we are under predicting. And for values that are in between 2 and 5, we are over predicting. And for values that are 5 and above, we are, again, under predicting. So we have this kind of U-shape in our prediction. At the bottom left, we have something called statistically heteroscedasticity, which means that the variance changes as a function of our fitted values. And this shouldn't be the case. The variance, the width of our prediction, should remain the same across these fitted values. So in this case, for small values of fitted values, you can see that the width of our prediction remains small. But then it starts increasing as we make our predictions to higher values. And lastly, we might look at the residuals to also understand if there are outliers. And you can see here very clearly visually that, in general, there is a very small band. Almost all points, all the residuals, are between minus 1 and 1. But then you have these big outliers that are these pink dots that are very, very far away from our prediction. These are very large residuals. OK, so in this video, we'll cover the essential concepts for fitting and evaluating linear regression models. We'll learn that the ordinary least squares methods provides a systematic way to find the optimal values for the slope and the intercept by minimizing the sum of square errors. We discuss the R-squared and how it allows us to understand how well a model does. And it makes it comparable across models. We also explore residual analysis to see if there are some issues with our assumptions about how the data looks. See you in the next video."
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 2,
+      "courseSection": "Simple and Multiple Regression",
+      "courseSectionId": "simple-and-multiple-regression"
+    },
+    {
+      "id": "module2-7",
+      "module": "Module 2",
+      "unit": "Deriving the Least Squares Solution",
+      "title": "Deriving Least Squares Complete Page by Page Notes TC",
+      "sourcePath": "Deriving_Least_Squares_Complete_Page_by_Page_Notes_TC.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 1070,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Deriving the Least Squares Solution",
+            "21 頁逐頁分析＋淺白詳細完整筆記",
+            "課程：Supervised Learning — Machine Learning, University of Colorado Boulder",
+            "教材：Deriving the Least Squares Solution",
+            "重點範圍：Simple Linear Regression、Sum of Squared Errors、Loss Function、Partial Derivatives、Normal Equations、Matrix Notation、Closed-form OLS Solution、Geometric Interpretation、Multiple Linear Regression",
+            "這份筆記以教材 PDF 的 21 頁順序為主軸，逐頁分析「這一頁在做什麼、公式怎樣來、為什麼要做、與上一頁/下一頁如何連接」。影片中的口頭補充只用來幫助理解，不會取代教材本身的內容。"
+          ]
+        },
+        {
+          "heading": "目錄",
+          "paragraphs": [
+            "先看全課的大方向"
+          ]
+        },
+        {
+          "heading": "PDF Page 1 — Title: Deriving the Least Squares Solution",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 2 — Ordinary Least Squares: Mathematical Derivation",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 3 — The Least Squares Problem",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 4 — Step 1: Define the Loss Function",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 5 — Step 2: Find Critical Points by Taking Partial Derivatives",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 6 — Step 3: Calculate the Gradients",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 7 — Step 4: Simplify the Equations",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 8 — Step 5: Rewrite as Normal Equations",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 9 — Step 5.5: Matrix Notation for Linear Regression",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 10 — Matrix Forms of X, y, β",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 11 — Step 5.6: Computing XᵀX — Part 1",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 12 — Step 5.6: Computing XᵀX — Part 2",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 13 — Step 5.7: Computing Xᵀy — Part 1",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 14 — Step 5.7: Computing Xᵀy — Part 2",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 15 — Step 5.8: Matrix Form of the Normal Equations — Part 1",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 16 — Step 5.8: Matrix Form of the Normal Equations — Part 2",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 17 — Step 6: Express in Matrix Form",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 18 — Step 7: Solve for the Parameters",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 19 — Geometric Interpretation",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 20 — Example: Calculating OLS Parameters",
+          "paragraphs": []
+        },
+        {
+          "heading": "PDF Page 21 — Summary: The Least Squares Method",
+          "paragraphs": [
+            "全課 Master Concept Map",
+            "最淺白版本：把整課想成「調兩個旋鈕」",
+            "重要名詞總表",
+            "Formula Cheat Sheet",
+            "Dimension Cheat Sheet"
+          ]
+        },
+        {
+          "heading": "常見混淆與錯誤",
+          "paragraphs": [
+            "考試 / 作業型問題速答",
+            "從這一課連到之後 Machine Learning 的脈絡",
+            "最後 60 秒記憶版"
+          ]
+        },
+        {
+          "heading": "0. 先看全課的大方向",
+          "paragraphs": [
+            "這一課其實只想回答一個問題：",
+            "我們有很多資料點，怎樣找到一條「整體最貼近」資料的直線？",
+            "Simple Linear Regression 的模型是：",
+            "：第  個輸入，例如房屋面積。",
+            "：第  個真實答案，例如真正房價。",
+            "：模型對第  個資料點的預測。",
+            "：intercept，截距。",
+            "：slope，斜率。",
+            "真正要找的是：",
+            "而「最好」的定義是：",
+            "整條推導鏈是：",
+            "資料 (x, y)",
+            "↓",
+            "建立直線 ŷ = β₀ + β₁x",
+            "↓",
+            "Residual: e = y - ŷ",
+            "↓",
+            "平方: e²",
+            "↓",
+            "Loss = Σe²",
+            "↓",
+            "用 Calculus 找 Loss 最小點",
+            "↓",
+            "∂L/∂β₀ = 0，∂L/∂β₁ = 0",
+            "↓",
+            "Normal Equations",
+            "↓",
+            "用 Matrix 寫成 XᵀXβ = Xᵀy",
+            "↓",
+            "乘上 inverse",
+            "↓",
+            "β = (XᵀX)⁻¹Xᵀy",
+            "這就是整課的骨架。後面每一頁都是在完成其中一個小步驟。"
+          ]
+        },
+        {
+          "heading": "PDF Page 1 — Title：Deriving the Least Squares Solution",
+          "paragraphs": [
+            "這一頁在做什麼？",
+            "這是標題頁，告訴你這份 supplementary material 的主題是：",
+            "Deriving the Least Squares Solution，即「推導最小平方解」。",
+            "這裡的 derive 不是叫你只背公式，而是要你知道：",
+            "到底是怎樣一步一步由 linear regression 的 error 推出來。",
+            "你應該先有的背景",
+            "這一課會同時使用三類知識：",
+            "Linear Regression：",
+            "Calculus：derivative、partial derivative、chain rule、minimum",
+            "Linear Algebra：matrix、transpose、matrix multiplication、inverse",
+            "如果你覺得最後公式突然很抽象，原因通常不是 regression 本身，而是三門數學在同一課第一次真正串起來。",
+            "本頁記憶重點",
+            "這一課不是教「怎樣用 sklearn 跑 LinearRegression」；是教為什麼 OLS 的答案可以寫成一條 matrix formula。"
+          ]
+        },
+        {
+          "heading": "PDF Page 2 — Ordinary Least Squares: Mathematical Derivation",
+          "paragraphs": [
+            "教材列出四個目標：",
+            "Develop the full mathematical derivation of OLS",
+            "Use calculus to find the parameters that minimize squared error",
+            "Express the solution in matrix form",
+            "Derive the closed-form expressions for optimal parameters"
+          ]
+        },
+        {
+          "heading": "1. OLS 是什麼？",
+          "paragraphs": [
+            "OLS = Ordinary Least Squares。",
+            "拆字理解：",
+            "Least：最小",
+            "Squares：平方",
+            "Ordinary：最基本、標準版本的 least squares",
+            "所以 OLS 的核心目標是：",
+            "即：",
+            "找一組模型參數，令所有真實值與預測值之間的誤差平方總和最少。"
+          ]
+        },
+        {
+          "heading": "2. 為什麼需要 Calculus？",
+          "paragraphs": [
+            "因為我們最後會得到一個 loss function：",
+            "要問的是：",
+            "哪一組  令  最小？",
+            "「找函數最低點」正是 calculus 的工作。"
+          ]
+        },
+        {
+          "heading": "3. 為什麼又需要 Matrix？",
+          "paragraphs": [
+            "如果只有一個 feature，可以手算 。",
+            "但如果有：",
+            "square footage",
+            "bedrooms",
+            "bathrooms",
+            "age of house",
+            "distance to downtown",
+            "…",
+            "那 parameters 會變成：",
+            "Matrix 可以一次處理全部。"
+          ]
+        },
+        {
+          "heading": "4. Closed-form solution 是什麼？",
+          "paragraphs": [
+            "Closed-form 可以淺白理解為：",
+            "不用一步一步試，直接有一條公式算出答案。",
+            "OLS 的理論 closed-form solution 是：",
+            "本頁與下一頁的連接"
+          ]
+        },
+        {
+          "heading": "Page 2 說明「這課要做什麼」。Page 3 開始正式定義最小平方問題。",
+          "paragraphs": [
+            "本頁記憶重點",
+            "Calculus 負責找 minimum；Linear Algebra 負責把答案寫成可擴展到多 features 的 matrix form。"
+          ]
+        },
+        {
+          "heading": "PDF Page 3 — The Least Squares Problem",
+          "paragraphs": [
+            "教材的起點",
+            "Linear model："
+          ]
+        },
+        {
+          "heading": "目標：找  令：",
+          "paragraphs": [
+            "最小。"
+          ]
+        },
+        {
+          "heading": "1.  與  千萬不要混淆",
+          "paragraphs": [
+            "真實觀察值（actual / observed）。",
+            "例如房屋真正售價：",
+            "模型預測值（predicted / fitted）。",
+            "例如：",
+            "Residual / error",
+            "上例："
+          ]
+        },
+        {
+          "heading": "2. 為什麼不能只加 residual？",
+          "paragraphs": [
+            "假設：",
+            "如果直接相加：",
+            "看似完全沒有錯，但其實兩個 prediction 都錯了 30。",
+            "所以要平方："
+          ]
+        },
+        {
+          "heading": "3. 平方還有另一個效果",
+          "paragraphs": [
+            "小 error：",
+            "大 error：",
+            "所以 squared error 會對大誤差懲罰得更重。"
+          ]
+        },
+        {
+          "heading": "4. 什麼是 ？",
+          "paragraphs": [
+            "= observations 的數量。",
+            "例如有 100 間房屋：",
+            "而：",
+            "意思是由第 1 個 observation 一直加到第  個。"
+          ]
+        },
+        {
+          "heading": "5. 這頁真正的問題",
+          "paragraphs": [
+            "不是：",
+            "「一條直線怎樣畫？」",
+            "而是：",
+            "哪一條直線的 squared errors 合計最小？",
+            "可以想像  和  是兩個旋鈕：",
+            "改 ：整條線上下移",
+            "改 ：整條線旋轉、改斜率",
+            "每一組  都有自己的 total squared error。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 4 — Step 1: Define the Loss Function",
+          "paragraphs": [
+            "教材正式定義："
+          ]
+        },
+        {
+          "heading": "1. Loss Function 是什麼？",
+          "paragraphs": [
+            "Loss function 是：",
+            "一個數字，用來量度目前這組 parameters 有多差。",
+            "如果 prediction 很接近 reality：",
+            "如果 prediction 很差："
+          ]
+        },
+        {
+          "heading": "2. 為什麼寫成 ？",
+          "paragraphs": [
+            "因為資料  已經給定。",
+            "我們真正能改的是：",
+            "所以 loss 是 parameters 的 function。",
+            "直覺流程：",
+            "選 β₀、β₁",
+            "↓",
+            "得到一條直線",
+            "↓",
+            "得到每個 ŷᵢ",
+            "↓",
+            "計算 yᵢ - ŷᵢ",
+            "↓",
+            "平方",
+            "↓",
+            "全部加起來",
+            "↓",
+            "得到 L(β₀,β₁)"
+          ]
+        },
+        {
+          "heading": "3. Loss 與 MSE 的關係",
+          "paragraphs": [
+            "教材這裡使用的是 sum of squared errors (SSE)：",
+            "如果除以 ：",
+            "兩者的 minimizer 是一樣的，因為  只是正的 constant multiplier。教材本頁沒有加入 ，所以在這份推導中應跟教材寫 SSE 形式。"
+          ]
+        },
+        {
+          "heading": "4. 本頁與下一頁的連接",
+          "paragraphs": [
+            "現在已經把「好不好」變成一個可計算的 function。下一步就問：",
+            "怎樣找  的最低點？",
+            "答案：partial derivatives。",
+            "本頁記憶重點",
+            "Machine Learning 的 optimization 通常先做的第一件事，就是把「模型有多差」定義成 loss function。"
+          ]
+        },
+        {
+          "heading": "PDF Page 5 — Step 2: Find Critical Points by Taking Partial Derivatives",
+          "paragraphs": [
+            "教材：",
+            "以及："
+          ]
+        },
+        {
+          "heading": "1. 為什麼 derivative = 0？",
+          "paragraphs": [
+            "想像一個 U-shape：",
+            "Loss",
+            "↑",
+            "| \\        /",
+            "|  \\      /",
+            "|   \\____/",
+            "|      ↑",
+            "|    minimum",
+            "+----------------→ parameter",
+            "最低點的 tangent 是水平的，所以 slope = 0。",
+            "Derivative 就是在問：",
+            "function 在這一點的 slope 是多少？",
+            "因此 minimum 的 critical point 通常滿足："
+          ]
+        },
+        {
+          "heading": "2. 為什麼是 partial derivative？",
+          "paragraphs": [
+            "因為 loss 同時依賴兩個 variables：",
+            "所以要分兩個方向看。",
+            "對",
+            "固定 ，只問：",
+            "改  時，Loss 如何變？",
+            "對",
+            "固定 ，只問：",
+            "改  時，Loss 如何變？"
+          ]
+        },
+        {
+          "heading": "3. Gradient 的概念",
+          "paragraphs": [
+            "可以把兩個 partial derivatives 合起來：",
+            "OLS optimum 的條件就是："
+          ]
+        },
+        {
+          "heading": "4. 為什麼這裡能確定是 minimum，而不只是 maximum？",
+          "paragraphs": [
+            "教材這一步主要是利用 critical-point condition。OLS 的 squared-error objective 對線性 parameters 是 convex quadratic；因此其可行的 stationary point 對應 global minimum（在一般 full-rank 情況下是唯一解）。這是補充理解；教材本頁的核心只要求你知道「最佳值時 partial derivatives 設為 0」。",
+            "本頁記憶重點",
+            "找最佳 β → 找 Loss 的最低點 → 對每個 β 求 partial derivative → 設成 0。"
+          ]
+        },
+        {
+          "heading": "PDF Page 6 — Step 3: Calculate the Gradients",
+          "paragraphs": [
+            "教材給出：",
+            "以及：",
+            "這一頁是整課最重要的 Calculus 頁之一。"
+          ]
+        },
+        {
+          "heading": "1. 由原本 Loss 開始",
+          "paragraphs": [
+            "先令：",
+            "每一項就是：",
+            "Chain Rule："
+          ]
+        },
+        {
+          "heading": "2. 對  求 derivative",
+          "paragraphs": [
+            "內層：",
+            "對 ：",
+            "是 constant → derivative = 0",
+            "→ derivative = -1",
+            "對  是 constant → 0",
+            "所以：",
+            "因此：",
+            "得到：",
+            "全部 observations 加起來："
+          ]
+        },
+        {
+          "heading": "3. 對  求 derivative",
+          "paragraphs": [
+            "內層對 ：",
+            "因此：",
+            "即：",
+            "全部加起來："
+          ]
+        },
+        {
+          "heading": "4. 為什麼第二條突然多了一個 ？",
+          "paragraphs": [
+            "不是額外「加」上去，而是 chain rule 的內層 derivative：",
+            "所以自然產生 。"
+          ]
+        },
+        {
+          "heading": "5. 最容易犯的錯",
+          "paragraphs": [
+            "錯誤 A",
+            "把  當成 variable 對  一起求 derivative。",
+            "在這個 optimization 裡， 是已知資料，因此對  是 constant。",
+            "錯誤 B",
+            "忘記 chain rule 的負號。",
+            "內層 derivative 是  或 ，所以前面才有 。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 7 — Step 4: Simplify the Equations",
+          "paragraphs": [
+            "教材將 Page 6 的  去掉，得到："
+          ]
+        },
+        {
+          "heading": "1. 為什麼  可以消失？",
+          "paragraphs": [
+            "如果：",
+            "兩邊除以 ：",
+            "所以  不影響解。"
+          ]
+        },
+        {
+          "heading": "2. 第一條 equation 的統計意義",
+          "paragraphs": [
+            "Residual：",
+            "所以第一條是：",
+            "即 fitted OLS model（包含 intercept 時）的 residual 正負會平衡。"
+          ]
+        },
+        {
+          "heading": "3. 第二條 equation 的意義",
+          "paragraphs": [
+            "代表 residual 與 input direction 之間的 dot-product 型加總為 0。",
+            "這一點後面 Page 19 的 geometric interpretation 會重新出現：residual 與 design matrix 的 column space orthogonal。"
+          ]
+        },
+        {
+          "heading": "4. 本頁扮演的角色",
+          "paragraphs": []
+        },
+        {
+          "heading": "Page 6 是 calculus 形式；Page 7 已經把 calculus 外殼移除，剩下一組 algebra equations。",
+          "paragraphs": [
+            "下一頁要展開這兩條 equations，形成 Normal Equations。",
+            "本頁記憶重點",
+            "Derivative = 0 之後，問題由 Calculus 轉成 Algebra。"
+          ]
+        },
+        {
+          "heading": "PDF Page 8 — Step 5: Rewrite as Normal Equations",
+          "paragraphs": [
+            "教材把兩條 equation 展開，得到：",
+            "這兩條就是 Normal Equations。"
+          ]
+        },
+        {
+          "heading": "1. 第一條怎樣來？",
+          "paragraphs": [
+            "由：",
+            "拆開：",
+            "因為  是 constant：",
+            "因為  是 constant：",
+            "所以：",
+            "移項："
+          ]
+        },
+        {
+          "heading": "2. 第二條怎樣來？",
+          "paragraphs": [
+            "由：",
+            "先乘入 ：",
+            "拆開：",
+            "移項："
+          ]
+        },
+        {
+          "heading": "3. 為什麼叫 Normal Equations？",
+          "paragraphs": [
+            "教材稱這組由 least-squares first-order conditions 得到的 linear system 為 normal equations。",
+            "你現階段不需要把「normal」理解成「normalize 資料」。它不是 feature normalization 的意思。"
+          ]
+        },
+        {
+          "heading": "4. 這時其實已經可以手算",
+          "paragraphs": [
+            "因為有兩個 unknowns：",
+            "亦有兩條 equations，所以可以用 simultaneous equations 解。",
+            "但課程不在這裡停下來，因為它要建立可以 generalize 到多個 predictors 的 matrix solution。",
+            "本頁記憶重點",
+            "Normal Equations = 將 derivative = 0 展開後得到的一組 linear equations。"
+          ]
+        },
+        {
+          "heading": "PDF Page 9 — Step 5.5: Matrix Notation for Linear Regression",
+          "paragraphs": [
+            "教材開始定義三個核心物件：",
+            "Design matrix",
+            "Parameter vector",
+            "Response vector"
+          ]
+        },
+        {
+          "heading": "1. Design Matrix",
+          "paragraphs": [
+            "Simple linear regression：",
+            "每一 row = 一個 data point。",
+            "第一 column 全部是 1；第二 column 是 。"
+          ]
+        },
+        {
+          "heading": "2. 為什麼第一 column 全是 1？",
+          "paragraphs": [
+            "因為：",
+            "即：",
+            "如果沒有那一列 1，matrix multiplication 就沒有地方產生 intercept 。"
+          ]
+        },
+        {
+          "heading": "3. Parameter Vector",
+          "paragraphs": [
+            "它放的是「模型要學的 parameters」。"
+          ]
+        },
+        {
+          "heading": "4. Response Vector",
+          "paragraphs": [
+            "它放的是所有 observed target values。"
+          ]
+        },
+        {
+          "heading": "5. Design Matrix 為什麼叫 design？",
+          "paragraphs": [
+            "因為  不只是原始 feature；它的 columns 代表模型設計中的 basis/terms。",
+            "Simple regression：",
+            "Column 1 → intercept term",
+            "Column 2 → x term",
+            "如果是 polynomial regression，還可以加入：",
+            "1, x, x², x³, ...",
+            "所以 design matrix 可以看成「模型用哪些欄來解釋 y」。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 10 — Matrix Forms of X, y, β",
+          "paragraphs": [
+            "這一頁主要把 Page 9 的文字定義真正寫成 matrix："
+          ]
+        },
+        {
+          "heading": "1. Dimension 是這頁真正要掌握的東西",
+          "paragraphs": [
+            "如果有  個 observations："
+          ]
+        },
+        {
+          "heading": "2. 為什麼  可以乘？",
+          "paragraphs": [
+            "Matrix multiplication 規則：中間 dimensions 要相同。",
+            "這裡：",
+            "所以可以乘，結果是：",
+            "正好是一個 prediction vector："
+          ]
+        },
+        {
+          "heading": "3. 核心 matrix model",
+          "paragraphs": [
+            "淺白翻譯：",
+            "資料矩陣 × 模型參數 = 所有 predictions。"
+          ]
+        },
+        {
+          "heading": "4. 一個 3 筆資料的小例子",
+          "paragraphs": [
+            "假設：",
+            "則：",
+            "所以：",
+            "本頁記憶重點",
+            "如果 dimension 不懂，後面的 、 會很容易迷路。先牢記： 是 ， 是 。"
+          ]
+        },
+        {
+          "heading": "PDF Page 11 — Step 5.6: Computing XᵀX — Part 1",
+          "paragraphs": [
+            "教材開始計算："
+          ]
+        },
+        {
+          "heading": "1. 原本",
+          "paragraphs": [
+            "Dimension："
+          ]
+        },
+        {
+          "heading": "2. Transpose 之後",
+          "paragraphs": [
+            "Dimension：",
+            "Transpose 只做一件事：",
+            "rows 變 columns；columns 變 rows。"
+          ]
+        },
+        {
+          "heading": "3. 所以  的 dimension",
+          "paragraphs": [
+            "中間 ，可以乘。",
+            "結果："
+          ]
+        },
+        {
+          "heading": "4. 為什麼會是 2×2？",
+          "paragraphs": [
+            "因為 simple regression 有兩個 parameters：",
+            "最後要建立一個兩條 equations 的 system，所以出現 2×2 coefficient matrix 是合理的。"
+          ]
+        },
+        {
+          "heading": "5. 本頁只是「排好乘法」",
+          "paragraphs": [
+            "這一頁還沒有正式把四個格子的數值算完。Page 12 才會逐格計算。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 12 — Step 5.6: Computing XᵀX — Part 2",
+          "paragraphs": [
+            "教材算出：",
+            "這頁非常重要，因為你會第一次看到 Normal Equations 的係數從 matrix multiplication 自動出現。"
+          ]
+        },
+        {
+          "heading": "1. 左上角",
+          "paragraphs": [
+            "第一 row of ：",
+            "第一 column of ：",
+            "Dot product：",
+            "所以左上角："
+          ]
+        },
+        {
+          "heading": "2. 右上角",
+          "paragraphs": [
+            "得到："
+          ]
+        },
+        {
+          "heading": "3. 左下角",
+          "paragraphs": [
+            "同樣："
+          ]
+        },
+        {
+          "heading": "4. 右下角",
+          "paragraphs": [
+            "即："
+          ]
+        },
+        {
+          "heading": "5. 為什麼矩陣是對稱的？",
+          "paragraphs": [
+            "一定是 symmetric：",
+            "所以右上角與左下角相同，這裡都是 。"
+          ]
+        },
+        {
+          "heading": "6. 與 Page 8 的驚人對應",
+          "paragraphs": []
+        },
+        {
+          "heading": "Page 8 的 Normal Equations 左邊係數是：",
+          "paragraphs": [
+            "而現在  恰好自動生成同樣的結構。",
+            "這不是巧合；這就是為什麼 normal equations 可以壓縮成 matrix form。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 13 — Step 5.7: Computing Xᵀy — Part 1",
+          "paragraphs": [
+            "這一頁開始計算 normal equations 的右邊："
+          ]
+        },
+        {
+          "heading": "1. Matrix dimensions",
+          "paragraphs": [
+            "所以：",
+            "結果會是一個有兩個 elements 的 vector。"
+          ]
+        },
+        {
+          "heading": "2. 為什麼右邊需要兩個 elements？",
+          "paragraphs": [
+            "因為我們的 normal equations 有兩條：",
+            "所以右邊本來就是兩個數。"
+          ]
+        },
+        {
+          "heading": "3. 這頁先排出 multiplication",
+          "paragraphs": []
+        },
+        {
+          "heading": "Page 14 再真正算出結果。",
+          "paragraphs": [
+            "本頁記憶重點",
+            "產生 normal equations 左邊的 coefficient structure； 會產生右邊的 data sums。"
+          ]
+        },
+        {
+          "heading": "PDF Page 14 — Step 5.7: Computing Xᵀy — Part 2",
+          "paragraphs": [
+            "教材得到："
+          ]
+        },
+        {
+          "heading": "1. 第一個 element",
+          "paragraphs": [
+            "第一 row：",
+            "與  做 dot product：",
+            "所以："
+          ]
+        },
+        {
+          "heading": "2. 第二個 element",
+          "paragraphs": [
+            "第二 row：",
+            "與  做 dot product：",
+            "所以："
+          ]
+        },
+        {
+          "heading": "3. 這一步的直覺",
+          "paragraphs": [
+            "把每個 design-column 與 target  做 dot product。",
+            "Simple regression 中：",
+            "intercept column（全 1）與  →",
+            "x column 與  →"
+          ]
+        },
+        {
+          "heading": "4. 到目前為止我們有兩個重要 building blocks",
+          "paragraphs": [
+            "下一頁就是把兩邊接起來。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 15 — Step 5.8: Matrix Form of the Normal Equations — Part 1",
+          "paragraphs": [
+            "教材先重列 normal equations：",
+            "然後寫成："
+          ]
+        },
+        {
+          "heading": "1. 為什麼這個 matrix multiplication 等於兩條 equations？",
+          "paragraphs": [
+            "左邊第一 row：",
+            "正是第一條 normal equation。",
+            "左邊第二 row：",
+            "正是第二條。"
+          ]
+        },
+        {
+          "heading": "2. 這是 linear system 的 matrix form",
+          "paragraphs": [
+            "普通 simultaneous equations：",
+            "可以寫成：",
+            "這頁完全是在做同一件事，只是  都由 data sums 構成。"
+          ]
+        },
+        {
+          "heading": "3. 為什麼這一步非常關鍵？",
+          "paragraphs": [
+            "因為從這一刻開始，我們不需要再分別處理兩條 scalar equations。",
+            "整個問題可以作為一個 matrix equation 一次操作。",
+            "本頁記憶重點",
+            "Normal equations 並沒有消失；Matrix form 只是把它們壓縮。"
+          ]
+        },
+        {
+          "heading": "PDF Page 16 — Step 5.8: Matrix Form of the Normal Equations — Part 2",
+          "paragraphs": [
+            "教材指出上一頁的 matrix equation 正是：",
+            "這一行是整課的核心橋樑。"
+          ]
+        },
+        {
+          "heading": "1. 左邊為什麼是 ？",
+          "paragraphs": []
+        },
+        {
+          "heading": "Page 12：",
+          "paragraphs": [
+            "而：",
+            "所以：",
+            "就是上一頁左邊。"
+          ]
+        },
+        {
+          "heading": "2. 右邊為什麼是 ？",
+          "paragraphs": []
+        },
+        {
+          "heading": "Page 14 已經算出：",
+          "paragraphs": [
+            "所以右邊完全吻合。"
+          ]
+        },
+        {
+          "heading": "3. 這條 equation 從哪裡來？",
+          "paragraphs": [
+            "一定要記住它的來源鏈：",
+            "Minimize squared error",
+            "↓",
+            "Partial derivatives = 0",
+            "↓",
+            "Two scalar normal equations",
+            "↓",
+            "Matrix notation",
+            "↓",
+            "XᵀXβ = Xᵀy",
+            "不要把  當成一條憑空需要死背的公式。"
+          ]
+        },
+        {
+          "heading": "4. 下一步",
+          "paragraphs": [
+            "現在問題已經變成：",
+            "如何由  把  單獨解出來？",
+            "這會使用 matrix inverse。",
+            "本頁記憶重點"
+          ]
+        },
+        {
+          "heading": "PDF Page 17 — Step 6: Express in Matrix Form",
+          "paragraphs": [
+            "這一頁再次整理 matrix notation，並以 3 個 data points 作示例：",
+            "以及："
+          ]
+        },
+        {
+          "heading": "1. 為什麼教材又重講一次？",
+          "paragraphs": [
+            "前幾頁是「證明  和  怎樣產生」。",
+            "這一頁是把所有符號重新集中，讓你在正式 solve parameters 前確認：",
+            "是什麼",
+            "是什麼",
+            "是什麼",
+            "它們的 shapes 是什麼"
+          ]
+        },
+        {
+          "heading": "2. 3 data points 的 dimensions",
+          "paragraphs": [
+            "左右兩邊：",
+            "與：",
+            "dimensions 完全一致。"
+          ]
+        },
+        {
+          "heading": "3. Dimension checking 是非常好的自我檢查方法",
+          "paragraphs": [
+            "如果你寫成：",
+            "simple regression 下：",
+            "而  是 ，通常無法相乘。",
+            "因此 dimension 可以幫你辨別 transpose 放錯位置。",
+            "本頁記憶重點",
+            "遇到 matrix formula 看不懂時，先寫 shapes。Shape 往往比死背更可靠。"
+          ]
+        },
+        {
+          "heading": "PDF Page 18 — Step 7: Solve for the Parameters",
+          "paragraphs": [
+            "這是整課最後求解的核心頁。",
+            "教材由：",
+            "左乘：",
+            "得到：",
+            "同時教材給 simple linear regression 的 scalar formulas：",
+            "以及："
+          ]
+        },
+        {
+          "heading": "1. 為什麼乘 inverse？",
+          "paragraphs": [
+            "普通 scalar：",
+            "會除以 5：",
+            "Matrix 沒有普通的「除法」，所以用 inverse：",
+            "若  存在：",
+            "因為：",
+            "以及：",
+            "所以：",
+            "在 OLS 中：",
+            "因此："
+          ]
+        },
+        {
+          "heading": "2. Matrix multiplication 的順序不能亂",
+          "paragraphs": [
+            "不是可以隨意改成：",
+            "Matrix multiplication 一般不具交換律："
+          ]
+        },
+        {
+          "heading": "3.  的直覺",
+          "paragraphs": [
+            "可理解成：",
+            "X 與 Y 一起變動的程度 ÷ X 自己變動的程度。",
+            "如果 X 增加時 Y 通常也增加：",
+            "所以：",
+            "如果 X 增加時 Y 通常下降：",
+            "所以："
+          ]
+        },
+        {
+          "heading": "4. Intercept 公式的直覺",
+          "paragraphs": [
+            "重排：",
+            "所以 fitted regression line 會通過：",
+            "即資料的平均中心點。"
+          ]
+        },
+        {
+          "heading": "5. 關於 inverse 的重要實務補充",
+          "paragraphs": [
+            "教材用  展示 closed-form derivation。實際數值計算中，若  不可逆或接近 singular，通常會使用更穩定的 linear solver、QR decomposition 或 SVD / pseudoinverse，而不是顯式計算 inverse。這是延伸理解；教材本頁的理論公式仍是 。",
+            "本頁記憶重點",
+            "是整個推導的終點，不是起點。"
+          ]
+        },
+        {
+          "heading": "PDF Page 19 — Geometric Interpretation",
+          "paragraphs": [
+            "教材給出三個幾何觀念：",
+            "residuals orthogonal to the column space of",
+            "is the orthogonal projection of  onto the column space of",
+            "is the closest point in that column space to the actual",
+            "這一頁比較抽象，但它其實是在用幾何語言重新解釋「least squares」。"
+          ]
+        },
+        {
+          "heading": "1. 為什麼  不一定等於 ？",
+          "paragraphs": [
+            "真實資料通常有 noise，因此可能不存在任何  可以令：",
+            "完全成立。",
+            "所以我們只能找：",
+            "令它最接近 。"
+          ]
+        },
+        {
+          "heading": "2. Projection 的圖像",
+          "paragraphs": [
+            "y  •",
+            "|\\",
+            "| \\",
+            "residual  |  \\",
+            "e  |   \\",
+            "|    \\",
+            "↓     \\",
+            "-----------------•----------------  column space of X",
+            "ŷ",
+            "：真正 target vector",
+            "：模型能產生、而且最接近  的 vector",
+            "：residual vector"
+          ]
+        },
+        {
+          "heading": "3. Orthogonal 是什麼？",
+          "paragraphs": [
+            "Orthogonal = perpendicular = 垂直。",
+            "Vector 語言：",
+            "代表兩個 vectors orthogonal。",
+            "OLS optimum 有："
+          ]
+        },
+        {
+          "heading": "4. 怎樣由 geometric condition 回到 normal equation？",
+          "paragraphs": [
+            "Residual：",
+            "而：",
+            "所以：",
+            "Orthogonality：",
+            "代入：",
+            "展開：",
+            "移項：",
+            "你會看到：",
+            "Calculus 與 Geometry 最後得到同一條 normal equation。"
+          ]
+        },
+        {
+          "heading": "5. 「closest point」到底是什麼意思？",
+          "paragraphs": [
+            "Least squares minimize：",
+            "即找 column space of  中，與  Euclidean distance 最小的 point。",
+            "所以 「least squares」在幾何上就是 nearest projection。",
+            "本頁記憶重點",
+            "OLS 的 prediction  是  投影到模型可表示空間中的最近點；residual 則與該空間垂直。"
+          ]
+        },
+        {
+          "heading": "PDF Page 20 — Example: Calculating OLS Parameters",
+          "paragraphs": [
+            "教材提供資料：",
+            "x | y",
+            "1 | 2",
+            "2 | 3",
+            "3 | 5",
+            "教材畫面接著計算 、、slope 與 intercept。"
+          ]
+        },
+        {
+          "heading": "1. 平均值",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. 按教材所列資料與公式重新逐步計算 numerator",
+          "paragraphs": []
+        },
+        {
+          "heading": "第 1 點：",
+          "paragraphs": []
+        },
+        {
+          "heading": "第 2 點：",
+          "paragraphs": []
+        },
+        {
+          "heading": "第 3 點：",
+          "paragraphs": [
+            "合計約：",
+            "精確值也是："
+          ]
+        },
+        {
+          "heading": "3. Denominator",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. 依資料本身計算 slope",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Intercept",
+          "paragraphs": [
+            "因此依照表中三個 data points 的 arithmetic verification："
+          ]
+        },
+        {
+          "heading": "6. 【重要：教材本頁數值不一致】",
+          "paragraphs": [
+            "教材 Page 20 的畫面文字顯示的最終數值約為：",
+            "以及：",
+            "但如果嚴格使用同一頁表格所列資料  和教材 Page 18 所列 slope 公式，會得到：",
+            "因此這裡應視為 source slide 的 numerical inconsistency / typo。學習時要分開記：",
+            "教材畫面報告值：",
+            "按教材資料與公式重算值：",
+            "不要為了配合投影片數字而改動公式。"
+          ]
+        },
+        {
+          "heading": "7. 用正確重算值檢查 predictions",
+          "paragraphs": [
+            "x = 1",
+            "Residual：",
+            "x = 2",
+            "Residual：",
+            "x = 3",
+            "Residual：",
+            "Residual sum：",
+            "正好對應 Page 7 的：",
+            "本頁記憶重點",
+            "例子最重要的是計算流程：mean → centered products → slope → intercept；本頁教材的最終數值本身有不一致，要以公式與原始 data 驗算。"
+          ]
+        },
+        {
+          "heading": "PDF Page 21 — Summary: The Least Squares Method",
+          "paragraphs": [
+            "教材最後總結六點：",
+            "Use calculus to find parameter values that minimize squared error",
+            "Set partial derivatives to zero",
+            "Solve normal equations using matrix algebra",
+            "Closed-form solution is",
+            "Simple regression parameters depend on means and covariances",
+            "The approach generalizes to multiple regression with many predictors",
+            "下面把這六點重新串成完整邏輯。"
+          ]
+        },
+        {
+          "heading": "1. 先定義模型",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. 定義 loss",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Calculus 找 minimum",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. 得到 normal equations",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Matrix form",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. Solve",
+          "paragraphs": []
+        },
+        {
+          "heading": "7. Simple regression 可化成",
+          "paragraphs": []
+        },
+        {
+          "heading": "8. Multiple Linear Regression 不需要重新發明方法",
+          "paragraphs": [
+            "如果多個 features：",
+            "只要把  擴充成更多 columns：",
+            "而  變成：",
+            "核心 matrix equation 仍然是：",
+            "理論 closed-form 仍是：",
+            "本頁記憶重點",
+            "這課真正要你帶走的不是單一 formula，而是「Error → Loss → Derivative → Normal Equations → Matrix → β」整條推導鏈。",
+            "全課 Master Concept Map",
+            "Observed Data (X, y)",
+            "↓",
+            "Linear Regression Model: ŷ = Xβ",
+            "↓",
+            "Residual: e = y - ŷ",
+            "↓",
+            "Squared-error Loss: Σeᵢ²",
+            "↓  minimize",
+            "∂L/∂β₀ = 0,  ∂L/∂β₁ = 0",
+            "↓",
+            "Normal Equations",
+            "↓",
+            "XᵀXβ = Xᵀy",
+            "↓  left multiply by (XᵀX)⁻¹",
+            "β = (XᵀX)⁻¹Xᵀy",
+            "↓",
+            "Best fitted model: ŷ = Xβ",
+            "最淺白版本：把整課想成「調兩個旋鈕」",
+            "假設你要畫一條線：",
+            "你有兩個旋鈕：",
+            "：整條線上下移",
+            "：改變線的斜率",
+            "你每調一次，就計算：",
+            "數字越小，代表線越好。",
+            "Calculus 的作用不是「逐個亂試」，而是數學上直接找出：",
+            "哪個位置再往任何 parameter direction 走都不會令 loss 更低。",
+            "那就是：",
+            "再將兩條 equations 用 matrix 打包，就得到 OLS formula。",
+            "重要名詞總表",
+            "名詞 | 符號 | 淺白意思",
+            "Input / feature |  | 模型拿來預測的資料",
+            "Observed target |  | 真實答案",
+            "Prediction |  | 模型估計答案",
+            "Intercept |  | 時模型的基準值",
+            "Slope |  | 每增加 1，預測 y 改變多少",
+            "Residual |  | 真實值減預測值",
+            "SSE |  | 所有 residual 平方總和",
+            "Loss function |  | 衡量目前 parameters 有多差",
+            "Partial derivative |  | 只改某個 parameter 時 loss 的 slope",
+            "Normal equations |  | OLS first-order conditions 的 matrix form",
+            "Design matrix |  | 所有 observations / predictors 的矩陣",
+            "Parameter vector |  | 所有 regression coefficients",
+            "Response vector |  | 所有 observed targets",
+            "Transpose |  | row/column 互換",
+            "Inverse |  | 滿足  的矩陣",
+            "Projection |  | 在 column space of X 上的最近點",
+            "Orthogonal |  | vectors 垂直 / dot product = 0",
+            "Formula Cheat Sheet",
+            "Model",
+            "Residual",
+            "Loss / SSE",
+            "First-order conditions",
+            "Normal equations — scalar",
+            "Design matrices",
+            "Matrix normal equation",
+            "Closed-form OLS",
+            "Simple regression slope",
+            "Covariance / variance form",
+            "Intercept",
+            "Prediction vector",
+            "Residual vector",
+            "Orthogonality at optimum",
+            "Dimension Cheat Sheet",
+            "Simple Linear Regression，有  個 observations：",
+            "Object | Dimension | 說明",
+            "|  | intercept column + one feature",
+            "|  | transpose",
+            "|  |",
+            "|  | observed targets",
+            "|  | predictions",
+            "|  | normal-equation coefficient matrix",
+            "|  | right-hand-side vector",
+            "|  | inverse if it exists",
+            "General multiple regression，如果有  個 predictors，加 intercept 後共  個 parameters："
+          ]
+        },
+        {
+          "heading": "常見混淆與錯誤",
+          "paragraphs": []
+        },
+        {
+          "heading": "1.  vs",
+          "paragraphs": [
+            "= actual",
+            "= predicted"
+          ]
+        },
+        {
+          "heading": "2. residual vs squared residual",
+          "paragraphs": [
+            "Residual：",
+            "OLS loss：",
+            "不是直接把 residuals 加起來。"
+          ]
+        },
+        {
+          "heading": "3.  不是平方",
+          "paragraphs": [
+            "完全不同。"
+          ]
+        },
+        {
+          "heading": "4.  不等於每個 element 隨便取 reciprocal",
+          "paragraphs": [
+            "Matrix inverse 是整體的 linear-algebra operation。"
+          ]
+        },
+        {
+          "heading": "5. Normal equation 不是 normalization",
+          "paragraphs": [
+            "它與把 features 做 standardization / normalization 是兩回事。"
+          ]
+        },
+        {
+          "heading": "6. Closed form 不等於實務一定真的「算 inverse」",
+          "paragraphs": [
+            "教材用 inverse 推導公式；數值實作常使用 solver / QR / SVD。"
+          ]
+        },
+        {
+          "heading": "7. OLS 最小的是整體 squared error",
+          "paragraphs": [
+            "不是保證每一個 data point 的 residual 都是最小，也不是所有 residual 都等於 0。"
+          ]
+        },
+        {
+          "heading": "8. 有 intercept 時，OLS residual sum 為 0",
+          "paragraphs": [
+            "來自：",
+            "這是 Page 7 第一條 simplified equation。",
+            "考試 / 作業型問題速答",
+            "Q1. What does least squares minimize?",
+            "It minimizes the sum of squared residuals:",
+            "Q2. Why square the errors?",
+            "主要有兩個直覺：",
+            "正負 residual 不會互相抵銷。",
+            "大 error 會被更重懲罰。",
+            "Q3. Why set partial derivatives equal to zero?",
+            "因為要找 loss function 的 stationary point；對 OLS quadratic objective，該條件給出 least-squares optimum。",
+            "Q4. What are the normal equations?",
+            "它們來自 squared-error loss 對 parameters 的 first-order conditions。",
+            "Q5. What is the closed-form OLS solution?",
+            "在  可逆的理論情況下成立。",
+            "Q6. Why does the design matrix include a column of ones?",
+            "用來產生 intercept term 。",
+            "Q7. What is the geometric meaning of least squares?",
+            "是  orthogonally projected onto the column space of ；residual 與該 column space orthogonal。",
+            "Q8. How does simple linear regression slope relate to covariance?",
+            "Q9. Does the method extend to multiple predictors?",
+            "可以。把  加更多 feature columns，matrix form 保持相同。",
+            "從這一課連到之後 Machine Learning 的脈絡",
+            "這一課最重要的價值，是它建立一個之後會反覆出現的框架：",
+            "Model",
+            "↓",
+            "Prediction",
+            "↓",
+            "Loss Function",
+            "↓",
+            "Optimization",
+            "↓",
+            "Best Parameters",
+            "在 OLS：",
+            "Model：Linear Regression",
+            "Loss：Squared Error",
+            "Optimization：Calculus + closed-form solution",
+            "Parameters：",
+            "之後 Neural Network 也是同一大框架，只是：",
+            "model 更複雜",
+            "parameters 多很多",
+            "loss 可能不同",
+            "很難有 closed-form solution",
+            "因此通常用 gradient descent / backpropagation 逐步 optimization",
+            "所以 OLS 是理解更高階 machine learning optimization 的非常好起點。",
+            "最後 60 秒記憶版",
+            "只記這條故事：",
+            "Linear regression：",
+            "Prediction 不會完全準，所以有 residual：",
+            "不想正負互相抵銷，所以平方：",
+            "全部加起來形成 loss：",
+            "找 loss 最低點：",
+            "得到 normal equations。",
+            "用 matrix 打包：",
+            "用 inverse 解：",
+            "所以得到整體 squared residual 最少的 fitted line。",
+            "一句話總結：",
+            "Least Squares 就是把「哪條線最好」變成一個可以用 Calculus 和 Linear Algebra 精確解出的 optimization problem。",
+            "Source basis: Deriving the Least Squares Solution (CU Boulder supplementary material)."
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 3,
+      "courseSection": "Simple and Multiple Regression",
+      "courseSectionId": "simple-and-multiple-regression"
+    },
+    {
+      "id": "module2-9",
+      "module": "Module 2",
+      "unit": "Multiple Linear Regression",
+      "title": "GROK-Multiple Linear Regression 全文詳解圖文",
+      "sourcePath": "GROK-Multiple_Linear_Regression_全文詳解圖文.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 160,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Multiple Linear Regression — 由淺入深全文詳解 + Q&A",
+            "課程：UCB Supervised Learning — Multiple Linear Regression",
+            "來源：課件 PDF（13 頁）+ 影片 + 逐字稿 TXT",
+            "上一課：Simple Linear Regression Concepts",
+            "數字以 PDF 為準",
+            "鎖定數字",
+            "項目 | 值",
+            "只用面積 (R^2) | 0.83",
+            "面積 + 屋齡 + 地段 (R^2) | 0.94",
+            "(_1)（每 sq ft，其他不變） | +$110",
+            "(_2)（每老 1 年，其他不變） | −$2,000",
+            "(_3)（好地段，其他不變） | +$50,000",
+            "擬合目標 | ((y_i-y_i)^2)"
+          ]
+        },
+        {
+          "heading": "0. 一句話",
+          "paragraphs": [
+            "Simple Linear Regression 用一條直線、一個 X 預測連續 Y。",
+            "Multiple Linear Regression 仍預測一個連續 Y，但同時用多個 X；每個係數的人話都必須加上「其他變數釘住時」。"
+          ]
+        },
+        {
+          "heading": "1. 從直覺：為什麼一條線不夠？",
+          "paragraphs": [
+            "上一堂的模型：",
+            "[ Y = _0 + _1 X +  ]",
+            "例如只用面積預測房價。同坪數的房子，新舊、地段不同，價格差一截，所以點不會貼在線上。",
+            "MLR 把輸入變成一組：",
+            "[ Y = _0 + _1 X_1 + _2 X_2 + + _p X_p +  ]",
+            "房子例子：(X_1) = 面積，(X_2) = 屋齡，(X_3) = 地段。",
+            "幾何：",
+            "1 個 X → 直線（2D）",
+            "2 個 X → 平面（3D）",
+            "更多 X → 超平面",
+            "SLR 直線 vs MLR 平面",
+            "重點：Y 還是一個連續數字（迴歸，不是分類）。變的是「解釋 Y 的理由變多了」。"
+          ]
+        },
+        {
+          "heading": "2. 公式拆開",
+          "paragraphs": [
+            "課件例子：",
+            "[  = _0 + _1() + _2() + _3() +  ]",
+            "符號 | 意思 | 本課數字",
+            "(_0) | 所有 X 都是 0 時的基準 | 數學需要，常常沒有真實意義",
+            "(_1) | 面積多 1 sq ft | +$110",
+            "(_2) | 屋齡多 1 年 | −$2,000",
+            "(_3) | 好地段（相對普通地段） | +$50,000",
+            "() | 模型解釋不了的部分 | 沒量到的因素",
+            "怎麼找這些 β？和 SLR 同一件事——最小平方：",
+            "[ {} {i=1}^{n} (y_i - y_i)^2 ]",
+            "只是現在 (y_i) 裡有好幾個 X。可用線性代數一次解；實務上軟體算。本課不推矩陣公式。"
+          ]
+        },
+        {
+          "heading": "3. 本課核心：Holding others fixed",
+          "paragraphs": [
+            "SLR 的 (_1 = 110)：面積多 1 呎，價多 110。",
+            "MLR 的 (_1 = 110) 必須加半句：",
+            "在屋齡、地段都不變的前提下，面積多 1 呎，價多 110。",
+            "這叫 holding others fixed / 控制其他變數。",
+            "不是「不管其他條件亂加」；是「把其他條件釘住，只動這一個」。",
+            "課件用兩張平行線圖：",
+            "左：釘住屋齡 = 10 / 25 / 40 年，看面積↑則價格↑。三條線斜率相同，老房子整條線較低。",
+            "右：釘住面積 = 1500 / 2000 / 2500，看屋齡↑則價格↓。三條線平行往下。",
+            "Holding others fixed 平行線",
+            "讀圖：",
+            "斜率 = 正在解釋的那個係數",
+            "線與線的上下距離 = 被釘住的另一個變數在換檔",
+            "本課公式沒有交互項，所以線是平行的",
+            "代入感受（截距課件沒給，這裡用 80,000 只為方便算）",
+            "普通地段 Location = 0：",
+            "2000 sq ft、10 年：(80{,}000 + 110 - 2000 = 280{,}000)",
+            "只老一歲：少 2,000 → 278,000",
+            "只大一呎：多 110 → 280,110",
+            "每次只動一個旋鈕。"
+          ]
+        },
+        {
+          "heading": "4. 為什麼要多個 X？兩件不同的好處",
+          "paragraphs": [
+            "好處 A：預測通常更準",
+            "玩具例子：",
+            "只用面積：(R^2 = 0.83)",
+            "面積 + 屋齡 + 地段：(R^2 = 0.94)",
+            "點更貼近預測，殘差變小。",
+            "(R^2) 先當「Y 的變異裡，模型講得清的比例」。完整分解留給 OLS / R² 那課。",
+            "好處 B：拆開混在一起的功勞",
+            "面積和房數高度相關：大房子房間多。",
+            "若只做「房數 → 房價」，斜率會把「其實是比較大」也算進房數。",
+            "MLR 同時放進面積和房數，問的是：",
+            "面積一樣時，多一間房還值多少？",
+            "房間數一樣時，多一呎還值多少？",
+            "這叫 unique contribution（獨特貢獻）。單變量模型會把相關的 X 搞混。",
+            "單變量搞混 vs MLR 拆開效應",
+            "影片補充：舊房子往往比較小。只看面積的 SLR 線，裡面已經參了屋齡。MLR 的 110 才是「扣掉屋齡之後」的面積效應。"
+          ]
+        },
+        {
+          "heading": "5. 哪個 X 比較重要？",
+          "paragraphs": [
+            "課件給的是 ML 實務做法，不是看 p 值：",
+            "係數絕對值：|、|、| 看起來地段最大——但單位不同（呎 vs 年 vs 0/1），不能直接比誰比較強。",
+            "加入後 (R^2) 升多少",
+            "交叉驗證：有它／沒它，未見資料差多少",
+            "Ablation：刪掉一個特徵，預測掉多少",
+            "「更大重要還是更新重要？」要用「加進去之後準多少」回答，不要只盯一個 β。"
+          ]
+        },
+        {
+          "heading": "6. 加變數不是免費的：過擬合",
+          "paragraphs": [
+            "訓練資料上，X 愈多，(R^2) 幾乎一定升",
+            "升不代表新資料也準——變數太多會擬合噪音",
+            "建議：用領域知識選有意義的 X；用沒見過的資料驗證；在「準」和「還解釋得清」之間折衷",
+            "工具：交叉驗證（後課）",
+            "老師收尾：做預測時，先從一個清楚的多元迴歸當起點",
+            "接到 Bias–Variance：X 太少 → 高偏差；X 太亂太多 → 高方差。"
+          ]
+        },
+        {
+          "heading": "7. 應用（課件例子）",
+          "paragraphs": [
+            "領域 | 多個 X 的例子",
+            "房價 | 面積、屋齡、地段",
+            "醫療 | 治療、劑量、年齡",
+            "行銷 | 渠道、季節、定價",
+            "交通 | 引擎大小、車重",
+            "環境 | 位置、海拔、時間",
+            "關鍵洞察：大多數要預測的結果，都同時依賴多個因素。"
+          ]
+        },
+        {
+          "heading": "8. 和前後課串起來",
+          "paragraphs": [
+            "迴歸 vs 分類     →  連續 Y，所以是迴歸",
+            "SLR 一條線       →  本課：多個 X，平面 / 超平面",
+            "本課給 β、R²     →  下一課 OLS：數字怎麼用最小平方算出來",
+            "R² 0.83→0.94    →  R² 課：1 − SS_res / SS_tot",
+            "holding others   →  可解釋性：MLR 仍是玻璃箱，係數要講完整句",
+            "加 X 會過擬合    →  Bias–Variance、CV",
+            "殘差符號：本課與 SLR 一樣用 (y_i - y_i)。",
+            "上一堂 Regression vs Classification 的表用 Pred − Actual。平方後 MSE 相同；講高估／低估要先聲明定義。",
+            "ISLP 對照：Ch. 3.2 Multiple Linear Regression。",
+            "本課沒教共線性診斷、調整 (R^2)、t 檢定——那些不當成本課已教內容。"
+          ]
+        },
+        {
+          "heading": "9. 來源衝突",
+          "paragraphs": [
+            "來源 | 內容 | 裁決",
+            "影片 | test sample (R^2 %) | 正文用 PDF：0.83 與 0.94",
+            "TXT | 「multiple outcomes depend on multiple outcomes」 | 影片改口：most outcomes depend on multiple factors",
+            "老師 | start with a simple multiple regression | 指「先用清楚的多元迴歸當基線」，不是只用一個 X"
+          ]
+        },
+        {
+          "heading": "10. Q&A",
+          "paragraphs": [
+            "Q1. MLR 和 SLR 差在輸出還是輸入？",
+            "A：輸出仍是一個連續 Y。差在輸入從 1 個變成 p 個。",
+            "Q2. 「Holding others fixed」漏講會怎樣？",
+            "A：會把 (_1=110) 講成「面積一律加 110」。正確是：其他變數釘住時，面積的淨效果是 110。",
+            "Q3. 2000 sq ft、屋齡 20、好地段。相對「同面積同屋齡但普通地段」，價差多少？",
+            "A：只有 (_3) 動 → +$50,000。",
+            "Q4. 為什麼面積係數還是 110，和上一堂一樣？",
+            "A：課件為了好記沿用的玩具數字。真實資料裡，SLR 的面積係數和 MLR「控制屋齡後」的面積係數通常不同。",
+            "Q5. (R^2) 從 0.83 升到 0.94 一定比較好嗎？",
+            "A：這個玩具圖上點更貼。但訓練 (R^2) 上升不能當唯一選模標準；變數太多會過擬合。要用未見資料／CV。",
+            "Q6. 面積和房數相關，為什麼還能兩個都放？",
+            "A：正因為相關，才需要一起放，才能問「面積一樣時房數還有沒有獨立效果」。極端相關才變成共線性，本課沒展開。",
+            "Q7. (|_3|=50000 > |_1|=110)，地段一定比較重要？",
+            "A：不一定。單位不同。50,000 是好地段整包，110 是一平方英尺。要看 ΔR²、CV、ablation。",
+            "Q8. 擬合目標是什麼？",
+            "A：和 SLR 相同，最小化 ((y_i-y_i)^2)。變的是 (y) 的寫法。",
+            "Q9. 地段是類別，這還是迴歸嗎？",
+            "A：任務是預測房價（連續）→ 迴歸。地段可編成 0/1 特徵。輸出型態決定任務。",
+            "Q10. 平行線若變成不平行，代表什麼？",
+            "A：面積的斜率隨屋齡而變 = 交互作用。本課公式假設沒有交互。要出現不平行，需加 (X_1 X_2) 或換模型。",
+            "Q11. 殘差正負跟上一堂 Regression vs Classification 一樣嗎？",
+            "A：不一樣。本課／SLR：(e = Y - Y)。RVC 表：Pred − Actual。討論高估低估先聲明。",
+            "Q12. 本課有沒有教怎麼用手算出全部 β？",
+            "A：沒有。只說「最小平方 + 線性代數 + 軟體」。手算與矩陣形式留給 OLS／線性代數課。"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 4,
+      "courseSection": "Simple and Multiple Regression",
+      "courseSectionId": "simple-and-multiple-regression"
+    },
+    {
+      "id": "module2-10",
+      "module": "Module 2",
+      "unit": "Multiple Linear Regression",
+      "title": "Multiple Linear Regression 究極詳細筆記",
+      "sourcePath": "Multiple_Linear_Regression_究極詳細筆記.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 330,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Multiple Linear Regression",
+            "圖文並茂・逐頁究極詳細筆記",
+            "University of Colorado Boulder — Supervised Learning",
+            "讀法  目標：從零理解 Multiple Linear Regression 的整個脈絡，而不是只背公式。每一頁都會拆成「投影片內容 → 淺白解釋 → 數學連結 → 例子 → 常見誤解」。"
+          ]
+        },
+        {
+          "heading": "0. 全章學習地圖",
+          "paragraphs": [
+            "一句話  Multiple Regression = 多個 X 一起預測同一個 Y；每個 coefficient 都要在「其他 X 固定」的條件下解讀。",
+            "階段 | 核心問題 | 對應頁面"
+          ]
+        },
+        {
+          "heading": "1. 擴展模型 | 一個 X 怎樣變成很多 X？ | p.3–4",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. 解讀係數 | β 到底代表什麼？ | p.5–6",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. 為何有用 | 為什麼會更準、能拆貢獻？ | p.7–8",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. 評估 features | 怎樣知道哪個 X 有用？ | p.9",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. 擬合模型 | Least Squares 如何延伸？ | p.10",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. 選模型 | 何時會 overfit？ | p.11–12",
+          "paragraphs": []
+        },
+        {
+          "heading": "7. 整合 | 整章怎樣串起來？ | p.13",
+          "paragraphs": [
+            "自製概念圖：Simple regression 的線 vs Multiple regression 的平面。"
+          ]
+        },
+        {
+          "heading": "Page 1 — Multiple Linear Regression：課程定位與主題",
+          "paragraphs": [
+            "原課件第 1 頁",
+            "一句話核心  這一頁不是在教公式，而是在告訴你：接下來會把「一個 X 預測 Y」升級成「很多個 X 一起預測同一個 Y」。",
+            "投影片 / 影片在教什麼",
+            "課程主題是 Multiple Linear Regression，屬於 Supervised Learning。",
+            "重點仍然是 regression：目標 Y 是連續數值，例如房價、銷售額、油耗。",
+            "它不是另一套完全不同的模型，而是 Simple Linear Regression 的自然延伸。",
+            "淺白詳細拆解",
+            "你可以把整個章節理解成：Simple Linear Regression 只有一條「解釋軸」；Multiple Linear Regression 同時放入多個解釋因素。",
+            "例如房價不只由面積決定，也可能受到屋齡、地點、房間數等因素影響。因此更接近現實世界。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不要因為名字有 multiple 就以為有多個 Y。Multiple 指的是多個 predictor / feature，outcome Y 仍然只有一個。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 1; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 2 — 本片學習地圖：你要掌握的 6 個核心",
+          "paragraphs": [
+            "原課件第 2 頁",
+            "一句話核心  第 2 頁其實是一張 syllabus：模型怎樣擴展、公式怎樣看、係數怎樣解釋、為何更準、怎樣判斷 feature 重要、以及怎樣避免模型太複雜。",
+            "投影片 / 影片在教什麼",
+            "由 simple regression 擴展到 multiple regression。",
+            "理解 multiple regression equation。",
+            "掌握最重要句子：holding others fixed。",
+            "理解多個 predictors 對 prediction accuracy 的好處。",
+            "學習 feature importance 的基本判斷方法。",
+            "連到 real-world applications 與 model selection。",
+            "淺白詳細拆解",
+            "這 6 點其實有一條因果鏈：加入更多 X → 每個 β 有「條件式」含義 → 模型能解釋更多 variation → 但要判斷哪些 X 真正有用 → 最後要用 validation 防 overfitting。",
+            "所以不要把每一頁分散背誦；要把它們看成同一個模型生命週期。"
+          ]
+        },
+        {
+          "heading": "常見誤解  只背公式但不理解 holding others fixed，通常是學 Multiple Regression 最大的斷點。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 2; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 3 — From Simple to Multiple Predictors：從一條線到平面",
+          "paragraphs": [
+            "原課件第 3 頁",
+            "一句話核心  Simple regression 是 Y = β₀ + β₁X + ε；Multiple regression 只是再加 β₂X₂、β₃X₃……，讓多個因素同時參與預測。",
+            "投影片 / 影片在教什麼",
+            "Simple Linear Regression：只有一個 predictor X。",
+            "Multiple Linear Regression：有 X₁, X₂, …, Xₚ 多個 predictors。",
+            "房價例子由「size only」擴展成 size + location + age。",
+            "影片口述補充：一個 predictor 時，幾何上是 2D 的 line；兩個 predictors 時是 3D 的 plane；更多 predictors 時稱 hyperplane。",
+            "淺白詳細拆解",
+            "公式：Y = β₀ + β₁X₁ + β₂X₂ + … + βₚXₚ + ε。每增加一個 predictor，就增加一個對應 coefficient β。",
+            "為什麼仍叫 linear？因為模型把 predictors 以「係數 × feature 再相加」的線性方式組合；在兩個 X 的情況，預測面是一個平面。",
+            "注意 p 是 predictor 的數量；n 通常是 observations / rows 的數量。這兩個符號之後在 matrix notation 很重要。",
+            "例子  如果 Y=房價，X₁=面積，X₂=屋齡，X₃=地點，那模型是在同一時間考慮三者，而不是先做三條完全獨立的 regression。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  Multiple Linear Regression 不是把三個 simple regressions 疊在一起；所有 β 是在同一個共同模型中一起估計。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 3; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 4 — The Multiple Regression Equation：每一個符號是什麼",
+          "paragraphs": [
+            "原課件第 4 頁",
+            "一句話核心  這一頁要做的只是把公式拆開：Y 是你想預測的結果；X 是輸入；β 是模型學到的權重；ε 是模型未能解釋的部分。",
+            "投影片 / 影片在教什麼",
+            "Y：target / outcome。",
+            "X₁, X₂, …, Xₚ：predictor variables / features。",
+            "β₀：intercept；β₁, …, βₚ：每個 predictor 的 coefficient。",
+            "ε：error term。",
+            "淺白詳細拆解",
+            "β₀ 可以理解為「所有 X 都等於 0 時，模型的基準值」。但是否有實際意義要看 X=0 是否合理。",
+            "βⱼ 的正負號告訴你方向：βⱼ>0 表示 Xⱼ 增加時，Y 的預測傾向增加；βⱼ<0 表示傾向下降——前提是其他 predictors 固定。",
+            "課外補充：理論式寫 ε；在手上已有資料並完成擬合後，我們常寫 residual eᵢ = yᵢ − ŷᵢ。ε 是理論誤差，residual 是觀察到的「實際 − 預測」。",
+            "例子  若 β₂ = −2000 而 X₂ 是屋齡，代表屋齡每增加 1 年，模型預測價格下降 $2,000（其他條件不變）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不要把 β 當作固定的自然定律。它是根據資料、features、樣本與模型假設估計出來的。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 4; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 5 — Key Concept — Holding Others Fixed：Multiple Regression 的靈魂",
+          "paragraphs": [
+            "原課件第 5 頁",
+            "一句話核心  你要看 X₁ 的影響，就只讓 X₁ 改變；X₂、X₃……全部「按住不動」。因此 β₁ 是 X₁ 的 partial / conditional effect。",
+            "投影片 / 影片在教什麼",
+            "課件定義：β₁ = X₁ 增加 1 單位時 Y 的變化，而 X₂, X₃, … 保持固定。",
+            "左圖：固定不同屋齡，再看 size 對 price 的關係；每條線都是正斜率。",
+            "右圖：固定不同 size，再看 age 對 price 的關係；每條線都是負斜率。",
+            "圖中同方向而近似平行的線，反映這個 basic additive model 沒有加入 interaction term。",
+            "淺白詳細拆解",
+            "這個概念之所以重要，是因為現實中的 predictors 常常一起變。例如大屋可能也有更多 bedrooms。如果你只看 size vs price，size 可能「順便帶著 bedrooms 的效果」。",
+            "Multiple regression 嘗試問一個更精確的問題：「假設兩間屋其他條件相同，只差 1 sq ft，價格平均差多少？」這就是 β₁ 的意思。",
+            "因此 β₁ 不是單純 correlation；它是模型條件下、控制其他 features 後的關聯。",
+            "例子  想比較 2000 sq ft 與 2001 sq ft 的兩間屋：若 age 和 location 完全相同，β₁ 就是模型預測的價格差。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  holding fixed 是數學/模型上的比較，不代表現實世界中你真的能找到兩個其他條件 100% 一樣的樣本。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 5; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 6 — House Price Example：把 β 變成真正可以讀的句子",
+          "paragraphs": [
+            "原課件第 6 頁",
+            "一句話核心  這頁用數字把係數翻譯成人話：每 +1 sq ft → +$110；每老 1 年 → −$2,000；premium location → +$50,000，全部都要加上「其他條件相同」。",
+            "投影片 / 影片在教什麼",
+            "β₁ = $110：每增加 1 sq ft，price +$110（same age/location）。",
+            "β₂ = −$2,000：每增加 1 年屋齡，price −$2,000（same size/location）。",
+            "β₃ = $50,000：premium location 相對於 baseline location +$50,000（same size/age）。",
+            "淺白詳細拆解",
+            "Location 多半是 categorical variable，所以實作上通常會編碼成 0/1 dummy variable。若 Location=1 代表 premium，Location=0 是 baseline，β₃ 就是兩種 location 的預測差。",
+            "這頁沒有給 β₀，所以不能從課件直接算「一間特定房屋的完整 predicted price」。但是我們可以算兩間屋之間的差異，因為 intercept 在相減時會消失。",
+            "例子  兩間屋 B 相比 A：面積多 200 sq ft、屋齡多 5 年，而且 B 在 premium location。預測差 = 200×110 + 5×(−2000) + 50000 = +$62,000。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  β₃=$50,000 不是「location 每增加 1 單位」這麼直觀，因為 categorical variable 的 1 單位通常代表從 baseline category 切換到另一 category。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 6; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 7 — Why Multiple Predictors? — Improved Prediction",
+          "paragraphs": [
+            "原課件第 7 頁",
+            "一句話核心  只用 size 會漏掉 age、location 等資訊；加入真正相關的 features 後，predictions 往往更貼近真實值，殘差變小。",
+            "投影片 / 影片在教什麼",
+            "課件指出 relevant features 通常能提升 predictive accuracy。",
+            "單一 predictor 可能漏掉重要 relationships。",
+            "多個 predictors 可以解釋更多 Y 的 variation。",
+            "頁面示例圖中，size-only 的 R² 約 0.83，而 size + age + location 約 0.94。",
+            "淺白詳細拆解",
+            "R² 可以粗略理解為：模型解釋了 Y 變異的多少比例。0.83 表示約 83% 的 variation 在這個示例中由模型解釋；0.94 則更高。",
+            "「更高的 R²」通常意味 training fit 更好，但這不是保證模型在新資料一定更好。因此第 12 頁會提醒 overfitting。",
+            "從圖形看，multiple-predictor model 的點更貼近理想預測關係，表示 errors / residuals 更小。",
+            "例子  若兩間屋 size 一樣，但一間 5 年、一間 40 年；size-only model 可能給出很接近的價格，而 multiple model 可以利用 age 拉開預測。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不是「feature 越多越好」，而是「有用、可泛化的 feature」越多越可能幫助。垃圾 feature 也可能令模型更差。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 7; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 8 — Unique Contributions：把互相纏在一起的 predictors 拆開看",
+          "paragraphs": [
+            "原課件第 8 頁",
+            "一句話核心  當 size 和 bedrooms 彼此相關，simple regression 容易混淆二者；multiple regression 會在同一模型中控制另一個 predictor，估計每個變數的獨特貢獻。",
+            "投影片 / 影片在教什麼",
+            "問題：predictors can be correlated with each other。",
+            "單一 predictor 的模型可能 confuse their effects。",
+            "Multiple regression 透過 controls for other predictors 來看各變數的 contribution。",
+            "課件例子：bigger houses → more bedrooms，因此 size 和 bedrooms 有 correlation。",
+            "淺白詳細拆解",
+            "假設 bedroom 多的房子通常也更大。若只做 Price ~ Bedrooms，bedrooms coefficient 可能同時吸收「更大面積」帶來的影響。",
+            "加入 Size 後，Bedrooms coefficient 變成：「在 size 一樣的情況下，多一間 bedroom 還會帶來多少價格差？」這就是 unique / partial contribution。",
+            "課外補充：如果兩個 predictors 高度相關，會出現 multicollinearity，令個別 coefficients 的估計變得不穩定、標準誤變大。Multiple regression 不會神奇地消除這個統計問題。",
+            "例子  兩間同樣 2000 sq ft 的屋，一間 3 bedrooms、一間 4 bedrooms。此時 bedrooms coefficient 比單純比較所有 3 房與 4 房的平均價格更接近「房間數本身」的條件式關聯。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  課件用 “true effect” 作直觀說法；更嚴謹地說，multiple regression 估計的是「在模型與假設下的 partial association」。沒有實驗/因果設計時，不要自動把 coefficient 當成 causal effect。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 8; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 9 — Evaluating Feature Importance：哪個 predictor 最有用？",
+          "paragraphs": [
+            "原課件第 9 頁",
+            "一句話核心  不能只問「β 最大的是誰」。課件提出三條主線：係數大小、加入 feature 後 R² 提升多少、以及在 cross-validation / ablation 中拿掉 feature 會掉多少 performance。",
+            "投影片 / 影片在教什麼",
+            "Coefficient magnitude：|β| 大，可能代表影響較強。",
+            "R² improvement：加入某 feature 後 R² 提升多少。",
+            "Cross-validation：有/沒有某 predictor 時，比較 unseen-fold performance。",
+            "Feature ablation：移除 feature，看 performance drop。",
+            "淺白詳細拆解",
+            "Coefficient magnitude 很直觀，但不同 feature 的單位不同時不宜直接比較。例如 size 用 sq ft、age 用 year；110 與 2000 的數字大小不能直接說 age 一定「更重要」。",
+            "若要比較 coefficients，可以先做 standardization，或改用 performance-based importance。",
+            "Cross-validation / ablation 更貼近 ML 的問題：「這個 feature 對新資料 prediction 到底有沒有幫助？」而不只是看 training fit。",
+            "例子  拿掉 Age 後 CV RMSE 明顯變差，代表 Age 對泛化預測有實際貢獻；如果幾乎沒變，Age 可能是冗餘 feature。"
+          ]
+        },
+        {
+          "heading": "常見誤解  原始 coefficient 的 absolute value 只有在 feature scale 有可比性時才適合直接比較。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 9; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 10 — Fitting Multiple Regression：Least Squares 完全沒有換核心",
+          "paragraphs": [
+            "原課件第 10 頁",
+            "一句話核心  從 simple 到 multiple，最小平方法的目標不變：找一組 β，令所有 residual 的平方和 SSE = Σ(yᵢ−ŷᵢ)² 最小。唯一真正改變的是 X 由一欄變成很多欄。",
+            "投影片 / 影片在教什麼",
+            "與 simple regression 一樣使用 Least Squares。",
+            "Minimize sum of squared residuals。",
+            "同時找最佳 β₀, β₁, …, βₚ。",
+            "軟體會輸出 coefficients、R²、predictions、residuals。",
+            "淺白詳細拆解",
+            "對第 i 筆資料，ŷᵢ = β₀ + β₁xᵢ1 + β₂xᵢ2 + … + βₚxᵢp。Residual eᵢ = yᵢ − ŷᵢ。",
+            "Least Squares 把每個 eᵢ 平方，再加起來：SSE = Σeᵢ²。模型會選令這個數字最小的 coefficients。",
+            "Matrix view：把每筆 observation 放成 X 的一列，每個 predictor 放成一欄，再加一欄 1 處理 intercept。於是 ŷ = Xβ。",
+            "課外補充：在條件適合時，closed-form normal equation 是 β̂=(XᵀX)⁻¹Xᵀy；實際數值軟體常以 QR / SVD 等方法提升穩定性。",
+            "例子  Simple regression 的 X 可能只有 [1, size] 兩欄；multiple regression 則是 [1, size, age, location] 四欄。Least Squares 的「目的」完全一樣。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不要以為加入更多 predictors 就需要一套新的 loss function。基本 OLS 仍然是在最小化同一個 SSE。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 10; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 11 — Real-World Examples：為什麼 Multiple Regression 是很自然的 baseline",
+          "paragraphs": [
+            "原課件第 11 頁",
+            "一句話核心  現實 outcome 幾乎都由多個因素共同決定，所以 multiple regression 是很多領域最自然的第一個 baseline model。",
+            "投影片 / 影片在教什麼",
+            "Real Estate：size、age、location → house price。",
+            "Healthcare：treatment、dosage、age → patient outcome。",
+            "Marketing：channels、seasonality、pricing → sales。",
+            "Transportation：engine size、weight → fuel efficiency。",
+            "Environment：location、altitude、time → temperature。",
+            "淺白詳細拆解",
+            "這一頁的真正訊息不是記住五個行業，而是建立「多因素思維」：一個 outcome 通常不是由單一 X 決定。",
+            "Linear regression 的優勢是容易解釋：你可以清楚看到每個 predictor 在 holding others fixed 下的 coefficient；因此即使之後用更複雜 ML，multiple regression 仍常被用作 baseline。",
+            "例子  Marketing 若只用 ad spend 預測 sales，可能把 Christmas season 的旺季效果錯算成廣告效果；加入 seasonality 後可以部分控制。"
+          ]
+        },
+        {
+          "heading": "常見誤解  「多因素」不代表所有因素都應該塞入模型。變數必須有合理定義、資料品質與 validation 支持。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 11; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 12 — Model Selection & Overfitting：R² 變高不代表真的變好",
+          "paragraphs": [
+            "原課件第 12 頁",
+            "一句話核心  加 predictors 幾乎可以讓 training fit 不變差，但太多 predictors 可能開始記住 noise；所以模型好不好要看 unseen data，而不是只看 training R²。",
+            "投影片 / 影片在教什麼",
+            "課件：Adding more predictors generally improves fit on training data (R² increases)。",
+            "風險：too many predictors → overfitting。",
+            "使用 domain knowledge 選 meaningful predictors。",
+            "在 unseen data 驗證 performance。",
+            "在 complexity 與 interpretability 之間取得平衡。",
+            "淺白詳細拆解",
+            "為什麼 training R² 幾乎不會因加入普通 predictor 而下降？因為新模型至少可以把新 coefficient 設成 0，退回舊模型；因此它的可選空間只會更大。",
+            "但 test / validation performance 可能先改善、之後惡化：新 variables 開始吸收 training sample 的偶然 noise。",
+            "因此 ML 的正確判斷不是「training R² 最大」，而是「unseen-data error 最好，而且模型複雜度合理」。",
+            "課外補充：Adjusted R² 會對增加 predictors 加入懲罰，但在 predictive ML 中，cross-validation / held-out test 通常更直接。",
+            "例子  你有 100 筆房價資料卻加入 90 個弱相關 features，training R² 可能很漂亮，但新房屋的 prediction 可能很不穩定。",
+            "自製補充圖解（根據本頁概念重畫，用於理解；非原投影片資料圖）。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不要用 test set 一次又一次挑 features，否則 test set 也會被「間接 overfit」。通常用 train/validation/CV 做選擇，最後 test 做一次評估。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 12; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "Page 13 — What We’ve Covered：把全片壓成一條主線",
+          "paragraphs": [
+            "原課件第 13 頁",
+            "一句話核心  Multiple regression = 多個 X + 同一個 Y + 每個 β 都是 holding others fixed 的條件式影響 + 用 least squares 一起估計 + 用 validation 防 overfitting。",
+            "投影片 / 影片在教什麼",
+            "Simple → Multiple：由一個 predictor 擴展到多個。",
+            "Coefficient interpretation：holding others fixed。",
+            "Benefits：prediction accuracy + unique contributions。",
+            "Feature importance：coefficient / R² / CV / ablation。",
+            "Real-world applications + model selection。",
+            "淺白詳細拆解",
+            "如果你只能記住一句：ŷ = β₀ + β₁X₁ + … + βₚXₚ，而且每個 βⱼ 都要讀成「其他 X 固定時，Xⱼ 增加 1 單位，ŷ 改變 βⱼ」。",
+            "如果你再多記一句：模型仍然用 least squares 找 coefficients，但加入 variables 後要更重視 correlation、feature selection、cross-validation 與 overfitting。"
+          ]
+        },
+        {
+          "heading": "常見誤解  不要把「模型更複雜」等同「模型一定更好」。真正目標是能在新資料上穩定泛化。",
+          "paragraphs": [
+            "Source: Multiple Linear Regression PDF, page 13; paired video transcript used for spoken context where noted."
+          ]
+        },
+        {
+          "heading": "14. 全章公式表",
+          "paragraphs": [
+            "概念 | 公式 / 表達 | 淺白意思",
+            "Multiple regression | Y = β₀ + β₁X₁ + … + βₚXₚ + ε | 多個 feature 的加權總和 + 誤差",
+            "Prediction | ŷᵢ = β₀ + β₁xᵢ1 + … + βₚxᵢp | 第 i 筆資料的預測值",
+            "Residual | eᵢ = yᵢ − ŷᵢ | 真實值 − 預測值",
+            "SSE | Σ(yᵢ − ŷᵢ)² | 所有 residual 平方後相加",
+            "Matrix | ŷ = Xβ | 所有資料一次矩陣運算",
+            "Normal equation（補充） | β̂ = (XᵀX)⁻¹Xᵀy | 條件允許時的 closed-form OLS solution"
+          ]
+        },
+        {
+          "heading": "15. Holding Others Fixed — 終極比喻",
+          "paragraphs": [
+            "控制台比喻  想像 Size、Age、Location 是三個旋鈕。要解讀 β_size：只把 Size 轉 +1，Age 和 Location 完全不動。螢幕上的 predicted price 變化，就是 β_size。"
+          ]
+        },
+        {
+          "heading": "16. 5 個必懂問題",
+          "paragraphs": [
+            "Q1. Multiple Linear Regression 的 “multiple” 指什麼？",
+            "A. 多個 predictors / features，不是多個 target Y。",
+            "Q2. β₁ 要怎樣解讀？",
+            "A. X₁ 增加 1 單位時，Y 的預測改變 β₁，前提是其他 X 固定。",
+            "Q3. 為什麼 multiple regression 可能比 simple regression 更準？",
+            "A. 因為能利用更多與 Y 有關的資訊，解釋更多 variation。",
+            "Q4. Least Squares 在 multiple regression 有沒有變？",
+            "A. 核心沒有變，仍然 minimize SSE；只是同時估計更多 β。",
+            "Q5. 為什麼不能無限加 features？",
+            "A. Training fit 可能一直變好，但會增加 overfitting，unseen-data performance 可能變差。"
+          ]
+        },
+        {
+          "heading": "17. Final Mental Model",
+          "paragraphs": [
+            "一條主線  現實 Y 受很多因素影響 → 放入 X₁…Xₚ → 用 Least Squares 同時找 β → 每個 β 用 holding others fixed 解讀 → relevant features 可能提高 prediction → 但太多 / 太相關 features 會帶來 overfitting / multicollinearity → 最後用 domain knowledge + CV + unseen data 選模型。"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 4,
+      "courseSection": "Simple and Multiple Regression",
+      "courseSectionId": "simple-and-multiple-regression"
+    },
+    {
+      "id": "module2-13",
+      "module": "Module 2",
+      "unit": "Regression Assumptions and Diagnostics",
+      "title": "Regression Assumptions and Diagnostics 逐頁詳細分析",
+      "sourcePath": "Regression_Assumptions_and_Diagnostics_逐頁詳細分析.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 420,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Regression Assumptions",
+            "& Diagnostics",
+            "PDF 13 頁逐頁詳細分析｜附原頁截圖｜淺白 + 公式 + 圖像判讀",
+            "核心主線  Fit model → 計算 residual → 看 residual pattern → 判斷哪個 assumption 出問題 → 修改 model / data strategy",
+            "本筆記以課程 PDF 的 13 頁順序為骨架，保留原課件的術語、圖表與重點；額外的數學直覺、例子與實務補充會明確作為「延伸理解」。",
+            "課件：Regression Assumptions & Diagnostics（Supervised Learning, University of Colorado Boulder）。"
+          ]
+        },
+        {
+          "heading": "0. 全章先建立一個 Mental Model",
+          "paragraphs": [
+            "Y = Ŷ + e",
+            "實際值 = 模型解釋到的部分 + 模型仍然解釋不到的 residual",
+            "Regression diagnostics 的核心不是問「電腦有沒有成功算出係數」，而是問：模型剩下的錯誤 e 是否仍然藏著有規律的 pattern。",
+            "一句話記憶  Residual 如果是 random noise，通常比較放心；Residual 如果有 curve、fan、cluster、極端點，模型可能漏掉重要結構。",
+            "四個核心假設可記成 L-I-C-N：",
+            "縮寫 | Assumption | 最簡單意思 | 主要看什麼",
+            "L | Linearity | 模型形式能捕捉 X→Y 的主要關係 | Residual 是否呈 curve / systematic pattern",
+            "I | Independence | 每筆 observation 的 error 不應互相牽連 | Repeated data / time series / clustering",
+            "C | Constant Variance | 不同 prediction level 的 error spread 大致一致 | Residual plot 是否呈 fan / funnel",
+            "N | Normality | Residual distribution 大致呈 normal bell shape | Histogram / Q-Q plot",
+            "本課程特別強調 prediction-oriented 的觀點：gross violation of linearity 最直接傷害 prediction accuracy；normality 對 point prediction 相對沒有那麼關鍵。"
+          ]
+        },
+        {
+          "heading": "Page 1 — Regression Assumptions & Diagnostics",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 1",
+            "這一頁在做什麼？",
+            "封面頁，正式把主題從「如何 fit 一條 regression」推進到「fit 完之後，如何檢查這條 regression 是否可信」。",
+            "前面學過 least squares / OLS 時，我們可以算出一組 coefficients；但「算得出」不等於「模型形式適合資料」。",
+            "和前面 Linear Regression 的連接",
+            "Simple / Multiple Linear Regression 一般寫作：Ŷ = β₀ + β₁X₁ + … + βₚXₚ。",
+            "OLS 會選擇一組 β，使殘差平方和 Σ(yᵢ − ŷᵢ)² 盡量小。",
+            "Diagnostics 則是下一步：即使 SSE 已經最小，仍要問 residual 的形狀是否合理。",
+            "最重要直覺",
+            "假設真實關係是 y = x²，但你硬套 y = a + bx，OLS 仍會給你『最佳直線』；只是那條最佳直線仍可能系統性地錯。",
+            "因此：Optimization 解決『在你指定的模型家族中，哪一組係數最好』；Diagnostics 解決『你指定的模型家族本身是否合理』。",
+            "ŷ = β₀ + β₁x   ;   choose β to minimize Σ(yᵢ − ŷᵢ)²",
+            "OLS 給你『指定模型形式之內』的最佳係數；diagnostics 再判斷模型形式是否合理。"
+          ]
+        },
+        {
+          "heading": "Page 2 — Contents of This Video",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 2",
+            "PDF 列出的六個學習目標",
+            "四個 linear regression assumptions。",
+            "為什麼 assumptions 會影響 prediction。",
+            "用 diagnostic tools 檢查 assumptions。",
+            "Residual plot 如何判讀。",
+            "Outliers 與 high leverage points。",
+            "Assumptions violated 時可以怎樣處理。",
+            "整章工作流程",
+            "Step 1：Fit model，得到每筆 fitted value ŷᵢ。",
+            "Step 2：計算 residual eᵢ = yᵢ − ŷᵢ。",
+            "Step 3：畫 residual vs fitted、histogram、Q-Q plot。",
+            "Step 4：看有沒有 curve、fan、outlier、correlation / clustering。",
+            "Step 5：如果問題重大，再改 model specification、transform、split strategy 或 specialized model。",
+            "Residual 正負號要記清楚",
+            "e = y − ŷ。若 e > 0：真實值比預測高，模型 underpredict。",
+            "若 e < 0：真實值比預測低，模型 overpredict。",
+            "例如真實樓價 800k、預測 750k，residual = +50k；真實 700k、預測 750k，residual = −50k。",
+            "eᵢ = yᵢ − ŷᵢ",
+            "e > 0：underpredict；e < 0：overpredict"
+          ]
+        },
+        {
+          "heading": "Page 3 — The Four Key Assumptions",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 3",
+            "四個核心假設",
+            "Linearity：predictors 與 outcome 的 relationship 符合目前模型所假定的 linear form。",
+            "Independent errors：一個 observation 的 residual/error 不應由另一筆 observation 的 error 決定。",
+            "Constant variance (Homoscedasticity)：不同 prediction levels 的 residual spread 大致相同。",
+            "Normality of errors：residuals approximately normally distributed。",
+            "先分清 Error 與 Residual",
+            "理論模型：yᵢ = β₀ + β₁xᵢ + εᵢ，其中 εᵢ 是 population 中真正但不可直接觀察的 error。",
+            "實際 fit 完 model 後：eᵢ = yᵢ − ŷᵢ，eᵢ 是我們看得到、可以畫圖的 residual。",
+            "初學時可以把 residual 理解為『模型這一筆猜錯多少』；嚴格統計上，residual 是 error 的樣本估計。",
+            "四項數學直覺",
+            "Linearity：E(Y|X) 的 systematic part 能被目前 linear specification 捕捉。",
+            "Independence：不同 εᵢ 不應帶有未建模的相依關係。",
+            "Constant variance：Var(ε|X) = σ²，不因 prediction level 改變。",
+            "Normality：ε approximately follows N(0, σ²)；注意不是要求 X 或 Y 本身一定 normal。",
+            "yᵢ = β₀ + β₁xᵢ + εᵢ     →     eᵢ = yᵢ − ŷᵢ",
+            "ε 是理論 error；e 是 fit 完後可觀察的 residual。",
+            "記憶法 L-I-C-N  Linearity / Independence / Constant Variance / Normality"
+          ]
+        },
+        {
+          "heading": "Page 4 — Linearity Assumption",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 4",
+            "左圖：Linear Relationship ✓",
+            "散點大致沿著 straight-line trend，linear model 能抓住主要方向。",
+            "如果 residual 只是圍繞 0 隨機上下波動，表示模型沒有遺留下明顯的 systematic relationship。",
+            "右圖：Non-linear Relationship ✗",
+            "真實 relationship 是曲線，但模型只給直線。",
+            "結果不是『偶然錯』，而是在 low / middle / high X 區域出現有規律的 underprediction / overprediction。",
+            "這種 systematic mistake 會在 residual plot 中形成 curve。",
+            "為什麼嚴重？",
+            "如果真正 f(x) = x²，但模型指定 f(x) = a + bx，資料再多也只是估到一條更穩定的『錯誤形狀』。",
+            "這叫 model misspecification：模型形式沒有捕捉真正的關係。",
+            "重要延伸：Polynomial 仍可屬於 Linear Regression",
+            "模型 ŷ = β₀ + β₁x + β₂x² 在 X–Y 圖上是 curve，但對 coefficients β₀、β₁、β₂ 仍然是 linear。",
+            "所以『linear model』的 linear，重點是 parameters 進入模型的方式，而不是圖一定只能畫成直線。",
+            "True: y = x²    vs    Fitted: ŷ = a + bx",
+            "若 residual 出現有規律的 U-shape，表示直線模型漏掉 nonlinear structure。",
+            "ŷ = β₀ + β₁x + β₂x²",
+            "雖然圖可以是曲線，但對 β 仍是 linear，因此仍屬 linear regression framework。"
+          ]
+        },
+        {
+          "heading": "Page 5 — Independence Assumption",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 5",
+            "定義",
+            "Each observation’s error is unrelated to others。最直觀地說：知道 observation A 的 error，不應讓你能系統性預測 observation B 的 error。",
+            "通常比較合理的情況",
+            "不同家庭、彼此無連接的個體、不同市場區域等 observations，若抽樣設計也合理，independence 比較容易成立。",
+            "三種典型 violation",
+            "Repeated measurements：同一個人/entity 被量度多次。",
+            "Time series：相鄰時間點可能有 autocorrelation。",
+            "Spatial clustering：地理上接近的 observations 共享 neighbourhood / environment effects。",
+            "為什麼 repeated data 特別容易中招？",
+            "例如同一個人的 smart watch 每小時產生一筆紀錄。資料表有 1000 行，不代表真的有 1000 個獨立的人。",
+            "同一個人的生活習慣、身體狀態、裝置特徵會令多筆 records 互相關聯。",
+            "ML 實務：資料切分也會被影響",
+            "如果同一個人的 9AM record 在 train、11AM record 在 test，test set 未必真正獨立。",
+            "Grouped data 常用 group-aware split；time series 常使用 time-based split，而不是完全 random split。",
+            "Corr(eₜ, eₜ₋₁) ≠ 0",
+            "時間序列若 residual 有 autocorrelation，就不符合 errors independent 的直覺。",
+            "資料切分提醒  同一人/同一 entity 的 records 不應隨意同時散落 train 與 test；time series 也不宜任意打亂時間。"
+          ]
+        },
+        {
+          "heading": "Page 6 — Constant Variance (Homoscedasticity)",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 6",
+            "定義",
+            "Residuals should have equal spread across all prediction levels。",
+            "數學直覺：Var(ε|X) = σ²，error variance 不應隨 X 或 fitted value 系統性增大/縮小。",
+            "左圖：Constant Variance ✓",
+            "Residual 在 0 上下形成大致同樣寬度的 random cloud。",
+            "低 fitted value、中 fitted value、高 fitted value 的 vertical spread 沒有明顯擴張。",
+            "右圖：Increasing Variance ✗",
+            "Residual plot 由窄變闊，形成 fan / funnel。",
+            "這種情況稱為 heteroscedasticity：不同 prediction levels 的 uncertainty 不一樣。",
+            "Income 例子",
+            "低收入者可能收入結構相對穩定，prediction error 較小；高收入者可能包含 bonus、investments、business income，variation 更大。",
+            "因此高 fitted income 區域的 residual spread 可能顯著變寬。",
+            "為什麼會影響 reliability？",
+            "兩個 prediction 都是一個數字，但 uncertainty 可能完全不同。",
+            "例如 ŷ = 50k、典型誤差 ±2k，和 ŷ = 500k、典型誤差 ±200k；後者明顯更不可靠。",
+            "Var(ε | X) = σ²",
+            "Homoscedasticity：條件 variance 大致保持 constant。",
+            "一眼記圖  Residual fan / funnel → 想起 heteroscedasticity（non-constant variance）。"
+          ]
+        },
+        {
+          "heading": "Page 7 — Normality of Errors",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 7",
+            "PDF 的重點",
+            "Residuals 應該 approximately normally distributed。",
+            "但課程明確說：對 prediction 不是最 critical；ML application 中通常比 linearity 等假設次要；large samples 時更加不那麼關鍵。",
+            "Normal residual 長什麼樣？",
+            "Histogram 大致 bell-shaped、左右相對 symmetric、中心通常接近 0。",
+            "簡化可寫作 ε ~ N(0, σ²)。",
+            "Skewed residual 意味著什麼？",
+            "大量 residual 集中一邊，另一邊拖出 long tail，可能表示 outliers、skewed outcome、missing structure 或 transformation 有幫助。",
+            "最常見誤解",
+            "不是要求 X normal；也不是要求 Y 一定 normal。",
+            "課程談的是 errors / residuals 的分布。",
+            "為什麼對 prediction 沒那麼關鍵？",
+            "Least squares 的 point prediction 仍然可以在 residual 非完美 normal 時運作。",
+            "Normality 更直接關係到傳統統計 inference（例如 small-sample standard errors / confidence intervals / tests）的理論條件；本課程焦點偏 prediction。",
+            "ε ~ N(0, σ²)",
+            "課程說的是 errors/residuals approximately normal，而不是 X 或 Y 本身必須 normal。"
+          ]
+        },
+        {
+          "heading": "Page 8 — Residual Plots: Primary Diagnostic Tool",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 8",
+            "座標軸",
+            "X 軸：fitted values ŷᵢ。",
+            "Y 軸：residual eᵢ = yᵢ − ŷᵢ。",
+            "中央水平線：e = 0。",
+            "左上：Good Random Pattern ✓",
+            "點在 0 上下 random 分布，沒有明顯 curve、fan 或 isolated extreme points。",
+            "直覺：模型已經吸收主要 systematic pattern，剩下主要是 noise。",
+            "右上：Nonlinearity ✗",
+            "Residual 呈明顯 U-shape / curve。",
+            "低 fitted value 一種方向的錯、中間相反、高 fitted value 又回到原方向，表示模型持續有規律地犯錯。"
+          ]
+        },
+        {
+          "heading": "常見對策：加入 polynomial / interaction / transformation，或改用更 flexible model。",
+          "paragraphs": [
+            "左下：Heteroscedasticity ✗",
+            "Residual spread 隨 fitted values 增加而變大，形成 fan。",
+            "一眼記法：『扇形 = variance problem』。",
+            "右下：Outliers ✗",
+            "大部分 residual 靠近 0，但少量 points 遠離整體 cloud。",
+            "這些 observations 對 model prediction 錯得特別嚴重，應進一步查原因。",
+            "一張圖可以同時做很多診斷",
+            "Residual-vs-fitted 是本章最核心的 first-line diagnostic，因為一張圖能同時看到 nonlinearity、non-constant variance、outliers 等問題。",
+            "Residual plot:  x-axis = ŷᵢ    ;    y-axis = eᵢ = yᵢ − ŷᵢ",
+            "理想：圍繞 0 的 random cloud，沒有可預測的 pattern。",
+            "超高頻考點  Curve → nonlinearity；Fan → heteroscedasticity；isolated large residual → outlier。"
+          ]
+        },
+        {
+          "heading": "Page 9 — Checking Normality of Residuals",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 9",
+            "工具 1：Histogram",
+            "把 residuals 分箱畫出 frequency / density。",
+            "理想上大致 symmetric、bell-shaped、center around 0。",
+            "缺點：外觀會受 bin width 與 sample size 影響，因此單靠肉眼 histogram 不一定穩。",
+            "工具 2：Q-Q Plot",
+            "Q-Q = Quantile–Quantile。",
+            "它把 sample residual quantiles 與 theoretical normal quantiles 比較。",
+            "如果 residual distribution 與 normal distribution 很接近，點會大致貼住 diagonal line。",
+            "Quantile 可以怎樣理解？",
+            "先把 residuals 排序，再比較某些 percentile（例如 10%、25%、50%、75%、90%）的位置。",
+            "Normal distribution 也有相對應的 theoretical quantiles；Q-Q plot 就是把兩邊逐點配對。",
+            "怎樣看偏離？",
+            "整體貼線：normality reasonable。",
+            "兩端偏得特別厲害：可能有 heavy tails / outliers。",
+            "整體呈彎曲或一邊偏離：可能有 skewness。",
+            "真實資料幾乎不會每一點完美貼線；重點看是否 gross departure。",
+            "Sample residual quantiles  ↔  Theoretical Normal quantiles",
+            "Q-Q points 越接近 diagonal line，normality 越合理。"
+          ]
+        },
+        {
+          "heading": "Page 10 — Detecting Outliers and Leverage Points",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 10",
+            "Outlier：主要是 Y / residual 異常",
+            "PDF 定義：large residual、unusual Y value、far from regression line。",
+            "即 X 可能並不特別，但 Y 和模型預期差得很遠。",
+            "High Leverage：主要是 X 異常",
+            "PDF 定義：extreme predictor values / unusual X values。",
+            "因為它在 predictor space 離其他 data 很遠，所以有機會對 fitted line 產生 disproportionate influence。",
+            "最重要區分",
+            "Outlier = residual/Y 方向奇怪。",
+            "High leverage = predictor/X 方向奇怪。",
+            "一個 point 可以同時是兩者，也可以只屬於其中一種。",
+            "三個 case",
+            "Case A：X 普通，Y 極端 → outlier。",
+            "Case B：X 極端，但剛好沿著既有 trend → high leverage，但未必是 outlier。",
+            "Case C：X 極端，而且 Y 又遠離 trend → high leverage + outlier，通常最值得警惕。",
+            "延伸：Influence 是第三個概念",
+            "Influence 問的是：某 observation 實際令 fitted model 改變多少。",
+            "所以 high leverage 不等於一定 influential；如果它剛好落在原本趨勢線上，可能不會把 line 拉歪。"
+          ]
+        },
+        {
+          "heading": "常見進階 diagnostic（非本頁原文）包括 leverage/hat value、studentized residual、Cook’s distance。",
+          "paragraphs": [
+            "概念 | 主要『怪』在哪裡 | 核心判斷",
+            "Outlier | Y / residual | 離 regression line 很遠",
+            "High leverage | X / predictor space | X value 遠離其他 observations",
+            "Influential point（延伸） | 對 fitted model 的實際影響 | 刪掉它後 line / coefficients 改很多"
+          ]
+        },
+        {
+          "heading": "Page 11 — When Assumptions Are Violated",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 11",
+            "先接受一個現實",
+            "PDF 明確說：No dataset perfectly meets all assumptions — focus on major problems。",
+            "Diagnostics 不是追求『完美資料』，而是辨認會真正傷害模型的重大 violation。",
+            "Linearity violation",
+            "加入 polynomial terms，或使用更 flexible model。",
+            "例如真實關係像 x²，可由 ŷ = β₀ + β₁x + β₂x² 捕捉。",
+            "Non-constant variance",
+            "PDF 建議 transform Y，例如 log transformation。",
+            "直覺：有些資料的誤差是 percentage / multiplicative scale，而不是固定 absolute dollars；log transform 常可令 spread 更穩定。",
+            "Normality violation",
+            "對 prediction，尤其 large sample，往往不是最 critical。",
+            "但仍應查是否有 data entry error、outlier、special subgroup 或不合理的 scale。",
+            "Independence violation",
+            "使用能處理 time-series / clustering structure 的 specialized models 或方法。",
+            "重點不是『強行讓 data independent』，而是建模時承認 dependence。",
+            "本頁 key insight",
+            "課程直接指出：Linearity is most critical for prediction accuracy。",
+            "Violation | PDF 建議方向",
+            "Linearity | Add polynomial terms / flexible models",
+            "Non-constant variance | Transform Y，例如 log(Y)",
+            "Normality | Prediction 中 often not critical；查 outliers / transformation",
+            "Independence | Time-series / clustering specialized models"
+          ]
+        },
+        {
+          "heading": "Page 12 — Focus on Predictive Accuracy",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 12",
+            "這頁重新排序四個 assumptions 的重要性",
+            "Normality：not critical for predictive ability。",
+            "Independence：still important but often assumed。",
+            "Linearity：most critical；non-linear relationships hurt prediction。",
+            "Constant variance：會影響 prediction reliability。",
+            "為什麼 gross nonlinearity 最危險？",
+            "如果真實 E(Y|X) 的 shape 是 U-shaped，但模型只會畫 straight line，模型連 conditional mean 的主要形狀都估錯。",
+            "即使 residual 很接近 normal、樣本很大，wrong functional form 仍然會造成 systematic prediction error。",
+            "讀圖方式",
+            "頁面圖中真正 relationship 明顯呈 curved/U-shaped，而 linear prediction 幾乎是一條直線。",
+            "在不同 X range，直線有時高估、有時低估；因此錯誤是有 pattern，而非 random fluctuation。",
+            "不要過度解讀",
+            "這一頁不是說其他 assumptions 可以完全忽略。",
+            "尤其 time-series / repeated data 若 independence 被嚴重破壞，random train-test split 可能讓 test performance 失真。",
+            "Prediction-focused priority  最值得優先處理的是 gross nonlinearity，因為它直接讓模型系統性地估錯 relationship。"
+          ]
+        },
+        {
+          "heading": "Page 13 — What We’ve Covered",
+          "paragraphs": [
+            "PDF 原頁截圖 — Page 13",
+            "PDF 最終總結",
+            "Four assumptions：linearity、independence、constant variance、normality。",
+            "Diagnostic tools：residual plots、histograms、Q-Q plots。",
+            "辨認 outliers 與 high leverage points。",
+            "Assumption violated 時的常見處理方法。",
+            "理解 linearity 對 prediction accuracy 特別重要。",
+            "Practical approach：focus on major violations, not perfection。",
+            "把整章濃縮成六步"
+          ]
+        },
+        {
+          "heading": "1. Fit model，得到 ŷ。",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. 算 residual：e = y − ŷ。",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Residual vs fitted：找 curve / fan / outlier。",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Histogram / Q-Q：看 residual normality。",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. 看 predictor space：找 high leverage；並思考 time / group dependence。",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. 針對 major issue 改模型，再重新 fit 與 diagnostics。",
+          "paragraphs": [
+            "本章最值得記住的一句話",
+            "Residual 有 pattern，代表模型可能仍然漏掉本來應該解釋的 pattern。",
+            "整章一句話  Diagnostics = 檢查模型剩下的 residual 是否仍有可解釋的 structure。"
+          ]
+        },
+        {
+          "heading": "14. 全章整合：House Price 從頭到尾例子",
+          "paragraphs": [
+            "以下不是 PDF 額外新章節，而是把前 13 頁概念串成一次完整 workflow，方便真正理解。",
+            "Ŷ = 100,000 + 400 × Size",
+            "例：以房屋面積預測樓價。",
+            "假設 Size = 1,000 sq.ft.：",
+            "Ŷ = 100,000 + 400(1,000) = 500,000",
+            "若實際成交價 y = 550,000：",
+            "e = y − ŷ = 550,000 − 500,000 = +50,000",
+            "模型 underpredict 50,000。",
+            "情況 A：Residual 呈 U-shape",
+            "小屋 residual 多為正、中型屋多為負、大屋又多為正。",
+            "這不是 random miss，而是 systematic pattern → linearity problem。",
+            "可考慮加入 Size²：Ŷ = β₀ + β₁Size + β₂Size²。",
+            "情況 B：Residual 呈 Fan Shape",
+            "小屋誤差 ±10k，中型屋 ±50k，豪宅 ±300k。",
+            "Prediction level 越高，variance 越大 → heteroscedasticity。",
+            "PDF 建議方向之一：對 Y 做 log transformation。",
+            "情況 C：某一間屋 Y 極端",
+            "Size 看起來普通，但成交價遠高/低於 model trend。",
+            "Residual 很大 → outlier。",
+            "情況 D：某一間 Mansion 的 X 極端",
+            "大部分房屋 800–2,500 sq.ft.，突然出現 20,000 sq.ft.。",
+            "這是 high leverage；它是否 outlier 要再看 Y 是否離 regression trend 很遠。",
+            "情況 E：同一間房每月估值",
+            "Jan、Feb、Mar… 的 observations 來自同一 property，error 可能時間上 correlated。",
+            "這牽涉 independence；不能把它當作完全無關的 observations。"
+          ]
+        },
+        {
+          "heading": "15. 考試 / 溫習版 Diagnostic Cheat Sheet",
+          "paragraphs": [
+            "看到的現象 | 最先想到 | 原因 | 常見處理方向",
+            "Residual random cloud | 大致正常 | 沒有明顯 systematic pattern | 通常不用因圖本身改模型",
+            "Residual U-shape / curve | Linearity violation | 模型漏掉 nonlinear structure | Polynomial / transformation / flexible model",
+            "Residual fan / funnel | Heteroscedasticity | Variance 隨 fitted value 改變 | Transform Y（例如 log）",
+            "Histogram skew / Q-Q 偏線 | Normality issue | Residual distribution 與 normal 不吻合 | 查 outliers / transformation",
+            "巨大 vertical residual | Outlier | Y 與模型預測差得很遠 | Investigate observation",
+            "X 遠離其他 points | High leverage | Predictor value 極端 | Check influence / validity",
+            "Residual 隨時間有規律 | Independence issue | Autocorrelation | Time-aware modelling/splitting",
+            "同一人多筆資料 | Independence issue | Clustered/repeated measures | Group-aware approach"
+          ]
+        },
+        {
+          "heading": "16. 最後必背 10 句",
+          "paragraphs": [
+            "Residual = actual − predicted = y − ŷ。",
+            "e > 0 代表模型 underpredict；e < 0 代表模型 overpredict。",
+            "好的 residual plot 應該像沒有 pattern 的 random cloud。",
+            "Curve → 想 linearity / model misspecification。",
+            "Fan / funnel → 想 heteroscedasticity / non-constant variance。",
+            "Normality 指 residual/error 的 distribution，不是 X 或 Y 必須 normal。",
+            "Q-Q points 貼近 diagonal line → residual normality 較合理。",
+            "Outlier 主要是 Y / residual 異常；high leverage 主要是 X 異常。",
+            "Assumptions 不必完美；重點是找 major violations。",
+            "Prediction-focused context 下，gross violation of linearity 特別直接傷害 accuracy。",
+            "最終 Mental Model  Fit → Residual → Plot → Diagnose → Fix → Refit → Recheck。不要只看 R² / MSE 就停止。"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 5,
+      "courseSection": "Regression and Model Assessment",
+      "courseSectionId": "regression-and-model-assessment"
+    },
+    {
+      "id": "module2-11",
+      "module": "Module 2",
+      "unit": "Polynomial Regression and Model Flexibility",
+      "title": "Polynomial Regression Model Flexibility 800字精簡整理",
+      "sourcePath": "Polynomial_Regression_Model_Flexibility_800字精簡整理.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 23,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Polynomial Regression & Model Flexibility",
+            "多項式迴歸與模型彈性｜800字精簡整理",
+            "一句話核心：加入 X²、X³… 可以讓線性迴歸捕捉彎曲關係；但模型越有彈性，越要防止 overfitting。",
+            "1｜什麼是 Polynomial Regression？",
+            "這個單元的核心是：當 X 與 Y 的關係不是直線時，可以在線性迴歸中加入 X²、X³ 等多項式特徵，讓模型擬合彎曲趨勢。簡單線性迴歸 Y=β₀+β₁X+ε 只能畫直線；二次模型加入 β₂X²，可表達一個主要彎曲；三次模型再加入 β₃X³，可表達更複雜的上升、轉折與下降。",
+            "2｜為什麼仍可用 OLS？",
+            "雖然 polynomial regression 對 X 是非線性的，但對參數 β 仍然是線性的：β 只是分別乘上 X、X²、X³ 等特徵，沒有 β² 或 β₁β₂ 這類項。因此仍可使用 least squares / OLS 求最佳係數。從資料角度看，只是把原本一欄 X 擴充成 X、X²、X³……，再照原本線性迴歸的方法估計。",
+            "3｜Wage vs Age 如何理解？",
+            "Wage vs Age 是本單元的直覺例子。若真實關係有彎曲，直線容易漏掉主要模式；quadratic 或 cubic curve 可以更貼近資料。但多項式模型的單一係數較難直接解讀，因為 β₁、β₂、β₃ 會共同決定整條曲線，所以更應看整體 shape，例如「工資隨年齡上升，到某區間達高點，之後下降」。",
+            "4｜Degree 太低或太高會怎樣？",
+            "關鍵問題是 degree 應選多高。degree 太低，模型太僵硬，形成 underfitting；degree 太高，可能把 training data 的 noise 也學進去，形成 overfitting。即使 training R² 上升、training MSE 下降，也不代表新資料預測更好；真正重要的是 generalization，也就是未見資料上的 prediction error。",
+            "5｜Bias–Variance Trade-off",
+            "這就是 bias–variance trade-off：模型太簡單時 bias 高、variance 低；模型越複雜，bias 下降，但 variance 上升。總預測誤差通常呈 U 形，因此目標不是最高 degree，而是找到 validation error 最低附近的適當複雜度。",
+            "6｜實務上如何選 Degree？",
+            "實務上可由 linear、quadratic、cubic 開始，用 validation set 或 cross-validation 比較不同 degree，再用獨立 test set 做最後檢查。整章最重要的一句話是：增加模型彈性可以改善擬合，但每增加一分彈性，也要同時警惕 overfitting。",
+            "記憶脈絡",
+            "直線不夠 | 加入 X² / X³ | 彈性上升 | 防止過擬合 | Cross-validation 選 degree",
+            "整理依據：課程 PDF（12頁）＋影片逐字稿"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 6,
+      "courseSection": "Regression and Model Assessment",
+      "courseSectionId": "regression-and-model-assessment"
+    },
+    {
+      "id": "module2-12",
+      "module": "Module 2",
+      "unit": "Polynomial Regression and Model Flexibility",
+      "title": "Polynomial Regression Model Flexibility 逐頁詳細分析",
+      "sourcePath": "Polynomial_Regression_Model_Flexibility_逐頁詳細分析.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 330,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Polynomial Regression &",
+            "Model Flexibility",
+            "逐頁完整詳細分析｜繁體中文學習筆記",
+            "依據：University of Colorado Boulder - Supervised Learning",
+            "Daniel E. Acuna 教授｜PDF 12 頁 + 影片逐字稿",
+            "這份筆記的閱讀方法  每一頁都分成：PDF畫面 → 原頁重點 → 影片補充 → 淺白拆解 → 公式／圖形理解 → 易錯點與銜接。來源沒有明講的延伸內容會標成「補充理解」，避免把補充當成投影片原文。",
+            "整體脈絡先看懂",
+            "先發現問題：真實關係可能是彎的，直線模型會有結構性限制。",
+            "加入 X²、X³ 等多項式特徵，讓線性迴歸可以畫出彎曲的預測曲線。",
+            "雖然對 X 是非線性的，但對 β 係數仍然是線性的，所以仍可使用 least squares。",
+            "degree 越高，模型越靈活；訓練集通常越貼，但也越容易把 noise 當 signal。",
+            "因此不能只看 training R²／MSE，而要用 validation / cross-validation 選 degree。",
+            "最終目標不是「最複雜」，而是新資料 prediction error 最低、generalization 最好。",
+            "12 頁地圖"
+          ]
+        },
+        {
+          "heading": "1. 課題定位：Polynomial Regression & Model Flexibility",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. 本課路線圖與學習問題",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Linear vs Non-linear：為什麼直線不夠",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Polynomial Regression：數學形式與「仍是線性模型」",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Wage vs Age：不同 degree 的曲線比較",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. Polynomial coefficients 怎樣解讀",
+          "paragraphs": []
+        },
+        {
+          "heading": "7. Polynomial degree 怎樣選：太低 vs 太高",
+          "paragraphs": []
+        },
+        {
+          "heading": "8. Overfitting：training fit 好不代表新資料好",
+          "paragraphs": []
+        },
+        {
+          "heading": "9. Flexibility vs Simplicity：Bias-Variance Trade-off",
+          "paragraphs": []
+        },
+        {
+          "heading": "10. Model Selection：validation / cross-validation 的流程",
+          "paragraphs": []
+        },
+        {
+          "heading": "11. 其他增加 flexibility 的方法",
+          "paragraphs": []
+        },
+        {
+          "heading": "12. 全章總結：與 least squares / linear regression 接回同一條主線",
+          "paragraphs": []
+        },
+        {
+          "heading": "第 1 頁｜Polynomial Regression & Model Flexibility",
+          "paragraphs": [
+            "一句話抓重點  這一課的核心不是「換掉 linear regression」，而是把 linear regression 擴充得更能描述彎曲關係。",
+            "原 PDF 第 1 頁",
+            "原頁在做什麼？"
+          ]
+        },
+        {
+          "heading": "第 1 頁是課題封面，標示主題為 Polynomial Regression & Model Flexibility，屬於 Supervised Learning。這個標題其實把本課兩條主線直接放在一起：第一，如何用 polynomial terms 捕捉非線性；第二，模型越靈活時如何控制複雜度。",
+          "paragraphs": [
+            "影片開場補充",
+            "影片一開始強調：有時候不需要收集新的 predictor，只要把現有 X 轉換成 X²、X³ 等特徵，就可能大幅改善模型表現；但這種「增加複雜度」必須小心，因為複雜度同時帶來 overfitting 風險。",
+            "你應該先建立的心智模型",
+            "原本：X  →  Ŷ = β₀ + β₁X",
+            "只有一條直線",
+            "擴充：X  →  [X, X², X³, …]  →  Ŷ",
+            "仍用迴歸，但曲線可以彎",
+            "所以這一課不是要否定之前學過的 OLS / least squares，而是告訴你：同一個 OLS 框架，只要「feature representation」改變，模型能表示的形狀就會改變。",
+            "和你之前學的 Linear Regression 接在哪裡？",
+            "Simple Linear Regression：只有 X，一條直線。",
+            "Multiple Linear Regression：有多個 features，例如 X₁、X₂、X₃。",
+            "Polynomial Regression：把同一個原始 X 轉成多個 features，例如 X、X²、X³。",
+            "三者都可以寫成「Y = Xβ + ε」的線性係數形式，因此仍可沿用 least squares 的核心思路。",
+            "資料依據：PDF 第 1 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 2 頁｜Contents of This Video",
+          "paragraphs": [
+            "一句話抓重點  這一頁其實是一條完整因果鏈：直線不足 → 加 polynomial → degree 選擇 → overfitting → model selection。",
+            "原 PDF 第 2 頁",
+            "七個主題不是獨立章節，而是一條推理鏈"
+          ]
+        },
+        {
+          "heading": "1. Limitations of linear models：如果真實關係彎曲，直線會 underfit。",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. Introduction to polynomial regression：加入 X²、X³ 讓曲線能彎。",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Mathematical formulation：理解 degree d 模型與 β 係數形式。",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Wage vs Age example：把抽象公式放到可視化例子。",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Choosing degree：degree 是 flexibility 的旋鈕。",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. Flexibility vs overfitting：越靈活並不等於越會預測新資料。",
+          "paragraphs": []
+        },
+        {
+          "heading": "7. Model selection：用 validation / CV 實際選擇模型複雜度。",
+          "paragraphs": [
+            "真正的課堂問題",
+            "核心問題  「我知道 degree 越高可以貼得越好，但到底高到哪裡應該停？」後面第 7–10 頁就是回答這個問題。",
+            "學完這一課你應該能做到",
+            "看散點圖時，判斷 straight-line assumption 是否可能過度簡化。",
+            "寫出 quadratic / cubic / degree-d polynomial regression。",
+            "解釋為何它對 X 非線性、但對 β 仍線性。",
+            "不把高 training R² 誤認為高 generalization。",
+            "用 validation / cross-validation 選 polynomial degree。",
+            "資料依據：PDF 第 2 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 3 頁｜Linear vs Non-linear Relationships",
+          "paragraphs": [
+            "一句話抓重點  若資料的平均趨勢本身是彎曲的，任何單一直線都只能「取一個折衷」，因此會系統性地錯。",
+            "原 PDF 第 3 頁",
+            "圖像逐部分讀法",
+            "左圖標示 Linear Relationship：藍色資料點大致沿橙色直線分布，直線可以合理描述「Age 增加時 Wage 大致以固定斜率增加」。右圖標示 Non-linear Relationship：資料呈明顯彎曲趨勢，單一直線即使通過資料中央，兩端或局部仍會有系統性偏差。",
+            "為什麼「一條直線」會失敗？",
+            "Simple linear regression 假設條件平均數 E[Y|X] 可以用 β₀ + β₁X 描述。這代表每增加 1 單位 X，預測 Y 的改變永遠是同一個 β₁。若真實世界的 slope 會隨 X 改變，例如年輕階段上升較快、中段變平、後段下降，固定 slope 就不夠。",
+            "Linear：dŶ/dX = β₁",
+            "斜率固定，不會隨 X 改變",
+            "Wage vs Age 的概念例子",
+            "投影片文字用「薪資早期上升、中年附近達到高峰、接近退休時可能下降」來說明 rise-then-fall 的非線性。這只是教學情境，用來說明 curve；它不是說每個人的薪資一定遵循同一形狀，也不是因果結論。",
+            "如果硬用 linear model，會看到什麼訊號？",
+            "Residuals 可能不是隨機散佈，而呈弧形／U 形 pattern。",
+            "模型在某些 X 區間持續高估，在另一些區間持續低估。",
+            "即使整體 R² 不算差，局部 prediction 仍可能有明顯偏差。",
+            "關鍵詞  這類錯誤屬於 model form 不夠靈活造成的 underfitting / bias，不是單純「資料有 noise」。",
+            "資料依據：PDF 第 3 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 4 頁｜Introducing Polynomial Regression",
+          "paragraphs": [
+            "一句話抓重點  Polynomial regression = 先把 X 變成 X、X²、X³…，再把這些當作 predictors 放回熟悉的線性迴歸。",
+            "原 PDF 第 4 頁",
+            "四條公式逐條看",
+            "Linear (degree 1):   Y = β₀ + β₁X + ε",
+            "Quadratic (degree 2):   Y = β₀ + β₁X + β₂X² + ε",
+            "Cubic (degree 3):   Y = β₀ + β₁X + β₂X² + β₃X³ + ε",
+            "Degree d:   Y = β₀ + β₁X + β₂X² + … + βdXᵈ + ε",
+            "Degree 到底是什麼？",
+            "degree 是模型中 X 的最高次方。例如最高到 X³，就是 degree 3。degree 越高，理論上曲線可以有更多彎曲與局部變化，因此 flexibility 通常越高。",
+            "最重要的一句：nonlinear in X，但 linear in coefficients",
+            "影片特別重複這點。以 cubic 為例，X 被平方、立方，所以 Ŷ 對 X 的形狀是非線性；但 β₀、β₁、β₂、β₃ 都只是「乘上一個已知 feature」後相加，係數本身沒有被平方、放進 sin()、相乘在一起。因此從參數估計角度，它仍然是 linear regression。",
+            "因此可以繼續用 OLS  你不是發明一套新的 fitting 方法；只是先建立新的 feature columns，再照舊最小化 SSE / MSE。",
+            "用 design matrix 看最清楚",
+            "原始一欄 X  →  新特徵矩陣 [1, X, X², X³]",
+            "每一列是一筆 observation，每一欄是一個 feature",
+            "例如 Age = 30，轉換後可形成 [1, 30, 900, 27000]。OLS 只看到四個欄位，並不知道其中三欄來自同一個 Age；它照樣尋找最能減少 squared residuals 的 β。",
+            "補充理解：為何 feature scaling 可能變重要？",
+            "這不是本頁投影片的重點，但從數值角度可理解：若 X 很大，X³ 可能比 X 大很多個數量級。實務中常會中心化／標準化或使用穩定的 polynomial feature pipeline。這是實作層面的補充，不影響本課「仍可用 least squares」的核心結論。",
+            "資料依據：PDF 第 4 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 5 頁｜Example: Wage vs Age with Polynomial Terms",
+          "paragraphs": [
+            "一句話抓重點  同一批資料，用 degree 1、2、3 會得到不同曲線；差別不是演算法換了，而是允許模型表達的形狀不同。",
+            "原 PDF 第 5 頁",
+            "先讀圖例",
+            "藍色散點：observed data。",
+            "橙色 Linear (degree 1)：只能是一條直線。",
+            "綠色 Quadratic (degree 2)：可以有一次主要彎曲。",
+            "紅色 Cubic (degree 3)：可有更豐富的彎曲形狀。",
+            "這張圖真正想比較什麼？",
+            "它不是要你背哪一條顏色「最好」，而是要你看到：當資料的平均趨勢不是直線時，增加 polynomial terms 可以使 fitted curve 更貼近資料的彎曲結構。degree 1 提供固定 slope；degree 2 / 3 允許 slope 隨 Age 改變。",
+            "投影片畫面與口述例子的細節差異",
+            "值得留意  第 3 頁與影片口述用「先升、到中年高峰、之後下降」說明非線性；但第 5 頁這組示意散點在可見範圍內更像「先稍降、再明顯上升」，不同 polynomial 曲線主要用來展示形狀彈性。兩者的共同重點都是「直線不足以捕捉彎曲」，不要把示意資料當成真實工資規律。",
+            "一個非常淺白的理解",
+            "把模型想成畫圖工具：degree 1 是直尺；degree 2 像可彎一次的尺；degree 3 可以再多一點曲率。工具越靈活，就越能貼著資料走，但也越有機會把每個小抖動都當真。",
+            "為何 cubic 常比 linear 更貼？",
+            "因為 cubic 包含 linear 的可能性。若資料其實真的是直線，模型可以讓 β₂、β₃ 接近 0；若資料需要彎曲，它又有額外自由度可用。這也是為什麼 training fit 通常只會改善或不變，但不代表 test performance 一定改善。",
+            "資料依據：PDF 第 5 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 6 頁｜Interpreting Polynomial Models",
+          "paragraphs": [
+            "一句話抓重點  Polynomial model 的 β 不能逐個孤立解讀；應看「所有 terms 合起來形成的整體曲線」。",
+            "原 PDF 第 6 頁",
+            "投影片的 cubic model",
+            "Wage = β₀ + β₁Age + β₂Age² + β₃Age³",
+            "投影片直接提醒：β₂ 並不簡單等於「Age² 的效果」。原因是 Age、Age²、Age³ 彼此由同一個 Age 產生，高度相關；改變 Age 時，三個 terms 會同時改變，所以預測的局部方向是多個係數共同作用的結果。",
+            "為什麼不能照 simple linear regression 那樣說？",
+            "在線性模型 Wage = β₀ + β₁Age 中，可以說「Age 每多 1 年，預測 Wage 改變 β₁」。但 cubic model 中，Age 從 30 變 31 時，不只是 β₁Age 變；Age² 與 Age³ 也一起變。因此 β₁ 不能單獨代表所有年齡的 slope。",
+            "補充理解：真正的局部 slope 是整體導數",
+            "dŶ/dAge = β₁ + 2β₂Age + 3β₃Age²",
+            "補充數學直覺：slope 會隨 Age 改變",
+            "這個導數不是投影片要求你計算的公式，而是用來證明為什麼「各 β 會共同決定曲線」。某個 Age 下 slope 為正，代表模型預測正在上升；為負則代表模型預測正在下降。",
+            "課堂建議的正確解讀方式",
+            "描述整體 pattern，例如「隨 Age 增加，Wage 先上升，之後趨平／下降」。",
+            "看圖形的 peak、turning point、上升／下降區間。",
+            "若目的是 prediction，可把重點放在預測品質，而不是硬為每個 polynomial coefficient 賦予直觀因果意義。",
+            "Trade-off  模型越靈活，通常越難用一兩個係數講清楚；performance 可能提升，但 interpretability 會下降。",
+            "資料依據：PDF 第 6 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 7 頁｜Choosing the Polynomial Degree",
+          "paragraphs": [
+            "一句話抓重點  Degree 是控制模型 flexibility 的旋鈕：太低抓不到 pattern，太高把 noise 也學進去。",
+            "原 PDF 第 7 頁",
+            "左圖：Good Fit, Degree 3",
+            "左圖用相對低的 cubic curve 追蹤主要趨勢，不試圖穿過每一個點。這代表模型承認資料有隨機波動，只學較穩定的 signal。",
+            "右圖：Overfitting, Degree 10",
+            "右圖的高 degree 曲線出現多次急彎，為了貼近少量 training points 而大幅扭動。這種形狀對訓練資料可能很好看，但小小改變資料樣本，曲線可能就完全不同，代表 variance 很高。",
+            "Too low vs Too high",
+            "Too low：underfitting：模型表達能力不足，重要的曲率被忽略。",
+            "Too high：overfitting：模型自由度太大，把 sampling noise / random fluctuation 當成可重複規律。",
+            "影片用極端例子提醒",
+            "講者提出直觀想像：如果資料有很多點，而 polynomial degree 高得足以提供極多自由度，理論上可能把 training points 幾乎逐點貼住。這時 training error 可以非常低，但那不是我們真正想要的目標。",
+            "不要問「最高可以到幾次？」  真正要問的是：「哪一個 degree 對未見資料的 prediction error 最低？」",
+            "資料依據：PDF 第 7 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 8 頁｜The Overfitting Problem",
+          "paragraphs": [
+            "一句話抓重點  Training data 上近乎完美，不等於 test / future data 上準；模型可能只是記住 noise。",
+            "原 PDF 第 8 頁",
+            "圖中有兩種資料與兩條模型線",
+            "圖示把 training data 與 test data 分開，並比較較平滑的 quadratic model 與更彎曲的高 degree model。高 degree 曲線在 training points 附近可以非常貼，但對未參與 fitting 的 test points 不一定更接近。",
+            "關鍵句：High R² on training data ≠ Good predictions on new data",
+            "這是整課最重要的模型評估觀念之一。當你加入更多 polynomial terms，training R² 通常會上升，training MSE 通常會下降，因為模型可選的函數集合變大；但新資料的誤差可能先下降、之後反而上升。",
+            "Signal vs Noise",
+            "Signal：可在未來資料中重複出現的穩定結構。",
+            "Noise：只屬於這批 sample 的偶然波動、測量誤差、抽樣差異。",
+            "Overfitting：模型把 noise 也當成 signal，導致 training 很好、generalization 變差。",
+            "為什麼高次 polynomial 特別容易在邊界失控？",
+            "補充理解：高次多項式在資料範圍兩端可能產生劇烈彎曲或外插爆炸。這不是本頁投影片的主要推導，但圖中的高 degree 曲線在左右端急轉，正好能視覺化這種不穩定。",
+            "實務判斷  看到 training R² 很高時，下一個問題永遠應該是：「validation / test 呢？」而不是立即宣布模型很好。",
+            "資料依據：PDF 第 8 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 9 頁｜Flexibility vs Simplicity Trade-off",
+          "paragraphs": [
+            "一句話抓重點  低複雜度：bias 高、variance 低；高複雜度：bias 低、variance 高；總 prediction error 通常在中間出現甜蜜點。",
+            "原 PDF 第 9 頁",
+            "三條線怎樣讀？",
+            "Bias（橙線）：模型太簡單時高；增加 complexity 後下降。",
+            "Variance（藍線）：模型越複雜越容易隨 sample 波動，因此上升。",
+            "Total Error（紅線）：兩者共同作用後呈 U-shape，最低點就是希望選到的 complexity。",
+            "為什麼會 U-shape？",
+            "一開始從 degree 1 增加到 2、3，模型終於能捕捉真正的彎曲，所以 bias 大幅下降，總誤差跟著下降。再繼續增加 degree，bias 雖可能再少一點，但 variance 增加得更快，模型對 training sample 的偶然差異變得敏感，所以未來 prediction error 反而上升。",
+            "Expected test error ≈ Bias² + Variance + Irreducible Noise",
+            "概念式：課堂重點是 bias/variance 的折衷，而非要求本頁推導",
+            "圖上的 Optimal Complexity",
+            "綠色虛線標出 toy example 的最佳複雜度，大約在 degree 2 附近。注意：這個數字只是示意，不代表所有 polynomial regression 都應選 degree 2；真正 degree 必須由資料與 validation 結果決定。",
+            "逐字稿的一個口語／轉錄細節",
+            "逐字稿在描述複雜度增加時有一句出現「more variance ... and the less variance」的矛盾表述；結合投影片圖與前後文，這裡的概念應是：complexity 增加 → variance 增加、bias 降低。這份筆記保留來源脈絡並以圖示所表達的標準 bias-variance trade-off 解讀。",
+            "最重要的轉換  Model selection 的目標從「fit training data」轉成「minimize future prediction error」。",
+            "資料依據：PDF 第 9 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 10 頁｜Model Selection Strategies",
+          "paragraphs": [
+            "一句話抓重點  用 validation / cross-validation 比較 degree；test set 留到最後一次，避免把 test 也變成調參工具。",
+            "原 PDF 第 10 頁",
+            "投影片的選模流程，逐步拆解"
+          ]
+        },
+        {
+          "heading": "1. Split data：把資料分成 training 與 validation；若另有 test set，test 要留到最後。",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. Try degrees：degree 1、2、3、4… 分別建立 polynomial features 並 fit。",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Compare validation performance：用 validation MSE、RMSE、R² 等一致指標比較。",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Choose best degree：選 validation 表現最好、或在差不多表現下更簡單的 degree。",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Final test：模型決定後才在獨立 test set 評估一次，估計真正 generalization。",
+          "paragraphs": [
+            "為什麼不能看 training error 選 degree？",
+            "因為更高 degree 幾乎總能把 training fit 做得至少一樣好，所以 training error 會偏向選最複雜模型。Validation 的角色是模擬「未見資料」，讓我們看 complexity 是否真的帶來可泛化的改善。",
+            "Cross-validation 的直覺",
+            "若只有一個 validation split，結果可能受「剛好怎樣分資料」影響。Cross-validation 會輪流用不同部分做 validation，再把多次結果平均，因此通常比單一 split 更穩健。投影片把這一頁稱為 cross-validation approach，步驟圖本身則用 training/validation/test 的基本框架呈現。",
+            "Practical guidelines 逐條解釋",
+            "Start simple：先 linear，再 quadratic、cubic，避免一開始就 degree 10。",
+            "Diminishing returns：若 degree 3 到 4 只改善極少，可能沒有足夠理由承擔額外複雜度。",
+            "Domain knowledge：如果理論上只期待單一彎曲，不需要無限制增加 degree。",
+            "Performance vs interpretability：若業務需要解釋，較簡單模型可能更有價值。",
+            "防止 data leakage  一旦你反覆用 test set 來挑 degree，test set 就不再真正「未見」。因此 degree 應在 validation / CV 階段決定。",
+            "資料依據：PDF 第 10 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 11 頁｜Other Ways to Add Flexibility",
+          "paragraphs": [
+            "一句話抓重點  Polynomial terms 只是增加 flexibility 的其中一種方法；不同方法用不同方式放鬆「直線」限制。",
+            "原 PDF 第 11 頁"
+          ]
+        },
+        {
+          "heading": "1. Interaction terms",
+          "paragraphs": [
+            "Interaction 的意思是：一個 predictor 的效果取決於另一個 predictor。投影片例子是 Age × Education 用於 wage prediction。若加入 β₃(Age×Education)，代表 Age 的 slope 可以隨 Education 改變，反之亦然。",
+            "Y = β₀ + β₁Age + β₂Education + β₃(Age×Education) + ε",
+            "interaction 讓兩個變數不再只有各自獨立的加法效果"
+          ]
+        },
+        {
+          "heading": "2. Splines",
+          "paragraphs": [
+            "投影片稱 splines 為 piecewise polynomials：不是用一條高 degree polynomial 控制整個 X 範圍，而是在不同區段用較低次多項式，再平滑接起來。這樣可提供 local flexibility，通常比單一超高次 polynomial 更穩定。"
+          ]
+        },
+        {
+          "heading": "3. Decision Trees",
+          "paragraphs": [
+            "Tree 不需要預先指定 polynomial 形狀，而是用規則切分 feature space，例如 Age < 30、Education > 某值等。投影片把它歸為 non-parametric、rule-based model。"
+          ]
+        },
+        {
+          "heading": "4. Neural Networks",
+          "paragraphs": [
+            "Neural networks 能表示非常複雜的 nonlinear relationships，因此 flexibility 很高；相對地，interpretability、tuning 與 overfitting 控制也更重要。",
+            "共同原則",
+            "More flexibility always comes with overfitting risk  這不是說 flexible model 一定 overfit，而是每增加自由度，都必須用 validation、regularization、足夠資料或其他方法證明它值得。",
+            "把這頁放回整個 ML 地圖",
+            "Polynomial regression 是最容易理解的「從線性走向非線性」橋樑。你先在熟悉的 least squares 框架中學 complexity control，之後再看 trees、splines、neural networks，核心問題仍然相同：如何取得足夠 flexibility，又保持 generalization。",
+            "資料依據：PDF 第 11 頁；同一課堂影片逐字稿的相關講解。"
+          ]
+        },
+        {
+          "heading": "第 12 頁｜Summary",
+          "paragraphs": [
+            "一句話抓重點  Polynomial regression 的本質：feature transformation + familiar linear regression + careful model selection。",
+            "原 PDF 第 12 頁",
+            "六個 Key Takeaways 逐條拆解",
+            "Capture non-linear relationships：把直線無法表達的曲率加入模型。",
+            "Still uses least squares：X²、X³ 只是新 features；估計 β 的基本方法仍可沿用。",
+            "Interpretation changes：不要逐個 β 硬解讀，應看 curve shape / overall pattern。",
+            "Flexibility vs overfitting：degree 越高越靈活，但 generalization risk 越大。",
+            "Cross-validation：用未參與 fitting 的資料選 degree，而不是看 training fit。",
+            "Balance complexity, interpretability, generalization：好模型不是最複雜，而是符合任務目標的折衷。",
+            "把整課濃縮成一條流程",
+            "Step 1｜畫圖／診斷：關係是否可能彎曲？",
+            "Step 2｜建立 polynomial features：X、X²、X³…",
+            "Step 3｜用 least squares fit 每個候選 degree。",
+            "Step 4｜比較 validation / CV prediction performance。",
+            "Step 5｜選擇適當 degree，避免 underfit 與 overfit。",
+            "Step 6｜最後在獨立 test set 評估 generalization。",
+            "Step 7｜解讀整體 curve，而非把高次係數逐個當成直觀 causal effect。",
+            "和前面 OLS 課程的最終連接",
+            "Polynomial regression = Linear regression on transformed features",
+            "這句是整課最值得記住的橋樑。你之前學過的 residual、SSE、least squares、R²、train/test、bias-variance 並沒有失效；Polynomial Regression 只是把「模型可以畫的形狀」擴充了。",
+            "30 秒背誦版  直線不夠 → 加 X²/X³ → 仍可 OLS → degree 越高越 flexible → training fit 會變好但可能 overfit → 用 validation/CV 選 degree → 看 curve shape 解讀。",
+            "資料依據：PDF 第 12 頁；同一課堂影片逐字稿的相關講解。",
+            "全章整合：從 Linear Regression 到 Model Flexibility",
+            "核心因果鏈  Non-linear pattern → polynomial features → more flexibility → lower bias but higher variance → validation-based model selection → better generalization",
+            "一個最小數字例子（補充理解）",
+            "假設你只有 Age 一個 predictor，想比較 degree 1 與 degree 2：",
+            "Degree 1:  Ŷ = β₀ + β₁Age",
+            "Degree 2:  Ŷ = β₀ + β₁Age + β₂Age²",
+            "對 Age = 20、30、40，degree 2 會把每筆資料轉成兩個數值 features：Age 與 Age²，例如 20→(20,400)、30→(30,900)、40→(40,1600)。之後 OLS 就像 multiple regression 一樣同時估 β₁、β₂。差別只是兩個 features 來自同一個原始變數。",
+            "最常見 6 個誤解",
+            "誤解 1：「Polynomial regression 不是 linear regression。」 對 X 的曲線是 nonlinear，但對 β 仍 linear，所以仍屬 linear-model framework。",
+            "誤解 2：「degree 越高一定越準。」 training 通常更貼；test / future data 可能更差。",
+            "誤解 3：「R² 最高就是最好。」 若只看 training R²，會偏向複雜模型；要看 validation/generalization。",
+            "誤解 4：「β₂ 就是 Age² 的獨立效果。」 各 polynomial terms 同時隨 Age 改變，應看整體曲線。",
+            "誤解 5：「degree 3 永遠最好。」 本課圖只是例子；degree 必須由資料、CV、domain knowledge 決定。",
+            "誤解 6：「Polynomial 是唯一的非線性方法。」 還有 interactions、splines、trees、neural networks 等。",
+            "建議你下一步要能回答的 8 條自測題",
+            "為什麼 straight-line model 可能 underfit 非線性資料？",
+            "quadratic 與 cubic 的公式分別是什麼？",
+            "為什麼 polynomial regression 對 X 非線性、但仍可用 least squares？",
+            "degree 變高時 training R² 和 training MSE 通常怎樣變？",
+            "為什麼這不代表 test error 也會一直變好？",
+            "Bias-variance trade-off 中 complexity 增加時 bias / variance 各怎樣變？",
+            "Validation / cross-validation 在選 degree 時扮演什麼角色？",
+            "為什麼 polynomial coefficient 通常不宜逐個孤立解讀？"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 6,
+      "courseSection": "Regression and Model Assessment",
+      "courseSectionId": "regression-and-model-assessment"
+    },
+    {
+      "id": "module2-8",
+      "module": "Module 2",
+      "unit": "Interpreting Results and Discussion",
+      "title": "Interpreting Results and Discussion 逐頁詳細分析",
+      "sourcePath": "Interpreting_Results_and_Discussion_逐頁詳細分析.docx",
+      "contentKind": "DOCX",
+      "paragraphCount": 323,
+      "sections": [
+        {
+          "heading": "文章導讀",
+          "paragraphs": [
+            "Interpreting Results & Discussion",
+            "Multiple Linear Regression：結果解讀、Feature Impact 與決策",
+            "PDF 12 頁逐頁詳細分析 + 影片口述補充 + 淺白例子 + 易錯點",
+            "一句話總結：  這一課不是再教你「怎樣 fit regression」，而是教你 fit 完之後怎樣讀係數、比較 feature、連到商業決策，以及知道甚麼時候不可以過度解讀。",
+            "資料依據：University of Colorado Boulder 課件 PDF（12頁）及同一課影片逐字稿；本筆記按 PDF 頁碼逐頁整理，並把影片額外口述內容放回最相關頁面。"
+          ]
+        },
+        {
+          "heading": "0. 先建立整課脈絡：Build → Evaluate → Interpret → Decide",
+          "paragraphs": [
+            "這一課位於 regression workflow 的後半段。前面你已經學過如何建立 multiple linear regression、如何用 least squares 找係數，以及如何用 R² 等指標看模型 fit 得好不好。現在要做的是把「數字」翻譯成「可理解的意思」。",
+            "ŷ = β₀ + β₁x₁ + β₂x₂ + β₃x₃",
+            "本課的核心工作：解讀每一個 β，然後把它們連到 real-world decision。",
+            "本課最重要的 4 層思考：  (1) 係數方向：正/負；(2) 每單位影響有多大；(3) 變數本身通常會變多少，所以總影響有多大；(4) 模型只是 association，不等於 causation。",
+            "本課使用的 housing model",
+            "ŷ = 100,000 + 110(Size) + 25,000(Location Quality) - 2,000(Age)",
+            "Intercept β₀ ≈ $100,000",
+            "Size β₁ ≈ $110 / sqft",
+            "Location Quality β₂ ≈ $25,000 / quality point",
+            "Age β₃ ≈ -$2,000 / year",
+            "「holding other variables constant」是甚麼？  例如 Size +1 sqft 時說價格平均 +$110，意思是比較兩間 Location Quality、Age 一樣，只差 1 sqft 的房屋。這是 multiple regression 解讀係數最關鍵的一句。",
+            "先看一個完整例子",
+            "假設房屋：Size = 1,500 sqft、Location Quality = 4、Age = 10 年。",
+            "ŷ = 100,000 + 110(1,500) + 25,000(4) - 2,000(10) = $345,000",
+            "所以模型預測價約為 $345,000。這個例子讓你看到：每個 coefficient 就像一個「價錢調整器」，最後全部加在一起。",
+            "讀完這份筆記，你應該識答",
+            "β₁ = 110 到底代表甚麼？為甚麼不可以直接說 Size 比 Location 不重要？",
+            "Location 的係數 $25,000 最大，為甚麼典型總影響反而可能是 Size 最大？",
+            "R² = 0.897 到底是甚麼，不是甚麼？",
+            "甚麼時候可考慮刪除 feature？為甚麼 raw coefficient magnitude 不能單獨決定？",
+            "Regression coefficient 為甚麼不能直接解讀為「因果」？"
+          ]
+        },
+        {
+          "heading": "第 1 頁 — Interpreting Results & Discussion：本課定位",
+          "paragraphs": [
+            "PDF 第 1 頁 | 這頁在講甚麼？",
+            "封面本身沒有新公式，但它標誌著學習目標由「建模」轉向「解讀」。也就是：模型已經 fit 完，下一步不是再計 β，而是問「β 告訴我甚麼？」",
+            "逐點拆解",
+            "Interpreting Results：把數學輸出翻譯成人話，例如「每多 1 sqft，預測房價平均增加 $110」。",
+            "Discussion：進一步討論這些結果對 buyer、seller、investor 有甚麼含義，以及有哪些限制。",
+            "這種思考不只適用於房屋；影片明確說，同一套步驟可套用到任何 linear regression application。",
+            "和前面課程的關係",
+            "前面 Least Squares / Multiple Linear Regression 解決「如何得到模型」；這一課解決「得到模型後如何解讀」。所以不是新的演算法，而是 analysis / communication skill。",
+            "本頁必記：  你可以把這一課想成：Regression 的「最後一公里」——由模型輸出走到決策。"
+          ]
+        },
+        {
+          "heading": "第 2 頁 — Contents of This Video：整課五個任務",
+          "paragraphs": [
+            "PDF 第 2 頁 | 這頁在講甚麼？",
+            "這一頁其實就是整課 roadmap。五個 bullet 可以整理成一條順序：讀係數 → 比較 feature → 看模型表現 → 轉成決策 → 加上限制。",
+            "逐點拆解",
+            "Interpret regression coefficients：先明白每個 β 的方向與單位。",
+            "Determine strongest effects：比較哪些 feature 對 price 的影響較明顯。",
+            "Use model performance to guide feature selection：不要只看「感覺重要」，還要看保留/移除 feature 對 prediction 的實際效果。",
+            "Inform investment decisions：把統計結果轉成 buyer / seller / investor 可採取的行動。",
+            "Limitations and cautions：最後檢查因果、資料範圍、線性假設與遺漏變數。",
+            "可以把五個任務記成 I-C-E-D-C",
+            "I = Interpret coefficients",
+            "C = Compare effects",
+            "E = Evaluate model / features",
+            "D = Decide / recommend",
+            "C = Caution / constraints",
+            "本頁必記：  最好的分析不會停在「R² 幾多」；它要回答：So what? 我應該做甚麼？又有甚麼不能說？"
+          ]
+        },
+        {
+          "heading": "第 3 頁 — Regression Coefficients Recap：四個係數逐一讀",
+          "paragraphs": [
+            "PDF 第 3 頁 | 這頁在講甚麼？",
+            "這頁把模型的四個估計係數重新列出。最重要不是背數字，而是懂得用「其他條件不變」去讀每一個係數。",
+            "逐點拆解",
+            "Intercept β₀ ≈ $100,000：當所有 x 都是 0 時的模型起點。課件把它描述成 very small house 的 baseline。",
+            "Size β₁ ≈ $110：Size 每增加 1 sqft，預測價格平均增加 $110，前提是 Location Quality 與 Age 固定。",
+            "Location β₂ ≈ $25,000：Location Quality 每提高 1 point，預測價格平均增加 $25,000，其他變數固定。",
+            "Age β₃ ≈ -$2,000：房齡每增加 1 年，預測價格平均下降 $2,000，其他變數固定。",
+            "用「差一個單位」思考",
+            "Δŷ = 110·ΔSize + 25,000·ΔLocation - 2,000·ΔAge",
+            "例如兩間屋只有 Size 相差 100 sqft，其他完全一樣：預測價差 = 100 × $110 = $11,000。",
+            "若 Location Quality 相差 2 points：預測價差 = 2 × $25,000 = $50,000。",
+            "Intercept 易錯點：  嚴格數學上，β₀ 是 Size=0、Location=0、Age=0 時的預測值。如果 Location scale 實際是 1–5，這個組合可能根本不存在，所以 intercept 有時只是數學錨點，不一定有強烈現實意義。",
+            "本頁必記：  正號 = x 增加時 ŷ 傾向增加；負號 = x 增加時 ŷ 傾向減少。係數同時包含「方向 + 每單位變化量」。"
+          ]
+        },
+        {
+          "heading": "第 4 頁 — Coefficient Interpretation for Real Estate Strategy：raw coefficient 會誤導",
+          "paragraphs": [
+            "PDF 第 4 頁 | 這頁在講甚麼？",
+            "圖表把 Location = +25,000、Size = +110、Age = -2,000 放在同一張 bar chart。視覺上 Location 好像壓倒性最大，但這正是本頁要你小心的地方：三個 feature 的單位完全不同。",
+            "逐點拆解",
+            "Location 的 1 unit 是「quality point」；Size 的 1 unit 是「1 sqft」；Age 的 1 unit 是「1 year」。",
+            "因此 $25,000 vs $110 並不是 apples-to-apples comparison。",
+            "如果 Size 一般差幾百至幾千 sqft，$110 會累積成很大的總價格差。",
+            "Key insight：per-unit impact（每單位）和 total impact（典型整段範圍）可以講出完全不同的故事。",
+            "為甚麼 raw bars 不可以直接排 importance？",
+            "想像「1 公里」和「1 米」都用同一個數字比較，單位不同就沒有直接可比性。Regression coefficient 也一樣：β 的數值大小會跟 feature 的 measurement unit 一起變。",
+            "極端例子：  如果 Size 由 sqft 改成 100 sqft 為 1 unit，係數就會由 110 變成 11,000；模型預測完全一樣，但 raw coefficient 大了 100 倍。這證明 raw β 大小不是純粹的「importance」。",
+            "本頁必記：  不要見 β 數字大就立即說「最重要」。先問：它的 1 unit 是甚麼？這個變數現實中通常會變幾多 unit？"
+          ]
+        },
+        {
+          "heading": "第 5 頁 — Coefficient Magnitude and Model Performance：把係數乘上典型變化範圍",
+          "paragraphs": [
+            "PDF 第 5 頁 | 這頁在講甚麼？",
+            "這頁是全課最值得掌握的一頁。做法非常簡單：Total typical impact ≈ coefficient × typical change。這一步把不同單位的係數轉成較有實際意義的比較。",
+            "逐點拆解",
+            "Size：1,500 sqft × $110/sqft = +$165,000。",
+            "Age：30 years × -$2,000/year = -$60,000。",
+            "Location：3 points × $25,000/point = +$75,000。",
+            "所以按這組「典型差距」計，Size 的總影響最大，即使它的 per-unit coefficient 只有 110。",
+            "三個 impact 計算",
+            "Size: 1,500 × 110 = +165,000",
+            "Location: 3 × 25,000 = +75,000",
+            "Age: 30 × (-2,000) = -60,000",
+            "來源一致性注意：  影片口述在講 1,500 sqft × $110 時說成約 $150,000，但正確算術是 $165,000，而且 PDF 第5頁亦寫 $165,000。這裡以公式與投影片為準。",
+            "本頁必記：  比較 feature 的 practical impact 時，常用概念是 |β| × meaningful range，而不是只排 |β|。"
+          ]
+        },
+        {
+          "heading": "第 6 頁 — Understanding Scale：左圖與右圖為甚麼排名反轉",
+          "paragraphs": [
+            "PDF 第 6 頁 | 這頁在講甚麼？",
+            "這一頁用兩個並排 bar chart 把上頁概念視覺化。左圖看每 1 unit；右圖看典型總變化。兩種圖回答的是不同問題。",
+            "逐點拆解",
+            "左圖（Per-Unit Impact）：Location +$25k 最大；Age -$2k；Size +$110 最小。",
+            "右圖（Total Typical Impact）：Size +$165k 最大；Location +$75k；Age -$60k。",
+            "「最大係數」與「最大現實影響」不一定是同一 feature。",
+            "影片額外補充 standardized features：把每個變數轉成以 standard deviation 為單位，就能更自然地比較不同 scale 的 feature。",
+            "影片額外補充：Standardization",
+            "z = (x - mean(x)) / SD(x)",
+            "把不同 feature 轉成「距離平均值幾多個 standard deviations」。",
+            "標準化後，1 unit 不再是 1 sqft / 1 year / 1 quality point，而是「1 個 standard deviation」。這樣比較 coefficient magnitude 會合理得多。",
+            "直覺：  原本 Size 的單位很細（1 sqft），Location 的單位很粗（1 point）。Standardization 就像把大家換成同一把尺。",
+            "本頁必記：  Scale 是 regression coefficient interpretation 的核心。若 feature units 不同，raw β 不能直接當 importance ranking。"
+          ]
+        },
+        {
+          "heading": "第 7 頁 — Should We Keep All Features?：保留 feature 的理由與 R²",
+          "paragraphs": [
+            "PDF 第 7 頁 | 這頁在講甚麼？",
+            "課件在這個 toy model 的結論是保留 Size、Location、Age，因為三者都提供有意義的訊號，且所有 feature 一起時 R² = 0.897。",
+            "逐點拆解",
+            "R² = 0.897 表示模型在這份資料中解釋了約 89.7% 的 house-price variation；不是「89.7% 預測正確」。",
+            "Location：最高 per-unit impact。",
+            "Size：每 sqft 看似細，但 cumulative effect 大。",
+            "Age：提供 depreciation（折舊/房齡）資訊。",
+            "房價本來就是 multifactorial，所以同時看多個因素較合理。",
+            "R² = 0.897 的正確語言",
+            "R² = 1 - SS_res / SS_tot",
+            "可讀成：「在這份資料和這個模型設定下，大約 89.7% 的 target variation 被模型所解釋。」不要寫成「模型 89.7% accurate」；regression 的 R² 不是 classification accuracy。",
+            "進階補充（非投影片原文）：  真實 feature selection 最好比較 validation/test performance（例如移除某 feature 後 R²、RMSE 是否變差），也可配合 regularization、domain knowledge、uncertainty 等。單看 training R² 或 β 大小並不足夠。",
+            "本頁必記：  保留 feature 的核心不是「每個 β 都非零」而已，而是它是否帶來可解釋、可重複的 predictive value。"
+          ]
+        },
+        {
+          "heading": "第 8 頁 — Why Coefficient Magnitude Guides Feature Selection：signal vs noise",
+          "paragraphs": [
+            "PDF 第 8 頁 | 這頁在講甚麼？",
+            "兩張 scatter plot 想表達：feature 與 target 若有清晰線性關係，regression line 能捕捉到 predictive signal；若係數接近 0、關係很弱，該 feature 可能貢獻有限。",
+            "逐點拆解",
+            "左圖 Size：點大致沿上升線排列，表示 Size 與 price 有強的正向 predictive relationship。",
+            "右圖 Age：整體向下，但散點較多，表示負向 signal 仍存在，但噪音較大。",
+            "影片說：若某些係數 near 0，可能考慮 drop；在本例三個 feature 都有 meaningful contribution。",
+            "但「raw coefficient magnitude」受單位影響，因此真實 feature selection 不應只用 raw β 大小。",
+            "如何讀兩張 scatter plot",
+            "先看 direction：左圖正斜率；右圖負斜率。",
+            "再看 points 離 regression line 有幾散：越貼線，線性 signal 越清楚。",
+            "最後才看 coefficient；但不同 x-axis 單位時，不要用 raw slope 直接跨圖比較 importance。",
+            "圖標題的語意要小心：  左圖寫「Large Coefficient (Size)」、右圖寫「Moderate Coefficient (Age)」，較適合理解為 strong vs moderate predictive signal 的教學圖示。若按本課 raw coefficients 的絕對數值，|-2000| 其實大於 |110|；所以跨單位不能只按數字比較。",
+            "本頁必記：  這頁真正要學的是 signal/noise 思維，而不是「數字最大的 β 一律最重要」。"
+          ]
+        },
+        {
+          "heading": "第 9 頁 — Strategic Real Estate Insights：由 β 變成商業建議",
+          "paragraphs": [
+            "PDF 第 9 頁 | 這頁在講甚麼？",
+            "這頁示範如何把統計語言轉成 stakeholder 語言。對不同角色，重點不同：buyer 看購買價值，seller 看 marketing，investor 看 value retention / ROI。",
+            "逐點拆解",
+            "For buyers：課件建議 prioritize location quality，因為 location 的 per-point value impact 很高。",
+            "For sellers：marketing 時突出 superior location features。",
+            "For investors：較新、location 好的物業在這個簡化模型中有較好的 value retention。",
+            "Location $25k/point：可粗略量化較好 neighborhood 的 price premium。",
+            "Size $110/sqft：可作 renovation / expansion ROI 的其中一個估算輸入。",
+            "Age -$2k/year：提供 depreciation 的量化概念。",
+            "一個 decision breakdown 例子",
+            "比較 House A 與 House B：B 比 A 大 500 sqft、Location 高 1 point、而且新 10 年。",
+            "Predicted price difference = 500(110) + 1(25,000) + (-10)(-2,000) = $100,000",
+            "Size 貢獻：+$55,000",
+            "Location 貢獻：+$25,000",
+            "新 10 年（Age 少 10）：+$20,000",
+            "這就是 regression 很適合 discussion 的地方：不只告訴你差 $100k，還可以拆解差額從哪裡來。",
+            "本頁必記：  Decision recommendation 應該由模型結果出發，但不能把 association 寫成保證或因果。"
+          ]
+        },
+        {
+          "heading": "第 10 頁 — Cautions in Interpretation：四個不能忘記的限制",
+          "paragraphs": [
+            "PDF 第 10 頁 | 這頁在講甚麼？",
+            "這一頁是在防止你「模型 fit 得好就過度自信」。R² 高、係數漂亮，都不代表模型在任何地方、任何時間、任何房屋都一定有效。",
+            "逐點拆解",
+            "Correlation ≠ Causation：β 顯示的是條件式 association，不自動代表改變 x 會造成 y 改變。",
+            "Range limitations：模型只在訓練資料涵蓋的 size/age/location 範圍較可信；超出範圍叫 extrapolation，風險較高。",
+            "Linear assumption：模型假設每多 1 unit 的邊際效果固定；極端區域可能不是直線。",
+            "Missing variables：bedrooms、bathrooms、garage 等未進模型，可能影響 prediction，也可能改變現有係數。",
+            "Best practice：統計分析要配合 local market knowledge。",
+            "四個限制的淺白例子",
+            "Correlation ≠ causation：好地段房價高，可能同時因學區、交通、收入結構等；不能單憑 β 說「提高 location score 會造成房價上升」。",
+            "Range：若訓練資料最大 3,000 sqft，用直線直接預測 10,000 sqft mansion 就是 extrapolation。",
+            "Linear：1,000→1,100 sqft 的價值增幅未必和 5,000→5,100 sqft 完全一樣。",
+            "Missing variables：若 bedrooms 同 Size 強烈相關，漏掉 bedrooms 可能令 Size coefficient 同時吸收部分 bedrooms effect。",
+            "本頁必記：  Interpretation 必須和 scope 一起說：模型在哪些資料、哪些條件、哪些假設下成立。"
+          ]
+        },
+        {
+          "heading": "第 11 頁 — Summary: From Data to Insights：完整 regression workflow",
+          "paragraphs": [
+            "PDF 第 11 頁 | 這頁在講甚麼？",
+            "這頁把前面所有步驟收斂成「由 data 到 insight」。課件強調 regression 不只是 prediction，也可以幫我們理解哪些變數與 target 有關。",
+            "逐點拆解",
+            "Build：建立 multiple linear regression。",
+            "Evaluate：R² = 0.897，檢查 fit / predictive quality。",
+            "Interpret：把 β 變成 size、location、age 的實際語意。",
+            "Recommend：把結果轉成 buyer / seller 的 data-driven suggestions。",
+            "課件寫「location as highest impact feature」；精確理解應連同前頁語境：Location 是最高 per-unit coefficient，而 Size 在典型範圍下的 total impact 更大。",
+            "一個要主動化解的表面矛盾"
+          ]
+        },
+        {
+          "heading": "第11頁說「Identified location as highest impact feature」，但第5–6頁明確計到 Size 的 typical total impact = $165k，高於 Location 的 $75k。最一致的讀法是：",
+          "paragraphs": [
+            "Location = highest per-unit coefficient / per-point impact。",
+            "Size = largest total impact over the example typical range。",
+            "考試/作業最好寫法：  “Location has the largest per-unit coefficient, whereas size can have the largest cumulative impact across its typical range.” 這樣就不會混淆兩種 importance。",
+            "本頁必記：  一句最好記的版本：Regression = predict + explain associations + support decisions。"
+          ]
+        },
+        {
+          "heading": "第 12 頁 — What We’ve Covered：最後把技能串成一條線",
+          "paragraphs": [
+            "PDF 第 12 頁 | 這頁在講甚麼？",
+            "最後一頁不是新增內容，而是確認你已掌握一個可重複使用的分析框架。這個框架可直接搬去其他 supervised-learning regression 問題。",
+            "逐點拆解",
+            "Interpret coefficients：讀方向、單位、holding others constant。",
+            "Compare relative importance：先處理 scale，再談重要性。",
+            "Feature selection：看 feature 是否帶來 predictive signal / performance improvement。",
+            "Strategic recommendations：把 model output 翻成 stakeholder 可用的語言。",
+            "Limitations：因果、範圍、線性、遺漏變數。",
+            "完整流程：build → evaluate → interpret → decide。",
+            "可直接套用到任何 regression 的 discussion 模板"
+          ]
+        },
+        {
+          "heading": "1. Model performance：先報 R² / RMSE 等，說明整體表現。",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. Coefficients：解釋方向、單位、holding others constant。",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Relative effect：考慮 scale / typical range / standardization。",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Practical meaning：把結果連到真實決策。",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Limitations：因果、資料範圍、線性、遺漏變數。",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. Next step：需要更多 data、validation、其他 features 或更合適模型。",
+          "paragraphs": [
+            "本頁必記：  如果你做 assignment，最完整的 discussion 不是只寫係數，而是：結果 → 解釋 → 比較 → 實務意義 → 限制。"
+          ]
+        },
+        {
+          "heading": "13. 全課總整理：你真正要記住的 10 個 concepts",
+          "paragraphs": []
+        },
+        {
+          "heading": "1. Multiple regression coefficient: βj = xj 增加 1 unit 時，ŷ 的平均改變量，其他 predictors 固定。",
+          "paragraphs": []
+        },
+        {
+          "heading": "2. Sign: β > 0 正向；β < 0 負向。",
+          "paragraphs": []
+        },
+        {
+          "heading": "3. Unit: 係數永遠要連同單位讀：$/sqft、$/point、$/year。",
+          "paragraphs": []
+        },
+        {
+          "heading": "4. Intercept: 所有 x=0 時的 baseline；可能只是一個數學錨點。",
+          "paragraphs": []
+        },
+        {
+          "heading": "5. Per-unit impact: 看「每 1 unit」的 effect。Location 在本例最高。",
+          "paragraphs": []
+        },
+        {
+          "heading": "6. Total typical impact: 看 β × typical change。Size 在示例範圍最高。",
+          "paragraphs": []
+        },
+        {
+          "heading": "7. Standardization: 把 features 換成 common scale，較容易比較 coefficient magnitudes。",
+          "paragraphs": []
+        },
+        {
+          "heading": "8. R²: 解釋 target variance 的比例，不是 classification accuracy。",
+          "paragraphs": []
+        },
+        {
+          "heading": "9. Feature selection: 不要只看 raw β；要看 scale、validation performance、signal/noise。",
+          "paragraphs": []
+        },
+        {
+          "heading": "10. Caution: Association ≠ causation；注意 range、linearity、missing variables。",
+          "paragraphs": []
+        },
+        {
+          "heading": "14. 最後用一題把整課串起來",
+          "paragraphs": [
+            "Question：如果某 house model 的係數與本課相同，House B 比 House A 大 800 sqft、Location 高 2 points，但舊 15 年，模型預測 B 比 A 貴多少？",
+            "Δŷ = 800(110) + 2(25,000) + 15(-2,000)",
+            "= 88,000 + 50,000 - 30,000 = +$108,000",
+            "Interpretation：在其他模型條件相同的比較下，B 的較大面積和較好 location 合共增加 $138k，但較高房齡扣回 $30k，所以模型估計 B 約貴 $108k。",
+            "Discussion 寫法：  不要停在答案 $108k。再補一句：這是模型估計的 association-based difference，受訓練資料範圍、線性假設及未納入因素影響。"
+          ]
+        },
+        {
+          "heading": "15. 30 秒記憶版",
+          "paragraphs": [
+            "β 告訴我每 unit effect；但 units 不同，所以 raw β 不能直接比 importance。要看 typical range 或 standardize。R² 告訴我整體解釋力，但不代表因果。最後把結果轉成 decision，同時交代 limitations。",
+            "BUILD → EVALUATE → INTERPRET → DECIDE"
+          ]
+        },
+        {
+          "heading": "16. 資料來源、一致性說明與自我檢查",
+          "paragraphs": [
+            "Primary source：Interpreting Results & Discussion PDF（12頁），University of Colorado Boulder。",
+            "Supplement：同課影片逐字稿，用來補充 “holding variables constant”、standardization、near-zero coefficients、跨領域應用等口述內容。",
+            "已標示一個來源算術差異：影片口述 1,500 × 110 約為 $150,000；PDF 與正確算術為 $165,000。",
+            "「進階補充」段落為了幫助理解而加入的一般 regression 知識，已與課件原意分開標示。",
+            "完成後 5 題自我檢查",
+            "Q1. βSize = 110 應該怎樣用完整一句話解釋？",
+            "Q2. 為甚麼 Location 的 coefficient 最大，但 Size 的 typical total impact 可以更大？",
+            "Q3. R² = 0.897 是否等於模型有 89.7% accuracy？",
+            "Q4. 若某 feature coefficient near 0，是否一定立即刪除？你還會檢查甚麼？",
+            "Q5. 為甚麼 coefficient 不能直接證明 causation？",
+            "自我檢查答案方向：  Q1 要有 holding others constant；Q2 要講 scale / typical range；Q3 不等於 classification accuracy；Q4 還要看 validation performance、scale、domain meaning；Q5 regression 在此建立的是 association，仍可能有 confounding / omitted variables。",
+            "如果以上 5 題你可以不用看筆記答出來，這一課的核心已經真正掌握。"
+          ]
+        }
+      ],
+      "visuals": [],
+      "courseOrder": 7,
+      "courseSection": "Regression and Model Assessment",
+      "courseSectionId": "regression-and-model-assessment"
+    }
+  ]
+}

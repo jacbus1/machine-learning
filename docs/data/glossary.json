@@ -1,0 +1,1695 @@
+{
+  "version": 1,
+  "title": "Data Science Glossary",
+  "description": "把課程中反覆出現的術語、公式與它們在學習路徑中的位置整理成可搜尋的定義庫。",
+  "scope": "Module 1–2",
+  "categories": [
+    {
+      "id": "foundations",
+      "label": "Foundations",
+      "description": "資料、任務與模型的共同語言"
+    },
+    {
+      "id": "regression",
+      "label": "Regression",
+      "description": "用連續目標建立與解讀線性模型"
+    },
+    {
+      "id": "math",
+      "label": "Math for ML",
+      "description": "向量、矩陣、機率與最佳化"
+    },
+    {
+      "id": "evaluation",
+      "label": "Evaluation",
+      "description": "泛化、誤差與模型診斷"
+    },
+    {
+      "id": "workflow",
+      "label": "Workflow",
+      "description": "從資料切分到可重現的建模流程"
+    },
+    {
+      "id": "representation",
+      "label": "Representation",
+      "description": "降維、矩陣分解與低維表示"
+    },
+    {
+      "id": "clustering",
+      "label": "Clustering & Discovery",
+      "description": "群組、異常與潛在結構"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "supervised-learning",
+      "to": "regression",
+      "label": "一種任務框架"
+    },
+    {
+      "from": "regression",
+      "to": "simple-linear-regression",
+      "label": "一個連續目標"
+    },
+    {
+      "from": "simple-linear-regression",
+      "to": "multiple-linear-regression",
+      "label": "加入更多 predictors"
+    },
+    {
+      "from": "simple-linear-regression",
+      "to": "least-squares",
+      "label": "學習最佳直線"
+    },
+    {
+      "from": "least-squares",
+      "to": "residual",
+      "label": "用誤差衡量"
+    },
+    {
+      "from": "residual",
+      "to": "model-evaluation",
+      "label": "檢查泛化"
+    },
+    {
+      "from": "feature",
+      "to": "design-matrix",
+      "label": "組成資料表示"
+    },
+    {
+      "from": "design-matrix",
+      "to": "linear-model",
+      "label": "送入模型"
+    },
+    {
+      "from": "loss-function",
+      "to": "gradient-descent",
+      "label": "沿梯度更新"
+    }
+  ],
+  "bigPicture": {
+    "title": "從問題到可靠模型",
+    "subtitle": "先定義問題，再理解資料，最後才談模型分數。",
+    "nodes": [
+      {
+        "id": "problem",
+        "number": "01",
+        "title": "Problem framing",
+        "subtitle": "先問要預測什麼",
+        "description": "把現實問題拆成 observation、feature、target 與 prediction horizon。",
+        "glossaryIds": [
+          "supervised-learning",
+          "feature",
+          "label",
+          "target",
+          "prediction"
+        ]
+      },
+      {
+        "id": "data",
+        "number": "02",
+        "title": "Data representation",
+        "subtitle": "資料如何被模型看見",
+        "description": "把 samples 與 features 組成向量或矩陣，處理數值、類別與缺失資料。",
+        "glossaryIds": [
+          "feature",
+          "categorical-variable",
+          "missing-value",
+          "vector",
+          "matrix",
+          "design-matrix"
+        ]
+      },
+      {
+        "id": "model",
+        "number": "03",
+        "title": "Model family",
+        "subtitle": "選擇可以回答問題的模型",
+        "description": "Regression 預測連續值；classification 預測類別；simple 與 multiple 取決於 predictors 數量。",
+        "glossaryIds": [
+          "regression",
+          "classification",
+          "simple-linear-regression",
+          "multiple-linear-regression",
+          "linear-model"
+        ]
+      },
+      {
+        "id": "discover",
+        "number": "04",
+        "title": "Discover structure",
+        "subtitle": "沒有 label 時理解資料",
+        "description": "用 PCA、clustering 與 latent models 找出低維表示、群組與異常。",
+        "glossaryIds": [
+          "unsupervised-learning",
+          "pca",
+          "k-means",
+          "gmm",
+          "hierarchical-clustering",
+          "anomaly-detection"
+        ]
+      },
+      {
+        "id": "fit",
+        "number": "05",
+        "title": "Fit & optimize",
+        "subtitle": "讓模型從資料學習",
+        "description": "用 loss、least squares 或 gradient descent 找到能描述資料的參數。",
+        "glossaryIds": [
+          "parameter",
+          "loss-function",
+          "least-squares",
+          "ordinary-least-squares",
+          "gradient-descent",
+          "slope",
+          "intercept"
+        ]
+      },
+      {
+        "id": "check",
+        "number": "06",
+        "title": "Evaluate & explain",
+        "subtitle": "確認它真的可靠",
+        "description": "分開 train、validation、test；讀 residual、error metrics、bias、variance 與 interpretability。",
+        "glossaryIds": [
+          "train-validation-test",
+          "residual",
+          "mse",
+          "rmse",
+          "r-squared",
+          "generalization",
+          "data-leakage",
+          "bias-variance"
+        ]
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "machine-learning",
+      "term": "Machine Learning",
+      "aliases": [
+        "ML",
+        "機器學習"
+      ],
+      "category": "foundations",
+      "definition": "讓電腦從資料中的例子學出可重複使用的規律，再對新的輸入做預測或決策。",
+      "why": "它把資料、模型、目標函數與評估流程接成一個可以檢查的系統。",
+      "module": "Module 1",
+      "unitId": "machine-learning-introduction",
+      "related": [
+        "supervised-learning",
+        "model",
+        "generalization"
+      ]
+    },
+    {
+      "id": "supervised-learning",
+      "term": "Supervised Learning",
+      "aliases": [
+        "監督式學習"
+      ],
+      "category": "foundations",
+      "definition": "使用帶有已知答案（label）的樣本學習輸入與目標之間的關係。",
+      "why": "有了 label，模型才可以比較預測與答案的差距，進而學習。",
+      "module": "Module 1",
+      "unitId": "supervised-learning-introduction",
+      "related": [
+        "feature",
+        "label",
+        "regression",
+        "classification"
+      ]
+    },
+    {
+      "id": "feature",
+      "term": "Feature",
+      "aliases": [
+        "predictor",
+        "input",
+        "特徵",
+        "輸入變數"
+      ],
+      "category": "foundations",
+      "definition": "模型在預測時可使用的輸入欄位或變數，例如房屋面積、讀書時間或出席率。",
+      "why": "feature 必須在預測當下可取得，否則會造成不公平或資料洩漏。",
+      "module": "Module 1",
+      "unitId": "supervised-learning-introduction",
+      "related": [
+        "label",
+        "target",
+        "data-leakage",
+        "design-matrix"
+      ]
+    },
+    {
+      "id": "label",
+      "term": "Label",
+      "aliases": [
+        "target value",
+        "答案",
+        "標籤"
+      ],
+      "category": "foundations",
+      "definition": "訓練樣本中已知、且模型要學習預測的答案。分類的 label 是類別；回歸的 label 通常是連續數值。",
+      "why": "label 的定義與品質直接決定模型學習的方向。",
+      "module": "Module 1",
+      "unitId": "supervised-learning-introduction",
+      "related": [
+        "target",
+        "regression",
+        "classification"
+      ]
+    },
+    {
+      "id": "target",
+      "term": "Target",
+      "aliases": [
+        "response",
+        "outcome",
+        "目標變數"
+      ],
+      "category": "foundations",
+      "definition": "建模問題中希望預測或解釋的輸出變數，常以 y 表示。",
+      "why": "先確定 target，才能判斷是 regression、classification，並選對 metric。",
+      "module": "Module 1",
+      "related": [
+        "label",
+        "regression",
+        "classification",
+        "prediction"
+      ]
+    },
+    {
+      "id": "model",
+      "term": "Model",
+      "aliases": [
+        "模型"
+      ],
+      "category": "foundations",
+      "definition": "把輸入資料轉成預測的規則或函數；它可以是線性方程、樹、神經網路或其他模型家族。",
+      "why": "模型不是只有一個分數，而是一組可訓練、可評估、可部署的假設。",
+      "module": "Module 1",
+      "related": [
+        "parameter",
+        "hyperparameter",
+        "generalization"
+      ]
+    },
+    {
+      "id": "parameter",
+      "term": "Parameter",
+      "aliases": [
+        "參數",
+        "coefficient"
+      ],
+      "category": "foundations",
+      "definition": "模型在訓練過程中由資料估計出來的數值，例如線性模型的 intercept 與 slope。",
+      "why": "parameter 決定模型對輸入如何產生輸出；它與由使用者設定的 hyperparameter 不同。",
+      "module": "Module 2",
+      "related": [
+        "hyperparameter",
+        "slope",
+        "intercept",
+        "least-squares"
+      ]
+    },
+    {
+      "id": "hyperparameter",
+      "term": "Hyperparameter",
+      "aliases": [
+        "超參數"
+      ],
+      "category": "foundations",
+      "definition": "在訓練前或訓練外由使用者設定、而非直接由模型 fit 出來的控制值，例如 learning rate、正則化強度或樹深度。",
+      "why": "hyperparameter 應用 validation 或 cross-validation 選擇，不能偷看 test set。",
+      "module": "Module 2",
+      "related": [
+        "parameter",
+        "cross-validation",
+        "train-validation-test"
+      ]
+    },
+    {
+      "id": "prediction",
+      "term": "Prediction",
+      "aliases": [
+        "預測",
+        "ŷ"
+      ],
+      "category": "foundations",
+      "definition": "把新的 feature 輸入 fitted model，產生對 target 的估計值，通常以 ŷ 表示。",
+      "why": "Prediction 關心新樣本會得到什麼輸出；它不同於解讀變數關係的 inference。",
+      "module": "Module 1–2",
+      "related": [
+        "inference",
+        "fitted-value",
+        "generalization"
+      ]
+    },
+    {
+      "id": "inference",
+      "term": "Inference",
+      "aliases": [
+        "推論",
+        "coefficient interpretation"
+      ],
+      "category": "foundations",
+      "definition": "利用模型係數與不確定性理解變數和 target 的方向、大小與實際意義。",
+      "why": "同一個模型可以用來預測，也可以用來回答「X 和 Y 的關係如何」；兩個目的不能混為一談。",
+      "module": "Module 2",
+      "related": [
+        "slope",
+        "intercept",
+        "prediction",
+        "causation"
+      ]
+    },
+    {
+      "id": "regression",
+      "term": "Regression",
+      "aliases": [
+        "回歸"
+      ],
+      "category": "regression",
+      "definition": "target 是可在數值尺度上連續變化的 supervised learning 任務，例如預測房價、分數或溫度。",
+      "why": "任務類型由 target 決定；選擇 regression 後才會使用合適的 loss 與 error metric。",
+      "module": "Module 1–2",
+      "related": [
+        "classification",
+        "simple-linear-regression",
+        "multiple-linear-regression"
+      ]
+    },
+    {
+      "id": "classification",
+      "term": "Classification",
+      "aliases": [
+        "分類"
+      ],
+      "category": "foundations",
+      "definition": "target 是有限的類別或標籤，例如通過／不通過、垃圾郵件／非垃圾郵件。",
+      "why": "classification 的輸出與評估方式和連續數值 prediction 不同。",
+      "module": "Module 1",
+      "related": [
+        "regression",
+        "label",
+        "metric"
+      ]
+    },
+    {
+      "id": "simple-linear-regression",
+      "term": "Simple Linear Regression",
+      "aliases": [
+        "SLR",
+        "簡單線性回歸"
+      ],
+      "category": "regression",
+      "definition": "只使用一個 predictor X，以直線描述或預測一個連續 target Y 的模型。",
+      "why": "它是理解係數、殘差、least squares、prediction 與 inference 的最小完整模型。",
+      "formula": "Y = β₀ + β₁X + ε",
+      "module": "Module 2",
+      "unitId": "simple-linear-regression",
+      "related": [
+        "linear-regression",
+        "multiple-linear-regression",
+        "slope",
+        "residual"
+      ]
+    },
+    {
+      "id": "linear-regression",
+      "term": "Linear Regression",
+      "aliases": [
+        "線性回歸"
+      ],
+      "category": "regression",
+      "definition": "假設 target 的系統性部分可以由輸入變數的線性組合表示的 regression 模型。",
+      "why": "linear 不代表資料點完美排成直線，而是模型用線性組合表達平均關係。",
+      "formula": "ŷ = β₀ + β₁x",
+      "module": "Module 2",
+      "related": [
+        "simple-linear-regression",
+        "multiple-linear-regression",
+        "linear-model"
+      ]
+    },
+    {
+      "id": "multiple-linear-regression",
+      "term": "Multiple Linear Regression",
+      "aliases": [
+        "MLR",
+        "多元線性回歸"
+      ],
+      "category": "regression",
+      "definition": "使用多個 predictors 共同預測一個連續 target 的線性模型。",
+      "why": "當單一 feature 無法解釋足夠變異時，可以加入更多有意義的 predictors，但要注意共線性、leakage 與解讀邊界。",
+      "formula": "ŷ = β₀ + β₁x₁ + ··· + βₚxₚ",
+      "module": "Module 2",
+      "related": [
+        "simple-linear-regression",
+        "feature",
+        "design-matrix",
+        "interaction"
+      ]
+    },
+    {
+      "id": "linear-model",
+      "term": "Linear Model",
+      "aliases": [
+        "線性模型"
+      ],
+      "category": "regression",
+      "definition": "以參數的線性組合表示預測值的模型；輸入可以是原始 feature，也可以是轉換後的 feature。",
+      "why": "它讓係數有清楚的代數與 domain 解讀，並可用矩陣運算有效處理大量樣本。",
+      "module": "Module 1–2",
+      "related": [
+        "linear-regression",
+        "design-matrix",
+        "parameter"
+      ]
+    },
+    {
+      "id": "intercept",
+      "term": "Intercept",
+      "aliases": [
+        "β₀",
+        "截距"
+      ],
+      "category": "regression",
+      "definition": "當 X=0 時模型直線的基準輸出，控制直線在垂直方向的位置。",
+      "why": "它是模型必須估計的參數；但 X=0 若不在實際資料範圍內，不能直接當成有現實意義的情境。",
+      "formula": "β₀",
+      "module": "Module 2",
+      "related": [
+        "slope",
+        "simple-linear-regression"
+      ]
+    },
+    {
+      "id": "slope",
+      "term": "Slope",
+      "aliases": [
+        "β₁",
+        "斜率",
+        "coefficient"
+      ],
+      "category": "regression",
+      "definition": "X 每增加一個單位時，模型預測的 Y 平均改變量；正負表示方向。",
+      "why": "解讀 slope 時必須同時說明單位、條件與「association 不自動等於 causation」。",
+      "formula": "β₁ = ΔY / ΔX",
+      "module": "Module 2",
+      "related": [
+        "intercept",
+        "inference",
+        "simple-linear-regression"
+      ]
+    },
+    {
+      "id": "error-term",
+      "term": "Error Term",
+      "aliases": [
+        "ε",
+        "誤差項"
+      ],
+      "category": "regression",
+      "definition": "真實結果中由模型沒有納入、無法量測或隨機變動造成的部分；它屬於概念上的真實資料生成關係。",
+      "why": "分清 error term ε 與可由樣本計算的 residual e，是理解線性回歸的關鍵。",
+      "formula": "Y = β₀ + β₁X + ε",
+      "module": "Module 2",
+      "related": [
+        "residual",
+        "fitted-value"
+      ]
+    },
+    {
+      "id": "residual",
+      "term": "Residual",
+      "aliases": [
+        "e",
+        "殘差"
+      ],
+      "category": "regression",
+      "definition": "觀察到的 target 與 fitted model 預測值之差；本課採用 e = Y − ŷ。",
+      "why": "residual 顯示每個樣本被模型低估或高估多少，也是診斷模型假設與計算 error metrics 的基礎。",
+      "formula": "eᵢ = yᵢ − ŷᵢ",
+      "module": "Module 2",
+      "unitId": "simple-linear-regression",
+      "related": [
+        "error-term",
+        "least-squares",
+        "mse",
+        "heteroscedasticity"
+      ]
+    },
+    {
+      "id": "fitted-value",
+      "term": "Fitted Value",
+      "aliases": [
+        "ŷ",
+        "預測擬合值"
+      ],
+      "category": "regression",
+      "definition": "把一筆已知或新的 X 代入已估計的模型後得到的預測輸出。",
+      "why": "它與實際觀察值 y 一起定義 residual；對新資料 prediction 時不會加上事先未知的 ε。",
+      "formula": "ŷ = β̂₀ + β̂₁x",
+      "module": "Module 2",
+      "related": [
+        "prediction",
+        "residual",
+        "parameter"
+      ]
+    },
+    {
+      "id": "least-squares",
+      "term": "Least Squares",
+      "aliases": [
+        "最小平方法",
+        "平方誤差最小"
+      ],
+      "category": "regression",
+      "definition": "選擇模型參數，使所有觀察值與 fitted value 之間的 residual 平方和最小的估計原則。",
+      "why": "它把「最佳直線」轉成可以計算、比較與驗證的明確目標。",
+      "formula": "SSE = Σᵢ(yᵢ − ŷᵢ)²",
+      "module": "Module 2",
+      "related": [
+        "ordinary-least-squares",
+        "residual",
+        "mse"
+      ]
+    },
+    {
+      "id": "ordinary-least-squares",
+      "term": "Ordinary Least Squares (OLS)",
+      "aliases": [
+        "OLS",
+        "普通最小平方法"
+      ],
+      "category": "regression",
+      "definition": "最常見的 least-squares 線性回歸估計法，直接以 residual 的平方和作為 fit 的目標。",
+      "why": "它連接課程中的 fitted line、係數估計、residual 與後續的 MSE/R²。",
+      "formula": "β̂₁ = Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²",
+      "module": "Module 2",
+      "related": [
+        "least-squares",
+        "slope",
+        "mse"
+      ]
+    },
+    {
+      "id": "design-matrix",
+      "term": "Design Matrix",
+      "aliases": [
+        "X matrix",
+        "設計矩陣"
+      ],
+      "category": "math",
+      "definition": "把每個 sample 的 predictors 以 rows、把每個 feature 以 columns 排列成的矩陣，線性模型可用它批次計算預測。",
+      "why": "它是從資料表走到 ŷ = Xβ 的橋樑，並讓 dimension 檢查成為明確規則。",
+      "formula": "ŷ = Xβ",
+      "module": "Module 1–2",
+      "related": [
+        "matrix",
+        "vector",
+        "linear-model",
+        "multiple-linear-regression"
+      ]
+    },
+    {
+      "id": "scalar",
+      "term": "Scalar",
+      "aliases": [
+        "純量"
+      ],
+      "category": "math",
+      "definition": "單一數值，例如 5、−3 或 0.1；它不是向量或矩陣。",
+      "why": "scalar、vector、matrix 的分層是讀懂 ML notation 與矩陣運算的起點。",
+      "module": "Module 1",
+      "related": [
+        "vector",
+        "matrix"
+      ]
+    },
+    {
+      "id": "vector",
+      "term": "Vector",
+      "aliases": [
+        "向量"
+      ],
+      "category": "math",
+      "definition": "按照順序排列的一組 scalar；在資料科學中常代表一個 sample 的 features 或一組 model weights。",
+      "why": "向量讓一筆觀察與一組參數可以用一致的數學表示。",
+      "module": "Module 1",
+      "related": [
+        "scalar",
+        "matrix",
+        "dot-product",
+        "design-matrix"
+      ]
+    },
+    {
+      "id": "matrix",
+      "term": "Matrix",
+      "aliases": [
+        "矩陣"
+      ],
+      "category": "math",
+      "definition": "由 rows 與 columns 組成的數值表；在 ML 中通常 rows 是 observations，columns 是 features。",
+      "why": "資料集、係數與批次預測都常以矩陣表示，維度錯誤會直接使運算失敗。",
+      "module": "Module 1",
+      "related": [
+        "vector",
+        "transpose",
+        "design-matrix",
+        "dot-product"
+      ]
+    },
+    {
+      "id": "transpose",
+      "term": "Transpose",
+      "aliases": [
+        "轉置",
+        "ᵀ"
+      ],
+      "category": "math",
+      "definition": "把矩陣的 rows 與 columns 互換，例如 X 變成 Xᵀ。",
+      "why": "轉置常用於把 row vector 變成 column vector，以及推導矩陣型線性模型。",
+      "formula": "(AB)ᵀ = BᵀAᵀ",
+      "module": "Module 1",
+      "related": [
+        "matrix",
+        "identity-matrix",
+        "design-matrix"
+      ]
+    },
+    {
+      "id": "dot-product",
+      "term": "Dot Product",
+      "aliases": [
+        "內積",
+        "點積"
+      ],
+      "category": "math",
+      "definition": "兩個同長向量對應元素相乘後加總的結果；它是線性模型計算加權和的基本運算。",
+      "why": "ŷ = xᵀβ 可以直接理解為 features 與 weights 的 dot product。",
+      "formula": "a·b = Σᵢaᵢbᵢ",
+      "module": "Module 1",
+      "related": [
+        "vector",
+        "linear-model",
+        "matrix"
+      ]
+    },
+    {
+      "id": "identity-matrix",
+      "term": "Identity Matrix",
+      "aliases": [
+        "I",
+        "單位矩陣"
+      ],
+      "category": "math",
+      "definition": "主對角線是 1、其他位置是 0 的方陣；與相容矩陣相乘時保持原矩陣不變。",
+      "why": "它是理解 inverse、矩陣方程與正則化推導的基礎。",
+      "formula": "AI = IA = A",
+      "module": "Module 1",
+      "related": [
+        "matrix",
+        "transpose"
+      ]
+    },
+    {
+      "id": "derivative",
+      "term": "Derivative",
+      "aliases": [
+        "導數",
+        "微分"
+      ],
+      "category": "math",
+      "definition": "描述函數在某一點附近變化率的量；在最佳化中表示參數往哪個方向會令 loss 增加或減少。",
+      "why": "導數把「哪裡更好」轉成可以用來更新參數的方向資訊。",
+      "module": "Module 1",
+      "related": [
+        "loss-function",
+        "gradient-descent",
+        "learning-rate"
+      ]
+    },
+    {
+      "id": "gradient-descent",
+      "term": "Gradient Descent",
+      "aliases": [
+        "梯度下降"
+      ],
+      "category": "math",
+      "definition": "反覆沿著 loss gradient 的反方向更新參數，使模型逐步走向較低的 loss。",
+      "why": "它是許多 ML 模型從資料學習參數的核心最佳化流程。",
+      "formula": "θ ← θ − η∇L(θ)",
+      "module": "Module 1",
+      "related": [
+        "derivative",
+        "loss-function",
+        "learning-rate"
+      ]
+    },
+    {
+      "id": "loss-function",
+      "term": "Loss Function",
+      "aliases": [
+        "損失函數",
+        "目標函數"
+      ],
+      "category": "math",
+      "definition": "把模型預測與正確答案之間的差距轉成可最小化數值的函數。",
+      "why": "沒有明確 loss，模型就沒有「什麼叫做更好」的訓練目標。",
+      "module": "Module 1–2",
+      "related": [
+        "least-squares",
+        "mse",
+        "gradient-descent"
+      ]
+    },
+    {
+      "id": "learning-rate",
+      "term": "Learning Rate",
+      "aliases": [
+        "η",
+        "學習率"
+      ],
+      "category": "math",
+      "definition": "控制 gradient descent 每次沿更新方向移動多遠的 hyperparameter。",
+      "why": "太大可能震盪或發散；太小則收斂很慢，因此需要在 validation 上調整。",
+      "module": "Module 1",
+      "related": [
+        "gradient-descent",
+        "hyperparameter"
+      ]
+    },
+    {
+      "id": "probability",
+      "term": "Probability",
+      "aliases": [
+        "機率"
+      ],
+      "category": "math",
+      "definition": "量化事件或結果在不確定情況下發生的可能程度，範圍通常介於 0 與 1。",
+      "why": "分類信心、隨機變數、分布與 Bayes reasoning 都以 probability 為共同語言。",
+      "module": "Module 1",
+      "related": [
+        "random-variable",
+        "conditional-probability",
+        "expectation"
+      ]
+    },
+    {
+      "id": "random-variable",
+      "term": "Random Variable",
+      "aliases": [
+        "隨機變數"
+      ],
+      "category": "math",
+      "definition": "把隨機實驗的結果映射成數值的變數；它可以是 discrete 或 continuous。",
+      "why": "它讓不確定性可以透過 distribution、expectation 與 variance 進行計算。",
+      "module": "Module 1",
+      "related": [
+        "probability",
+        "expectation",
+        "gaussian-distribution"
+      ]
+    },
+    {
+      "id": "gaussian-distribution",
+      "term": "Gaussian Distribution",
+      "aliases": [
+        "Normal Distribution",
+        "常態分布",
+        "高斯分布"
+      ],
+      "category": "math",
+      "definition": "以平均數 μ 與標準差 σ 描述、在平均附近呈鐘形對稱的連續機率分布。",
+      "why": "它是理解常見誤差模型、標準化與許多統計推論的基礎，但真實資料不一定服從常態分布。",
+      "formula": "X ∼ N(μ, σ²)",
+      "module": "Module 1",
+      "related": [
+        "random-variable",
+        "expectation",
+        "variance-probability"
+      ]
+    },
+    {
+      "id": "expectation",
+      "term": "Expectation",
+      "aliases": [
+        "E[X]",
+        "期望值",
+        "平均"
+      ],
+      "category": "math",
+      "definition": "隨機變數長期平均結果的理論中心；離散情況是各結果乘以其機率後加總。",
+      "why": "expectation 是定義 variance、covariance 與許多 ML risk 量的基礎。",
+      "formula": "E[X] = Σₓ xP(X=x)",
+      "module": "Module 1",
+      "related": [
+        "probability",
+        "variance-probability",
+        "covariance"
+      ]
+    },
+    {
+      "id": "covariance",
+      "term": "Covariance",
+      "aliases": [
+        "Cov(X,Y)",
+        "共變異數"
+      ],
+      "category": "math",
+      "definition": "衡量兩個變數是否一起偏離各自平均值的量；正值表示同向變動，負值表示反向變動。",
+      "why": "covariance 是理解相關性、特徵關係與多變量模型的基礎，但會受尺度影響。",
+      "formula": "Cov(X,Y)=E[(X−μₓ)(Y−μᵧ)]",
+      "module": "Module 1–2",
+      "related": [
+        "expectation",
+        "variance-probability",
+        "multiple-linear-regression"
+      ]
+    },
+    {
+      "id": "variance-probability",
+      "term": "Variance (Probability)",
+      "aliases": [
+        "Var(X)",
+        "機率中的變異數"
+      ],
+      "category": "math",
+      "definition": "描述隨機變數相對於期望值的平均平方偏離程度。",
+      "why": "它量化不確定性的 spread，也連接到 regression 的 error variance 與 bias–variance。",
+      "formula": "Var(X)=E[(X−μ)²]",
+      "module": "Module 1",
+      "related": [
+        "expectation",
+        "bias-variance",
+        "homoscedasticity"
+      ]
+    },
+    {
+      "id": "conditional-probability",
+      "term": "Conditional Probability",
+      "aliases": [
+        "P(A|B)",
+        "條件機率"
+      ],
+      "category": "math",
+      "definition": "在已知事件 B 發生的前提下，事件 A 發生的機率。",
+      "why": "它是理解 feature information、Bayes theorem 與條件式預測的核心。",
+      "formula": "P(A|B)=P(A∩B)/P(B)",
+      "module": "Module 1",
+      "related": [
+        "probability",
+        "random-variable"
+      ]
+    },
+    {
+      "id": "train-validation-test",
+      "term": "Train / Validation / Test Split",
+      "aliases": [
+        "資料切分",
+        "三分法"
+      ],
+      "category": "workflow",
+      "definition": "把資料分成 training 用於 fit、validation 用於選模型或調 hyperparameters、test 用於最後一次無偏評估的流程。",
+      "why": "分離用途可以避免模型間接看見答案，讓 test performance 更接近部署後表現。",
+      "module": "Module 2",
+      "related": [
+        "generalization",
+        "data-leakage",
+        "cross-validation"
+      ]
+    },
+    {
+      "id": "generalization",
+      "term": "Generalization",
+      "aliases": [
+        "泛化"
+      ],
+      "category": "evaluation",
+      "definition": "模型把從 training data 學到的規律應用到未見資料時仍能可靠工作的能力。",
+      "why": "學習的目標不是記住訓練資料，而是對 future/unseen data 保持表現。",
+      "module": "Module 1",
+      "related": [
+        "overfitting",
+        "underfitting",
+        "bias-variance",
+        "test-error"
+      ]
+    },
+    {
+      "id": "overfitting",
+      "term": "Overfitting",
+      "aliases": [
+        "過度擬合"
+      ],
+      "category": "evaluation",
+      "definition": "模型過度貼合 training data 的細節與噪音，導致 training 表現高但 unseen data 表現下降。",
+      "why": "它提醒我們不能只看 training score，要用 validation/test 與合理的模型複雜度檢查。",
+      "module": "Module 1–2",
+      "related": [
+        "underfitting",
+        "bias-variance",
+        "regularization",
+        "generalization"
+      ]
+    },
+    {
+      "id": "regularization",
+      "term": "Regularization",
+      "aliases": [
+        "正則化"
+      ],
+      "category": "evaluation",
+      "definition": "在原本的 loss 外加入對模型複雜度的懲罰，限制參數或模型過度追逐 training noise。",
+      "why": "regularization 是降低 variance、改善泛化的常見方法，但懲罰太強也可能造成 underfitting。",
+      "formula": "L(θ)+λΩ(θ)",
+      "module": "Module 2",
+      "related": [
+        "overfitting",
+        "underfitting",
+        "hyperparameter",
+        "model-complexity"
+      ]
+    },
+    {
+      "id": "underfitting",
+      "term": "Underfitting",
+      "aliases": [
+        "欠擬合"
+      ],
+      "category": "evaluation",
+      "definition": "模型過於簡單，連 training data 中穩定而重要的 pattern 也無法捕捉。",
+      "why": "高 bias 的簡單模型可能需要更多 features、更彈性的模型或重新定義問題。",
+      "module": "Module 1",
+      "related": [
+        "overfitting",
+        "bias-variance",
+        "model-complexity"
+      ]
+    },
+    {
+      "id": "bias-variance",
+      "term": "Bias–Variance Trade-off",
+      "aliases": [
+        "偏差–變異權衡"
+      ],
+      "category": "evaluation",
+      "definition": "模型複雜度改變時，系統性誤差（bias）與對資料抽樣敏感的變動（variance）之間的權衡。",
+      "why": "它解釋為什麼最複雜或最簡單的模型都未必能在新資料上最好。",
+      "module": "Module 1",
+      "unitId": "model-accuracy-and-bias-variance-tradeoff",
+      "related": [
+        "overfitting",
+        "underfitting",
+        "generalization",
+        "model-complexity"
+      ]
+    },
+    {
+      "id": "model-complexity",
+      "term": "Model Complexity",
+      "aliases": [
+        "模型複雜度"
+      ],
+      "category": "evaluation",
+      "definition": "模型能表達的函數或 pattern 的豐富程度；複雜度提高通常增加 flexibility，也可能增加 overfitting 風險。",
+      "why": "選模型是在表達能力、穩定性、準確度與可解釋性之間做取捨。",
+      "module": "Module 1",
+      "unitId": "interpretability-vs-complexity",
+      "related": [
+        "bias-variance",
+        "interpretability",
+        "overfitting"
+      ]
+    },
+    {
+      "id": "interpretability",
+      "term": "Interpretability",
+      "aliases": [
+        "可解釋性"
+      ],
+      "category": "evaluation",
+      "definition": "人能否理解模型如何由輸入得到輸出，以及模型係數或決策代表什麼。",
+      "why": "在醫療、金融、教育等場景，能說明理由往往和預測準確度同樣重要。",
+      "module": "Module 1",
+      "unitId": "interpretability-vs-complexity",
+      "related": [
+        "model-complexity",
+        "inference",
+        "linear-model"
+      ]
+    },
+    {
+      "id": "mse",
+      "term": "Mean Squared Error (MSE)",
+      "aliases": [
+        "均方誤差"
+      ],
+      "category": "evaluation",
+      "definition": "把 residual 平方後取平均的 regression error metric；平方會放大較大的錯誤，並避免正負抵消。",
+      "why": "MSE 既是評估量，也常是 least-squares training 的核心目標。",
+      "formula": "MSE = (1/n)Σᵢ(yᵢ−ŷᵢ)²",
+      "module": "Module 2",
+      "related": [
+        "residual",
+        "least-squares",
+        "rmse"
+      ]
+    },
+    {
+      "id": "rmse",
+      "term": "Root Mean Squared Error (RMSE)",
+      "aliases": [
+        "均方根誤差"
+      ],
+      "category": "evaluation",
+      "definition": "MSE 的平方根，回到 target 原本的單位，方便用 domain 語言解釋平均誤差尺度。",
+      "why": "它通常比 MSE 更容易向非技術讀者說明，但仍受大錯誤影響。",
+      "formula": "RMSE = √MSE",
+      "module": "Module 2",
+      "related": [
+        "mse",
+        "residual",
+        "test-error"
+      ]
+    },
+    {
+      "id": "r-squared",
+      "term": "R-squared",
+      "aliases": [
+        "R²",
+        "決定係數"
+      ],
+      "category": "evaluation",
+      "definition": "描述 regression model 相對於基準平均值模型，解釋 target 變異的比例。",
+      "why": "R² 可補充 error metric，但不應單獨被當作模型準確、因果或部署價值的證明。",
+      "formula": "R² = 1 − SSE/SST",
+      "module": "Module 2",
+      "related": [
+        "mse",
+        "residual",
+        "generalization"
+      ]
+    },
+    {
+      "id": "data-leakage",
+      "term": "Data Leakage",
+      "aliases": [
+        "資料洩漏"
+      ],
+      "category": "evaluation",
+      "definition": "訓練或前處理不小心使用了 validation/test 或預測時不可取得的資訊，令評估結果虛高。",
+      "why": "leakage 會讓模型看似很準，實際部署卻失效，是最危險的流程錯誤之一。",
+      "module": "Module 1–2",
+      "related": [
+        "train-validation-test",
+        "generalization",
+        "feature"
+      ]
+    },
+    {
+      "id": "metric",
+      "term": "Metric",
+      "aliases": [
+        "評估指標"
+      ],
+      "category": "evaluation",
+      "definition": "用來量化模型表現的規則，例如 regression 的 MSE/RMSE 或 classification 的 accuracy、precision、recall。",
+      "why": "metric 必須與 target、錯誤代價與部署目標一致，不能只挑分數最高的那個。",
+      "module": "Module 1–2",
+      "related": [
+        "mse",
+        "rmse",
+        "r-squared",
+        "classification"
+      ]
+    },
+    {
+      "id": "cross-validation",
+      "term": "Cross-validation",
+      "aliases": [
+        "交叉驗證",
+        "CV"
+      ],
+      "category": "workflow",
+      "definition": "把 training data 多次分成不同的 train/validation folds，以較穩定地估計模型或 hyperparameter 的表現。",
+      "why": "當資料有限時，cross-validation 比單一 validation split 更能利用資料並降低一次切分的偶然性。",
+      "module": "Module 2",
+      "related": [
+        "train-validation-test",
+        "hyperparameter",
+        "generalization"
+      ]
+    },
+    {
+      "id": "categorical-variable",
+      "term": "Categorical Variable",
+      "aliases": [
+        "類別變數"
+      ],
+      "category": "workflow",
+      "definition": "取值代表類別而非數值距離的變數，例如 major、城市或產品類型。",
+      "why": "類別不能任意編成 1、2、3 當作有順序的數值，通常需要 encoding。",
+      "module": "Module 1–2",
+      "related": [
+        "one-hot-encoding",
+        "feature"
+      ]
+    },
+    {
+      "id": "one-hot-encoding",
+      "term": "One-hot Encoding",
+      "aliases": [
+        "獨熱編碼",
+        "類別編碼"
+      ],
+      "category": "workflow",
+      "definition": "為每個類別建立一個 0/1 indicator 欄位；樣本屬於某類別時對應欄位為 1，其餘為 0。",
+      "why": "它避免把沒有自然順序的文字類別誤造成 1、2、3 的假距離。",
+      "module": "Module 1–2",
+      "related": [
+        "categorical-variable",
+        "design-matrix"
+      ]
+    },
+    {
+      "id": "missing-value",
+      "term": "Missing Value",
+      "aliases": [
+        "缺失值",
+        "NA"
+      ],
+      "category": "workflow",
+      "definition": "資料欄位中沒有有效觀察值的項目，可能來自未填寫、測量失敗或資料合併差異。",
+      "why": "缺失值需要以刪除、imputation 或模型可處理的方式明確處理，不能默認等於 0。",
+      "module": "Module 1–2",
+      "related": [
+        "feature",
+        "data-leakage",
+        "pipeline"
+      ]
+    },
+    {
+      "id": "pipeline",
+      "term": "Preprocessing Pipeline",
+      "aliases": [
+        "前處理管線",
+        "pipeline"
+      ],
+      "category": "workflow",
+      "definition": "把 imputation、scaling、encoding 等前處理和模型按固定順序包裝成一個可重複的流程。",
+      "why": "先在 training data fit，再對 validation/test 只做 transform，可保持流程一致並避免 leakage。",
+      "module": "Module 2",
+      "related": [
+        "data-leakage",
+        "train-validation-test",
+        "one-hot-encoding"
+      ]
+    },
+    {
+      "id": "causation",
+      "term": "Causation",
+      "aliases": [
+        "因果關係",
+        "causal effect"
+      ],
+      "category": "evaluation",
+      "definition": "一個變數的改變實際造成另一個變數改變的關係；回歸係數的 association 本身不自動證明 causation。",
+      "why": "解讀 slope 或 inference 時，必須分清描述性關係與因果結論。",
+      "module": "Module 2",
+      "related": [
+        "inference",
+        "slope"
+      ]
+    },
+    {
+      "id": "interaction",
+      "term": "Interaction",
+      "aliases": [
+        "交互作用"
+      ],
+      "category": "regression",
+      "definition": "一個 feature 對 target 的效果會因另一個 feature 的值而改變，例如面積的斜率依地段而不同。",
+      "why": "只有一個 slope 的 simple linear regression 無法表達這種條件式效果。",
+      "module": "Module 2",
+      "related": [
+        "simple-linear-regression",
+        "multiple-linear-regression",
+        "model-complexity"
+      ]
+    },
+    {
+      "id": "homoscedasticity",
+      "term": "Homoscedasticity",
+      "aliases": [
+        "constant variance",
+        "等變異"
+      ],
+      "category": "evaluation",
+      "definition": "在不同 X 範圍，error 或 residual 的變異程度大致保持一致的回歸假設。",
+      "why": "若誤差散布隨 X 明顯改變，標準的線性模型解讀與不確定性估計可能不可靠。",
+      "module": "Module 2",
+      "related": [
+        "heteroscedasticity",
+        "residual",
+        "simple-linear-regression"
+      ]
+    },
+    {
+      "id": "heteroscedasticity",
+      "term": "Heteroscedasticity",
+      "aliases": [
+        "非等變異"
+      ],
+      "category": "evaluation",
+      "definition": "error 或 residual 的變異程度隨 X 改變，例如 X 越大，誤差散布越寬。",
+      "why": "它是 residual diagnostics 中的重要警號，提示模型假設、變換或 metric 需要重新檢查。",
+      "module": "Module 2",
+      "related": [
+        "homoscedasticity",
+        "residual"
+      ]
+    },
+    {
+      "id": "test-error",
+      "term": "Test Error",
+      "aliases": [
+        "測試誤差",
+        "unseen-data error"
+      ],
+      "category": "evaluation",
+      "definition": "模型在未參與 fit 與 hyperparameter 選擇的 test set 上產生的錯誤。",
+      "why": "它是對泛化能力的最後一次估計；test set 不應被反覆拿來調參。",
+      "module": "Module 2",
+      "related": [
+        "generalization",
+        "train-validation-test",
+        "metric"
+      ]
+    },
+    {
+      "id": "unsupervised-learning",
+      "term": "Unsupervised Learning",
+      "aliases": [
+        "非監督式學習"
+      ],
+      "category": "clustering",
+      "definition": "在沒有已知答案標籤的資料中尋找結構、群組、低維表示或異常模式。",
+      "why": "它把問題從預測已知目標，轉成理解資料本身的形狀與組織。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "pca",
+        "k-means",
+        "hierarchical-clustering"
+      ]
+    },
+    {
+      "id": "clustering",
+      "term": "Clustering",
+      "aliases": [
+        "分群"
+      ],
+      "category": "clustering",
+      "definition": "按照樣本間的相似性，把資料組織成內部相近、彼此相異的群組。",
+      "why": "分群提供沒有既定標籤時的探索結構。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "k-means",
+        "gmm",
+        "hierarchical-clustering"
+      ]
+    },
+    {
+      "id": "standardization",
+      "term": "Standardization",
+      "aliases": [
+        "標準化",
+        "z-score scaling"
+      ],
+      "category": "clustering",
+      "definition": "把數值轉換為以平均數零、標準差一為尺度的表示。",
+      "why": "距離型與變異型方法會受尺度影響，因此 PCA 和 K-means 前常需標準化。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "pipeline",
+        "pca",
+        "k-means"
+      ]
+    },
+    {
+      "id": "latent-variable",
+      "term": "Latent Variable",
+      "aliases": [
+        "潛在變數"
+      ],
+      "category": "clustering",
+      "definition": "不能直接觀察、但用來解釋觀察資料結構的隱藏變數。",
+      "why": "GMM component 與 topic assignment 都可以視為 latent variables。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "gmm",
+        "expectation-maximization",
+        "lda"
+      ]
+    },
+    {
+      "id": "isolation-forest",
+      "term": "Isolation Forest",
+      "aliases": [
+        "孤立森林"
+      ],
+      "category": "clustering",
+      "definition": "利用隨機切分使異常點通常以較短路徑被孤立的樹模型。",
+      "why": "它能在高維資料中有效執行無監督異常偵測。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "anomaly-detection",
+        "machine-learning"
+      ]
+    },
+    {
+      "id": "dimensionality-reduction",
+      "term": "Dimensionality Reduction",
+      "aliases": [
+        "降維"
+      ],
+      "category": "representation",
+      "definition": "用較少的變數表示高維資料，同時盡量保留重要結構。",
+      "why": "它讓資料更容易視覺化、壓縮、去噪與建模。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "pca",
+        "svd",
+        "isomap"
+      ]
+    },
+    {
+      "id": "pca",
+      "term": "Principal Component Analysis (PCA)",
+      "aliases": [
+        "主成分分析"
+      ],
+      "category": "representation",
+      "definition": "找出彼此正交、且依序捕捉最大資料變異的線性方向。",
+      "why": "PCA 把相關特徵重新表示為少量 principal components。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "principal-component",
+        "pca-loading",
+        "pca-score",
+        "svd"
+      ]
+    },
+    {
+      "id": "principal-component",
+      "term": "Principal Component",
+      "aliases": [
+        "PC",
+        "主成分"
+      ],
+      "category": "representation",
+      "definition": "由原始特徵線性組合而成的新軸；PC1 捕捉最大變異，後續主成分依序捕捉剩餘變異。",
+      "why": "它是 PCA 新座標系中的方向。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "pca",
+        "pca-loading",
+        "pca-score"
+      ]
+    },
+    {
+      "id": "pca-loading",
+      "term": "PCA Loading",
+      "aliases": [
+        "loading",
+        "負荷量"
+      ],
+      "category": "representation",
+      "definition": "描述每個原始特徵在某條 principal component 方向上的權重。",
+      "why": "loading 用來解釋一條主成分主要由哪些特徵構成。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "principal-component",
+        "pca-score"
+      ]
+    },
+    {
+      "id": "pca-score",
+      "term": "PCA Score",
+      "aliases": [
+        "score",
+        "主成分分數"
+      ],
+      "category": "representation",
+      "definition": "樣本投影到 principal component 後得到的新座標。",
+      "why": "score plot 顯示樣本在低維空間中的相對位置。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "pca",
+        "pca-loading"
+      ]
+    },
+    {
+      "id": "svd",
+      "term": "Singular Value Decomposition (SVD)",
+      "aliases": [
+        "奇異值分解"
+      ],
+      "category": "representation",
+      "definition": "把矩陣分解為左右奇異向量與奇異值，揭示主要方向與尺度。",
+      "why": "SVD 是 PCA、低秩近似與缺失值方法的重要計算基礎。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "matrix",
+        "pca",
+        "dimensionality-reduction"
+      ]
+    },
+    {
+      "id": "k-means",
+      "term": "K-means Clustering",
+      "aliases": [
+        "K 均值分群"
+      ],
+      "category": "clustering",
+      "definition": "反覆進行樣本指派與中心更新，把資料分成 K 個群組。",
+      "why": "它以降低群內平方距離為目標，適合近似球狀且尺度可比較的群組。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "wcss",
+        "clustering",
+        "standardization"
+      ]
+    },
+    {
+      "id": "wcss",
+      "term": "Within-Cluster Sum of Squares (WCSS)",
+      "aliases": [
+        "群內平方和"
+      ],
+      "category": "clustering",
+      "definition": "計算每個樣本到所屬群中心的平方距離總和。",
+      "why": "它是 K-means 的最佳化目標，也可用於 elbow method。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "k-means",
+        "loss-function"
+      ]
+    },
+    {
+      "id": "gmm",
+      "term": "Gaussian Mixture Model (GMM)",
+      "aliases": [
+        "高斯混合模型"
+      ],
+      "category": "clustering",
+      "definition": "假設資料由多個 Gaussian components 混合產生，並為每個樣本給出軟性群組機率。",
+      "why": "它比硬式 K-means 更能表示重疊與不同形狀的群組。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "gaussian-distribution",
+        "expectation-maximization",
+        "clustering"
+      ]
+    },
+    {
+      "id": "expectation-maximization",
+      "term": "Expectation-Maximization (EM)",
+      "aliases": [
+        "EM algorithm",
+        "期望最大化"
+      ],
+      "category": "clustering",
+      "definition": "交替估計隱藏群組責任與更新模型參數的迭代方法。",
+      "why": "EM 常用來估計 GMM 等含有 latent variables 的模型。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "gmm",
+        "latent-variable"
+      ]
+    },
+    {
+      "id": "hierarchical-clustering",
+      "term": "Hierarchical Clustering",
+      "aliases": [
+        "階層式分群"
+      ],
+      "category": "clustering",
+      "definition": "依距離與 linkage 規則逐步合併或拆分群組，形成階層結構。",
+      "why": "它不必先固定唯一群數，並能用 dendrogram 檢視不同尺度的群組。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "dendrogram",
+        "linkage",
+        "clustering"
+      ]
+    },
+    {
+      "id": "dendrogram",
+      "term": "Dendrogram",
+      "aliases": [
+        "樹狀圖"
+      ],
+      "category": "clustering",
+      "definition": "顯示階層式分群中群組合併順序與距離的樹狀圖。",
+      "why": "在不同高度切割 dendrogram，可以得到不同數量的 clusters。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "hierarchical-clustering",
+        "linkage"
+      ]
+    },
+    {
+      "id": "linkage",
+      "term": "Linkage Criterion",
+      "aliases": [
+        "連結準則"
+      ],
+      "category": "clustering",
+      "definition": "定義兩個 clusters 之間距離的規則，例如 single、complete 與 average linkage。",
+      "why": "不同 linkage 會產生不同群組形狀與對離群值的敏感度。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "hierarchical-clustering",
+        "dendrogram"
+      ]
+    },
+    {
+      "id": "tsne",
+      "term": "t-SNE",
+      "aliases": [
+        "t-distributed Stochastic Neighbor Embedding"
+      ],
+      "category": "representation",
+      "definition": "以非線性方式把高維資料映射到低維，優先保留局部鄰近關係。",
+      "why": "它適合探索式視覺化，但群間距離與群大小不應直接作定量解讀。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "dimensionality-reduction",
+        "pca"
+      ]
+    },
+    {
+      "id": "isomap",
+      "term": "Isomap",
+      "aliases": [],
+      "category": "representation",
+      "definition": "以鄰居圖上的 geodesic distance 保留非線性流形結構，再進行低維嵌入。",
+      "why": "它能捕捉線性 PCA 無法表示的彎曲低維結構。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "dimensionality-reduction",
+        "mds"
+      ]
+    },
+    {
+      "id": "mds",
+      "term": "Multidimensional Scaling (MDS)",
+      "aliases": [
+        "多維尺度分析"
+      ],
+      "category": "representation",
+      "definition": "從樣本間距離或相異度建立低維座標，使低維距離盡量重現原始關係。",
+      "why": "MDS 適合在只有 pairwise distances 時建立視覺表示。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "dimensionality-reduction",
+        "isomap"
+      ]
+    },
+    {
+      "id": "anomaly-detection",
+      "term": "Anomaly Detection",
+      "aliases": [
+        "異常偵測"
+      ],
+      "category": "clustering",
+      "definition": "辨識相對於大多數資料模式顯著不同的樣本。",
+      "why": "它用於風險、故障、欺詐與資料品質監控。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "isolation-forest",
+        "unsupervised-learning"
+      ]
+    },
+    {
+      "id": "topic-modeling",
+      "term": "Topic Modeling",
+      "aliases": [
+        "主題模型"
+      ],
+      "category": "clustering",
+      "definition": "從大量文字中找出潛在主題，以及文件對各主題的混合比例。",
+      "why": "它提供沒有人工標籤時的語料探索與摘要結構。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "lda",
+        "unsupervised-learning"
+      ]
+    },
+    {
+      "id": "lda",
+      "term": "Latent Dirichlet Allocation (LDA)",
+      "aliases": [
+        "潛在狄利克雷分配"
+      ],
+      "category": "clustering",
+      "definition": "把每份文件表示為主題混合，並把每個主題表示為詞彙機率分布的生成模型。",
+      "why": "LDA 是經典的 probabilistic topic modeling 方法。",
+      "module": "Unsupervised Learning",
+      "unitId": "unsupervised-learning",
+      "related": [
+        "topic-modeling",
+        "latent-variable"
+      ]
+    }
+  ]
+}

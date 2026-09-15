@@ -1,0 +1,220 @@
+{
+  "nodes": [
+    {
+      "id": "machine-learning",
+      "type": "text",
+      "text": "# Machine Learning\nSupervised + Unsupervised",
+      "x": 0,
+      "y": 0,
+      "width": 300,
+      "height": 130,
+      "color": "4"
+    },
+    {
+      "id": "supervised",
+      "type": "text",
+      "text": "# Supervised Learning\n51 topics",
+      "x": -520,
+      "y": 220,
+      "width": 300,
+      "height": 110,
+      "color": "5"
+    },
+    {
+      "id": "supervised-m1",
+      "type": "text",
+      "text": "## Module 1\n11 topics",
+      "x": -980,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "supervised-m2",
+      "type": "text",
+      "text": "## Module 2\n7 topics",
+      "x": -750,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "supervised-m3",
+      "type": "text",
+      "text": "## Module 3\n14 topics",
+      "x": -520,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "supervised-m4",
+      "type": "text",
+      "text": "## Module 4\n11 topics",
+      "x": -290,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "supervised-m5",
+      "type": "text",
+      "text": "## Module 5\n8 topics",
+      "x": -60,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "unsupervised",
+      "type": "text",
+      "text": "# Unsupervised Learning\n35 topics",
+      "x": 520,
+      "y": 220,
+      "width": 300,
+      "height": 110,
+      "color": "6"
+    },
+    {
+      "id": "unsupervised-m1",
+      "type": "text",
+      "text": "## Module 1\n6 topics",
+      "x": 60,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "unsupervised-m2",
+      "type": "text",
+      "text": "## Module 2\n12 topics",
+      "x": 290,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "unsupervised-m3",
+      "type": "text",
+      "text": "## Module 3\n8 topics",
+      "x": 520,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "unsupervised-m4",
+      "type": "text",
+      "text": "## Module 4\n4 topics",
+      "x": 750,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    },
+    {
+      "id": "unsupervised-m5",
+      "type": "text",
+      "text": "## Module 5\n5 topics",
+      "x": 980,
+      "y": 500,
+      "width": 190,
+      "height": 90,
+      "color": "3"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-machine-learning-supervised",
+      "fromNode": "machine-learning",
+      "fromSide": "bottom",
+      "toNode": "supervised",
+      "toSide": "top"
+    },
+    {
+      "id": "e-supervised-supervised-m1",
+      "fromNode": "supervised",
+      "fromSide": "bottom",
+      "toNode": "supervised-m1",
+      "toSide": "top"
+    },
+    {
+      "id": "e-supervised-supervised-m2",
+      "fromNode": "supervised",
+      "fromSide": "bottom",
+      "toNode": "supervised-m2",
+      "toSide": "top"
+    },
+    {
+      "id": "e-supervised-supervised-m3",
+      "fromNode": "supervised",
+      "fromSide": "bottom",
+      "toNode": "supervised-m3",
+      "toSide": "top"
+    },
+    {
+      "id": "e-supervised-supervised-m4",
+      "fromNode": "supervised",
+      "fromSide": "bottom",
+      "toNode": "supervised-m4",
+      "toSide": "top"
+    },
+    {
+      "id": "e-supervised-supervised-m5",
+      "fromNode": "supervised",
+      "fromSide": "bottom",
+      "toNode": "supervised-m5",
+      "toSide": "top"
+    },
+    {
+      "id": "e-machine-learning-unsupervised",
+      "fromNode": "machine-learning",
+      "fromSide": "bottom",
+      "toNode": "unsupervised",
+      "toSide": "top"
+    },
+    {
+      "id": "e-unsupervised-unsupervised-m1",
+      "fromNode": "unsupervised",
+      "fromSide": "bottom",
+      "toNode": "unsupervised-m1",
+      "toSide": "top"
+    },
+    {
+      "id": "e-unsupervised-unsupervised-m2",
+      "fromNode": "unsupervised",
+      "fromSide": "bottom",
+      "toNode": "unsupervised-m2",
+      "toSide": "top"
+    },
+    {
+      "id": "e-unsupervised-unsupervised-m3",
+      "fromNode": "unsupervised",
+      "fromSide": "bottom",
+      "toNode": "unsupervised-m3",
+      "toSide": "top"
+    },
+    {
+      "id": "e-unsupervised-unsupervised-m4",
+      "fromNode": "unsupervised",
+      "fromSide": "bottom",
+      "toNode": "unsupervised-m4",
+      "toSide": "top"
+    },
+    {
+      "id": "e-unsupervised-unsupervised-m5",
+      "fromNode": "unsupervised",
+      "fromSide": "bottom",
+      "toNode": "unsupervised-m5",
+      "toSide": "top"
+    }
+  ]
+}

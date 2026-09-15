@@ -1,0 +1,195 @@
+{
+  "module1": {
+    "number": 1,
+    "title": "Introduction to Machine Learning: Supervised Learning",
+    "unit": {
+      "number": 1,
+      "title": "Introduction to Supervised Learning & Linear Regression Basics"
+    },
+    "sections": [
+      {
+        "id": "welcome-to-course",
+        "title": "Welcome to the Course",
+        "kind": "required",
+        "items": [
+          {
+            "title": "Earn Academic Credit for Your Work!",
+            "type": "reading"
+          },
+          {
+            "title": "Course Support",
+            "type": "reading"
+          },
+          {
+            "sourceUnit": "Machine Learning Introduction",
+            "title": "Machine Learning Introduction",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Supervised Learning Introduction",
+            "title": "Supervised Learning Introduction",
+            "type": "video"
+          },
+          {
+            "title": "Academic Integrity and AI Use Policy for the Machine Learning Specialization",
+            "type": "video"
+          },
+          {
+            "title": "Assessment Expectations",
+            "type": "reading"
+          },
+          {
+            "title": "Download the Recommended Reading for This Course",
+            "type": "reading"
+          }
+        ]
+      },
+      {
+        "id": "mathematical-foundations",
+        "title": "(Optional) Prerequisite Mathematical Foundations",
+        "kind": "optional",
+        "items": [
+          {
+            "title": "About These Optional Lessons",
+            "type": "reading"
+          },
+          {
+            "sourceUnit": "Mathematical Foundations for Machine Learning- Overview",
+            "title": "Mathematical Foundations for Machine Learning: Overview",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Mathematical Foundations for Machine Learning Linear Algebra",
+            "title": "Mathematical Foundations for Machine Learning: Linear Algebra",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Mathematical Foundations for Machine Learning Calculus",
+            "title": "Mathematical Foundations for Machine Learning: Calculus",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Mathematical Foundations for Machine Learning Probability",
+            "title": "Mathematical Foundations for Machine Learning: Probability",
+            "type": "video"
+          }
+        ]
+      },
+      {
+        "id": "programming-foundations",
+        "title": "(Optional) Prerequisite Programming Foundations",
+        "kind": "optional",
+        "items": [
+          {
+            "sourceUnit": "Programming Foundations for Machine Learning",
+            "title": "Programming Foundations for Machine Learning — Recommended Reading + Practice",
+            "type": "reading"
+          },
+          {
+            "sourceUnit": "Programming Foundations for Machine Learning",
+            "title": "Programming Foundations for Machine Learning",
+            "type": "video"
+          }
+        ]
+      },
+      {
+        "id": "machine-learning-foundations",
+        "title": "Machine Learning Foundations",
+        "kind": "required",
+        "items": [
+          {
+            "title": "Machine Learning Foundations — Recommended Reading",
+            "type": "reading"
+          },
+          {
+            "title": "Everyday ML Encounters",
+            "type": "discussion"
+          },
+          {
+            "sourceUnit": "Supervised vs Unsupervised Learning",
+            "title": "Supervised vs Unsupervised Learning",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Regression vs Classification",
+            "title": "Regression vs Classification",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Model Accuracy and Bias-Variance Tradeoff",
+            "title": "Model Accuracy and Bias-Variance Tradeoff",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Interpretability vs Complexity",
+            "title": "Interpretability vs Complexity",
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  },
+  "module2": {
+    "number": 2,
+    "title": "Linear Regression for Prediction & Inference",
+    "unit": {
+      "number": 2,
+      "title": "Linear Regression for Prediction & Inference"
+    },
+    "sections": [
+      {
+        "id": "simple-and-multiple-regression",
+        "title": "Simple and Multiple Regression",
+        "kind": "required",
+        "items": [
+          {
+            "title": "Simple and Multiple Regression — Recommended Reading",
+            "type": "reading"
+          },
+          {
+            "sourceUnit": "Simple Linear Regression Concepts",
+            "title": "Simple Linear Regression Concepts",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Fitting a Linear Model and Assessing Fit",
+            "title": "Fitting a Linear Model and Assessing Fit",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Deriving the Least Squares Solution",
+            "title": "Deriving the Least Squares Solution",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Multiple Linear Regression",
+            "title": "Multiple Linear Regression",
+            "type": "video"
+          }
+        ]
+      },
+      {
+        "id": "regression-and-model-assessment",
+        "title": "Regression and Model Assessment",
+        "kind": "required",
+        "items": [
+          {
+            "sourceUnit": "Regression Assumptions and Diagnostics",
+            "title": "Regression Assumptions and Diagnostics",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Polynomial Regression and Model Flexibility",
+            "title": "Polynomial Regression and Model Flexibility",
+            "type": "video"
+          },
+          {
+            "sourceUnit": "Interpreting Results and Discussion",
+            "title": "Interpreting Results and Discussion",
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  }
+}

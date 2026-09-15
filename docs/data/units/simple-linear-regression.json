@@ -1,0 +1,52 @@
+{
+  "slug": "simple-linear-regression",
+  "title": "Simple Linear Regression",
+  "status": "curated",
+  "learningPath": "Linear Models",
+  "prerequisites": [
+    "supervised-learning",
+    "feature-and-target"
+  ],
+  "lessons": [
+    {
+      "id": "00_big_picture",
+      "title": "Simple Linear Regression：用一條線回答「x 變了，y 大概怎樣變？」",
+      "markdown": "# Simple Linear Regression：用一條線回答「x 變了，y 大概怎樣變？」\n\n你手上有很多舊資料：每間房子的面積與成交價。Simple Linear Regression 不會假裝每間房都一樣；它只找出一條最能描述「平均趨勢」的直線。然後你可用它做兩件事：**prediction**（預測新房的價格）與 **inference**（理解面積與價格的方向和幅度）。\n\n你只用一個 feature，所以是 *simple*；模型用直線，所以是 *linear*。下一課 Multiple Linear Regression 會加入更多旋鈕，例如地點與房齡。\n"
+    },
+    {
+      "id": "01_beginner_reading",
+      "title": "Simple Linear Regression",
+      "markdown": "# Simple Linear Regression\n\n## Where am I?\n\n你已知道 supervised learning：我們從有答案的舊例子學規律。這一課的目標是預測 **continuous numerical value**，例如價格，不是「是／否」分類。\n\n## Why this exists\n\n散點圖上的每個點都是一間真實房子。房屋面積大，價格通常較高，但不會剛好落在同一條線上：地區、屋齡、裝修和市場時點都會造成差異。直線把這些雜亂點的平均方向濃縮成一個可解釋的規則。\n\n## The model\n\n`y = β₀ + β₁x + ε`\n\n先把它讀成一句中文：**結果 y = 基準值 + x 帶來的改變 + 還未量到的差異。**\n\n| Symbol | Meaning | House example |\n| --- | --- | --- |\n| `y` | target，想解釋／預測的結果 | house price |\n| `x` | one feature，輸入資料 | size in square feet |\n| `β₀` | intercept，x = 0 時的基準 | 數學上的起點，不一定是現實房屋 |\n| `β₁` | slope，x 每加 1 單位時 y 的平均改變 | 每多 1 sq ft，價格平均改變多少 |\n| `ε` | error term，模型沒量到的部分 | location、condition、timing 等 |\n\n## A number before abstraction\n\n假設從資料學到的預測線是 `ŷ = 100000 + 110x`。對 1,300 sq ft 的房子：\n\n`ŷ = 100000 + 110 × 1300 = 243000`\n\n所以模型預測 `$243,000`。`110` 不是「這間房必然每 sq ft 值 $110」；它是這個資料範圍內，面積每增加一單位、價格的平均改變。\n\n## Residual：模型差了多少？\n\n如果實際售價是 `$252,000`，預測是 `$243,000`，本系統使用：`e = y - ŷ = 252000 - 243000 = 9000`。正 residual 表示實際比預測高；負 residual 表示預測太高。其他課件有時反過來定義 residual，平方計算會相同，但解釋高估／低估前一定先看定義。\n\n## Prediction and inference are different\n\n- **Prediction**：給新 `x`，算 `ŷ`。\n- **Inference**：看 slope 的正負與大小，理解資料中的關係。\n\n正 slope 表示在這份資料中，`x` 較大時 `y` 平均較大。這不是自動證明因果關係。\n\n## Limits\n\n一條線只適合近似線性關係，而且只看一個 feature。房價亦受地點、房齡與房間數影響；當差異隨房屋大小改變，或關係明顯彎曲時，simple model 會不夠。\n\n## Self-check\n\n1. `β₁` 在房價例子中代表甚麼？\n2. 為何 `β₀` 可以在數學上有用，但在現實不一定有意義？\n3. 若 `y = 200000`、`ŷ = 215000`，以本課 convention residual 是多少？\n"
+    },
+    {
+      "id": "02_detailed_reading",
+      "title": "Detailed reading",
+      "markdown": "# Detailed reading\n\nThe fitted line `ŷ = b₀ + b₁x` is a model of conditional average behaviour, not a promise for each observation. A residual is the vertical gap from an observation to that line. Least squares, covered later, gives one systematic way to choose the line by penalising large residuals.\n\nThe intercept is the point at which the line crosses the y-axis. Interpret it cautiously: `x = 0` may be outside the data range. The slope has units: if x is square feet and y is dollars, its unit is dollars per square foot.\n"
+    },
+    {
+      "id": "03_formulas",
+      "title": "Formula explorer",
+      "markdown": "# Formula explorer\n\n## From observed value to prediction\n\n`y = β₀ + β₁x + ε` describes an observed outcome. `ŷ = b₀ + b₁x` is the fitted prediction rule. The hats and lower-case coefficients remind us these are estimated from a finite dataset.\n\n## Residual convention\n\n`e = y - ŷ` in this unit. State this before giving the sign of an error. If an external source uses `ŷ - y`, its sign flips.\n"
+    },
+    {
+      "id": "04_worked_examples",
+      "title": "Worked example: house size to price",
+      "markdown": "# Worked example: house size to price\n\nModel: `ŷ = 100000 + 110x`\n\n1. New input: `x = 1300` sq ft.\n2. Multiply slope by input: `110 × 1300 = 143000`.\n3. Add intercept: `100000 + 143000 = 243000`.\n4. Prediction: `ŷ = $243,000`.\n\nIf actual price is `$252,000`, residual: `e = 252000 − 243000 = 9000`. The model underpredicted by `$9,000` under this convention.\n"
+    },
+    {
+      "id": "06_common_confusions",
+      "title": "Common confusions",
+      "markdown": "# Common confusions\n\n- **Regression is not classification.** Regression predicts a number on a continuum; classification chooses a category.\n- **A line is not a causal proof.** A positive slope describes an association in the observed data.\n- **Intercept is not automatically meaningful.** It is the model's value at `x = 0`; check whether zero is in the relevant data range.\n- **Residual sign needs a convention.** This unit uses actual minus predicted.\n- **One predictor is not the whole world.** Omitted factors can produce large residuals.\n"
+    },
+    {
+      "id": "07_connections",
+      "title": "Connections",
+      "markdown": "# Connections\n\nPrevious: supervised learning gives us labelled examples; feature and target name the input/output roles.\n\nNext: Multiple Linear Regression adds more inputs. Least Squares explains how a fitted line can be chosen. R² later describes how much variation a model accounts for; it is not classification accuracy.\n"
+    },
+    {
+      "id": "08_summary",
+      "title": "Summary",
+      "markdown": "# Summary\n\nSimple Linear Regression models a continuous target with one feature and a straight line. The slope expresses an average change per x-unit; the intercept is the x=0 model value; residuals measure observation-level gaps. Use it for prediction and interpretation, but check its linear, single-feature limitations.\n"
+    }
+  ]
+}
